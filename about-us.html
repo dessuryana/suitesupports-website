@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — SuiteSupports</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:        #0B1C28;
+    --teal-deep:   #122A38;
+    --teal-dark:   #1A3A4A;
+    --teal-mid:    #1E5F74;
+    --teal-bright: #2D8FA0;
+    --teal-light:  #4AABB8;
+    --teal-pale:   #C2E8EE;
+    --gold-dark:   #5C4010;
+    --gold-rich:   #8B6914;
+    --gold-mid:    #B8891A;
+    --gold:        #D4A427;
+    --gold-bright: #ECC84A;
+    --gold-pale:   #FAF0CB;
+    --white:       #F8F9FA;
+    --off-white:   #EEF2F4;
+    --muted:       #8FA9B5;
+    --muted-dark:  #4A6270;
+    --border:      rgba(212,164,39,0.2);
+    --border-light:rgba(255,255,255,0.08);
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
+  a { text-decoration: none; color: inherit; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+  .label {
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; display: block; margin-bottom: 12px;
+  }
+  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 20px 0 28px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,28,40,0.97); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border); height: 68px;
+    display: flex; align-items: center;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 48px; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display: flex; flex-direction: column; gap: 1px; }
+  .nav-logo-text { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+  .nav-logo-text em { color: var(--gold-bright); font-style: italic; }
+  .nav-logo-tag { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-weight: 300; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 13px; color: var(--muted); transition: color 0.2s; font-weight: 400; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--navy); padding: 9px 22px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.5px; border-radius: 1px;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-bright); color: var(--navy); }
+
+  /* ─── BREADCRUMB ─── */
+  .breadcrumb {
+    padding-top: 96px; padding-bottom: 0;
+    background: var(--navy);
+  }
+  .breadcrumb-inner {
+    max-width: 1200px; margin: 0 auto; padding: 24px 48px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--muted);
+    border-bottom: 0.5px solid var(--border-light);
+  }
+  .breadcrumb-inner a { color: var(--muted); transition: color 0.2s; }
+  .breadcrumb-inner a:hover { color: var(--gold); }
+  .breadcrumb-sep { color: var(--muted-dark); }
+  .breadcrumb-current { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--teal-dark) 55%, #0e2b3a 100%);
+    padding: 80px 0 96px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 520px; height: 520px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,164,39,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,171,184,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 48px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-tagline { font-size: 14px; color: var(--teal-light); font-weight: 400; margin-bottom: 28px; letter-spacing: 0.3px; }
+  .hero-title { font-size: 64px; line-height: 1.05; margin-bottom: 24px; }
+  .hero-title em { color: var(--gold-bright); font-style: italic; }
+  .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 480px; }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px;
+    padding-top: 40px; border-top: 0.5px solid var(--border-light);
+  }
+  .hero-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 700; color: var(--gold-bright); line-height: 1; }
+  .hero-stat-label { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  /* Brand visual */
+  .hero-visual {
+    position: relative; z-index: 1;
+    background: linear-gradient(145deg, var(--teal-dark) 0%, var(--navy) 60%, var(--gold-dark) 100%);
+    border-radius: 4px; overflow: hidden; height: 460px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 0.5px solid var(--border);
+  }
+  .hero-visual-logo { text-align: center; position: relative; z-index: 2; }
+  .hero-visual-logo .logo-text {
+    font-family: 'DM Sans', sans-serif; font-size: 42px; font-weight: 600;
+    letter-spacing: -0.5px; color: var(--white); margin-bottom: 14px;
+  }
+  .hero-visual-logo .logo-text em { color: var(--gold-bright); font-style: italic; }
+  .hero-visual-logo .logo-bar { width: 60px; height: 2px; background: var(--gold); margin: 0 auto 14px; }
+  .hero-visual-logo .logo-tag { font-size: 10px; color: rgba(255,255,255,0.45); letter-spacing: 4px; text-transform: uppercase; }
+  .hero-visual-badge {
+    position: absolute; bottom: 28px; right: 28px;
+    background: rgba(212,164,39,0.15); border: 0.5px solid var(--border);
+    padding: 10px 18px; border-radius: 2px; text-align: center;
+  }
+  .hero-visual-badge-year { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--gold-bright); line-height: 1; }
+  .hero-visual-badge-label { font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+  .hero-visual-dots {
+    position: absolute; top: 28px; left: 28px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .dot-row { display: flex; gap: 8px; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+  .dot.gold { background: rgba(212,164,39,0.4); }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 96px 0; }
+  .section-header { margin-bottom: 56px; }
+  .section-title { font-size: 48px; line-height: 1.1; margin-bottom: 8px; }
+  .section-title em { color: var(--gold-bright); font-style: italic; }
+  .section-sub { font-size: 15px; color: var(--muted); max-width: 560px; line-height: 1.85; }
+
+  /* ─── STORY ─── */
+  .story { background: var(--teal-deep); }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .story-content p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 20px; }
+  .story-content p strong { color: var(--white); font-weight: 500; }
+  .story-timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: flex; gap: 20px; padding: 28px 0;
+    border-bottom: 0.5px solid var(--border-light);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-year {
+    font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700;
+    color: var(--gold); flex-shrink: 0; width: 68px; line-height: 1;
+  }
+  .timeline-body { flex: 1; }
+  .timeline-event { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 6px; }
+  .timeline-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ─── MISSION / VISION ─── */
+  .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .mv-card {
+    background: var(--teal-dark); border: 0.5px solid var(--border-light);
+    padding: 48px 40px; border-radius: 2px; position: relative; overflow: hidden;
+  }
+  .mv-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .mv-icon { font-size: 32px; margin-bottom: 20px; line-height: 1; }
+  .mv-card h3 { font-size: 30px; margin-bottom: 16px; }
+  .mv-card h3 em { color: var(--gold-bright); font-style: italic; }
+  .mv-card p { font-size: 15px; color: var(--muted); line-height: 1.85; }
+
+  /* ─── VALUES ─── */
+  .values { background: var(--teal-deep); }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .value-card {
+    background: var(--teal-dark); border: 0.5px solid var(--border-light);
+    padding: 36px 32px; border-radius: 2px; transition: border-color 0.3s, transform 0.3s;
+  }
+  .value-card:hover { border-color: var(--border); transform: translateY(-4px); }
+  .value-number {
+    font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 700;
+    color: rgba(212,164,39,0.15); line-height: 1; margin-bottom: 8px;
+  }
+  .value-name { font-size: 18px; font-weight: 500; color: var(--white); margin-bottom: 12px; }
+  .value-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+  /* ─── TEAM ─── */
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .team-card {
+    background: var(--teal-dark); border: 0.5px solid var(--border-light);
+    border-radius: 2px; overflow: hidden; transition: transform 0.3s;
+  }
+  .team-card:hover { transform: translateY(-4px); }
+  .team-avatar {
+    height: 200px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700;
+    position: relative; overflow: hidden;
+  }
+  .team-avatar span { position: relative; z-index: 1; color: var(--white); }
+  .team-body { padding: 28px; }
+  .team-name { font-size: 20px; margin-bottom: 4px; }
+  .team-role { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .team-bio { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+  /* ─── WHY US ─── */
+  .why { background: var(--teal-deep); }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .why-list { display: flex; flex-direction: column; gap: 0; border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
+  .why-item {
+    display: flex; align-items: flex-start; gap: 20px; padding: 24px 28px;
+    border-bottom: 0.5px solid var(--border-light); transition: background 0.2s;
+  }
+  .why-item:last-child { border-bottom: none; }
+  .why-item:hover { background: rgba(255,255,255,0.02); }
+  .why-dot {
+    width: 32px; height: 32px; border-radius: 50%; background: rgba(212,164,39,0.12);
+    border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .why-dot svg { width: 14px; height: 14px; fill: var(--gold); }
+  .why-text h4 { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .why-text p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .why-numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .why-stat {
+    background: var(--teal-dark); border: 0.5px solid var(--border-light);
+    padding: 32px 24px; border-radius: 2px; text-align: center;
+  }
+  .why-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 700; color: var(--gold-bright); line-height: 1; }
+  .why-stat-label { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+
+  /* ─── LOCATION ─── */
+  .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .location-map {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--navy) 100%);
+    border: 0.5px solid var(--border-light); border-radius: 2px;
+    height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; position: relative; overflow: hidden;
+  }
+  .location-map::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 60% 40%, rgba(212,164,39,0.08) 0%, transparent 60%);
+  }
+  .map-pin {
+    width: 48px; height: 48px; border-radius: 50%; background: rgba(212,164,39,0.15);
+    border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .map-pin svg { width: 22px; height: 22px; fill: var(--gold); }
+  .map-city { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--white); position: relative; z-index: 1; }
+  .map-country { font-size: 12px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1; }
+  .map-rings {
+    position: absolute; width: 240px; height: 240px;
+    border-radius: 50%; border: 0.5px solid rgba(212,164,39,0.12);
+    animation: pulse-ring 3s ease-out infinite;
+  }
+  .map-rings:nth-child(2) { width: 320px; height: 320px; animation-delay: 0.8s; }
+  .map-rings:nth-child(3) { width: 400px; height: 400px; animation-delay: 1.6s; }
+  @keyframes pulse-ring {
+    0% { opacity: 0.6; transform: scale(0.9); }
+    100% { opacity: 0; transform: scale(1.1); }
+  }
+  .location-info h3 { font-size: 32px; margin-bottom: 12px; }
+  .location-info h3 em { color: var(--gold-bright); font-style: italic; }
+  .location-info p { font-size: 15px; color: var(--muted); line-height: 1.85; margin-bottom: 32px; }
+  .contact-details { display: flex; flex-direction: column; gap: 16px; }
+  .contact-row { display: flex; align-items: flex-start; gap: 16px; }
+  .contact-icon {
+    width: 36px; height: 36px; border-radius: 50%; background: rgba(212,164,39,0.1);
+    border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-icon svg { width: 14px; height: 14px; fill: var(--gold); }
+  .contact-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .contact-value { font-size: 14px; color: var(--white); font-weight: 400; }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--navy) 50%, var(--gold-dark) 100%);
+    padding: 96px 0;
+  }
+  .cta-inner { max-width: 800px; margin: 0 auto; padding: 0 48px; text-align: center; }
+  .cta-inner h2 { font-size: 52px; line-height: 1.1; margin-bottom: 20px; }
+  .cta-inner h2 em { color: var(--gold-bright); font-style: italic; }
+  .cta-inner p { font-size: 16px; color: var(--muted); margin-bottom: 40px; line-height: 1.8; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy); padding: 14px 32px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px; border-radius: 1px;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-bright); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 14px 32px;
+    font-size: 13px; font-weight: 400; letter-spacing: 0.3px; border-radius: 1px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--teal-deep); border-top: 0.5px solid var(--border-light);
+    padding: 64px 0 32px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    padding-bottom: 48px; margin-bottom: 32px; border-bottom: 0.5px solid var(--border-light);
+  }
+  .footer-brand-name { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .footer-brand-name em { color: var(--gold-bright); font-style: italic; }
+  .footer-brand-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .footer-brand-desc { font-size: 13px; color: var(--muted); line-height: 1.75; max-width: 260px; }
+  .footer-col-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 500; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13px; color: var(--muted); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+
+  /* ─── WHATSAPP ─── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 999;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #25D366; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+  .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .container { padding: 0 32px; }
+    .nav-inner { padding: 0 32px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-title { font-size: 48px; }
+    .story-grid { grid-template-columns: 1fr; gap: 48px; }
+    .mv-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr; gap: 48px; }
+    .location-grid { grid-template-columns: 1fr; gap: 48px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 768px) {
+    section { padding: 64px 0; }
+    .hero-title { font-size: 38px; }
+    .section-title { font-size: 36px; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .why-numbers { grid-template-columns: 1fr 1fr; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .breadcrumb-inner { padding: 20px 24px; }
+    .cta-inner { padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="suitesupports-website.html" class="nav-logo">
+      <div class="nav-logo-text">Suite<em>Supports</em></div>
+      <div class="nav-logo-tag">MingCan Network</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="suitesupports-website.html">Home</a></li>
+      <li><a href="suitesupports-website.html#services">Services</a></li>
+      <li><a href="about-us.html" class="active">About Us</a></li>
+      <li><a href="suitesupports-website.html#testimonials">Client Stories</a></li>
+      <li><a href="suitesupports-website.html#contact">Contact</a></li>
+    </ul>
+    <a href="suitesupports-website.html#contact" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="suitesupports-website.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">About Us</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <p class="hero-tagline">Empowering Hospitality Businesses Since 2017</p>
+      <span class="label">Our Story</span>
+      <h1 class="hero-title">Built on <em>Trust,</em><br>Driven by <em>Results</em></h1>
+      <p class="hero-sub">SuiteSupports is a boutique consultancy helping hotels, villas, and hospitality brands across Indonesia achieve operational excellence through smart technology, data-led strategy, and personalized service.</p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">8+</div>
+          <div class="hero-stat-label">Years of Industry Experience</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">50+</div>
+          <div class="hero-stat-label">Properties Served</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">Core Service Pillars</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="map-rings"></div>
+      <div class="map-rings"></div>
+      <div class="map-rings"></div>
+      <div class="hero-visual-dots">
+        <div class="dot-row"><div class="dot gold"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="dot-row"><div class="dot"></div><div class="dot gold"></div><div class="dot"></div></div>
+        <div class="dot-row"><div class="dot"></div><div class="dot"></div><div class="dot gold"></div></div>
+      </div>
+      <div class="hero-visual-logo">
+        <div class="logo-text">Suite<em>Supports</em></div>
+        <div class="logo-bar"></div>
+        <div class="logo-tag">MingCan Network</div>
+      </div>
+      <div class="hero-visual-badge">
+        <div class="hero-visual-badge-year">2017</div>
+        <div class="hero-visual-badge-label">Est. Mataram, NTB</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section class="story">
+  <div class="container">
+    <div class="story-grid fade-up">
+      <div class="story-content">
+        <span class="label">How We Started</span>
+        <h2 class="section-title" style="font-size:44px; margin-bottom:16px;">Our <em>Journey</em></h2>
+        <div class="gold-line"></div>
+        <p>SuiteSupports was founded in <strong>2017 in Mataram, West Nusa Tenggara</strong>, by a team of hospitality professionals who saw a widening gap — independent hotels and boutique properties were struggling to compete with large chains that had entire departments dedicated to marketing, technology, and revenue strategy.</p>
+        <p>Our founders believed that every property, regardless of size, deserves access to <strong>world-class tools and expertise</strong>. We set out to bridge that gap — offering the kind of strategic support that was once only available to international hotel groups, at a scale and price point that works for independent operators.</p>
+        <p>What started as a two-person operation helping local villas manage their OTA presence has grown into a <strong>full-service consultancy</strong> spanning AI technology, web development, digital marketing, and revenue management — all under one roof, all tailored specifically to hospitality.</p>
+        <p>Today, under the <strong>MingCan Network</strong>, SuiteSupports continues to grow — but our founding principle remains unchanged: <em>every decision we make is guided by what is best for your business.</em></p>
+      </div>
+      <div class="story-timeline">
+        <span class="label" style="margin-bottom:8px;">Timeline</span>
+        <div class="timeline-item">
+          <div class="timeline-year">2017</div>
+          <div class="timeline-body">
+            <div class="timeline-event">Founded in Mataram</div>
+            <div class="timeline-desc">Started as an OTA management consultancy serving villas and guesthouses across Lombok.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2019</div>
+          <div class="timeline-body">
+            <div class="timeline-event">Expanded to Web & Digital</div>
+            <div class="timeline-desc">Launched web design and digital marketing services after clients requested a more complete offering.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2021</div>
+          <div class="timeline-body">
+            <div class="timeline-event">Revenue Management Division</div>
+            <div class="timeline-desc">Introduced dynamic pricing and yield management services amid the post-pandemic recovery.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-body">
+            <div class="timeline-event">AI Chatbot Solutions Launch</div>
+            <div class="timeline-desc">Debuted our AI-powered guest communication platform, automating reservations and inquiries 24/7.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-body">
+            <div class="timeline-event">MingCan Network Partnership</div>
+            <div class="timeline-desc">Joined the MingCan Network to expand reach and bring enterprise-grade tools to more independent operators.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION & VISION -->
+<section style="background: var(--navy); padding: 96px 0;">
+  <div class="container">
+    <div class="section-header fade-up" style="text-align:center; max-width:600px; margin:0 auto 56px;">
+      <span class="label" style="text-align:center;">What Drives Us</span>
+      <h2 class="section-title" style="font-size:48px;">Mission &amp; <em>Vision</em></h2>
+      <div class="gold-line" style="margin:20px auto;"></div>
+    </div>
+    <div class="mv-grid fade-up">
+      <div class="mv-card">
+        <div class="mv-icon">🎯</div>
+        <h3>Our <em>Mission</em></h3>
+        <p>To empower independent hospitality businesses with the same calibre of digital tools, strategic intelligence, and operational support that large hotel chains take for granted — delivered with the agility, care, and personal attention that only a boutique consultancy can provide.</p>
+        <p style="margin-top:16px;">We measure our success by your success. Every recommendation we make, every solution we build, is designed to deliver measurable results for your property.</p>
+      </div>
+      <div class="mv-card">
+        <div class="mv-icon">🌟</div>
+        <h3>Our <em>Vision</em></h3>
+        <p>A hospitality landscape in Indonesia — and beyond — where every independent hotel, villa, and boutique property has the confidence, tools, and support to thrive in an increasingly competitive, digitally-driven market.</p>
+        <p style="margin-top:16px;">We envision a future where personalized hospitality and smart technology work hand in hand, creating exceptional guest experiences and sustainable business growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="label">What We Stand For</span>
+      <h2 class="section-title">Core <em>Values</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">These six principles shape every decision we make, every project we deliver, and every relationship we build.</p>
+    </div>
+    <div class="values-grid fade-up">
+      <div class="value-card">
+        <div class="value-number">01</div>
+        <div class="value-name">Personalized Service</div>
+        <div class="value-desc">No two properties are alike. We reject one-size-fits-all thinking — every strategy, solution, and recommendation is crafted specifically around your unique business, guests, and goals.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-number">02</div>
+        <div class="value-name">Hospitality First</div>
+        <div class="value-desc">We live and breathe hospitality. Our team brings deep operational experience from within the industry, so we understand your challenges from the inside out — not just from a spreadsheet.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-number">03</div>
+        <div class="value-name">Technology with Purpose</div>
+        <div class="value-desc">Technology should solve real problems, not add complexity. We only implement tools and systems that create tangible improvements in your operations or guest experience.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-number">04</div>
+        <div class="value-name">Radical Transparency</div>
+        <div class="value-desc">We tell you what you need to hear, not just what you want to hear. Clear reporting, honest assessments, and straightforward advice — always.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-number">05</div>
+        <div class="value-name">Results Obsessed</div>
+        <div class="value-desc">Good intentions don't pay the bills. We are laser-focused on delivering outcomes that move the needle — higher occupancy, better RevPAR, lower OTA commissions, and stronger guest reviews.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-number">06</div>
+        <div class="value-name">Long-Term Partnership</div>
+        <div class="value-desc">We don't do hit-and-run consulting. Our goal is to build lasting partnerships where we grow alongside your business, adapting as your needs and the market evolve.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section style="background: var(--navy); padding: 96px 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="label">The People Behind It</span>
+      <h2 class="section-title">Meet the <em>Team</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">A tight-knit group of hospitality operators, digital strategists, and technology specialists united by one goal: your growth.</p>
+    </div>
+    <div class="team-grid fade-up">
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #1A3A4A 0%, #0B1C28 100%);">
+          <span>AR</span>
+        </div>
+        <div class="team-body">
+          <h3 class="team-name">Arief Rachman</h3>
+          <div class="team-role">Founder &amp; CEO</div>
+          <p class="team-bio">15+ years in hospitality operations across Lombok and Bali. Former revenue manager at a leading Senggigi resort before founding SuiteSupports. Expert in OTA strategy and yield management.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #1E5F74 0%, #122A38 100%);">
+          <span>DS</span>
+        </div>
+        <div class="team-body">
+          <h3 class="team-name">Dewi Santoso</h3>
+          <div class="team-role">Head of Digital Marketing</div>
+          <p class="team-bio">Specialized in hospitality digital marketing with a track record of growing direct bookings by 20–40% for independent properties. Google Ads certified with deep experience in OTA listing optimization.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #5C4010 0%, #1A3A4A 100%);">
+          <span>RP</span>
+        </div>
+        <div class="team-body">
+          <h3 class="team-name">Rizky Pratama</h3>
+          <div class="team-role">Lead Technology Engineer</div>
+          <p class="team-bio">Full-stack developer with a focus on hospitality technology integrations. Architect of our AI chatbot platform and property website solutions. 8 years of experience building booking-focused web applications.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SUITESUPPORTS -->
+<section class="why">
+  <div class="container">
+    <div class="why-grid fade-up">
+      <div>
+        <span class="label">Why Choose Us</span>
+        <h2 class="section-title" style="font-size:44px; margin-bottom:16px;">The SuiteSupports <em>Difference</em></h2>
+        <div class="gold-line"></div>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-dot">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div class="why-text">
+              <h4>Hospitality DNA</h4>
+              <p>Every team member has worked in or deeply with the hospitality industry. We don't just understand the market — we've lived it.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div class="why-text">
+              <h4>All-In-One Expertise</h4>
+              <p>AI, web, revenue management, and digital marketing under one roof. One point of contact, one aligned strategy, no agency juggling.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div class="why-text">
+              <h4>Local Market Intelligence</h4>
+              <p>Deep knowledge of the Indonesian hospitality market, guest behaviour, OTA dynamics, and competitive landscape — particularly across NTB and Bali.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div class="why-text">
+              <h4>Transparent Reporting</h4>
+              <p>Monthly performance reports with plain-language summaries. You always know exactly what's working, what's being optimized, and why.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div class="why-text">
+              <h4>Flexible Engagements</h4>
+              <p>From project-based work to ongoing retainers, we structure our engagements around what makes sense for your budget and timeline.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-numbers">
+        <div class="why-stat">
+          <div class="why-stat-num">28%</div>
+          <div class="why-stat-label">Average RevPAR increase for clients</div>
+        </div>
+        <div class="why-stat">
+          <div class="why-stat-num">64%</div>
+          <div class="why-stat-label">Direct booking share achieved</div>
+        </div>
+        <div class="why-stat">
+          <div class="why-stat-num">80%</div>
+          <div class="why-stat-label">Guest queries automated via AI</div>
+        </div>
+        <div class="why-stat">
+          <div class="why-stat-num">4.8★</div>
+          <div class="why-stat-label">Average client satisfaction score</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section style="background: var(--navy); padding: 96px 0;">
+  <div class="container">
+    <div class="location-grid fade-up">
+      <div class="location-map">
+        <div class="map-rings"></div>
+        <div class="map-rings"></div>
+        <div class="map-rings"></div>
+        <div class="map-pin">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="map-city">Mataram</div>
+        <div class="map-country">West Nusa Tenggara, Indonesia</div>
+      </div>
+      <div class="location-info">
+        <span class="label">Our Base</span>
+        <h3>Where We <em>Work</em></h3>
+        <div class="gold-line"></div>
+        <p>Headquartered in Mataram, the capital of West Nusa Tenggara, we are uniquely positioned at the heart of one of Indonesia's most vibrant tourism destinations. Lombok's rise as a premier travel destination gives us first-hand insight into hospitality trends across the region.</p>
+        <p>While our roots are in NTB, our clients and capabilities extend across Bali, Java, and beyond — and our digital-first approach means we can serve properties anywhere in Indonesia.</p>
+        <div class="contact-details">
+          <div class="contact-row">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Address</div>
+              <div class="contact-value">Jl. Serayu VI No. 12 Mataram,<br>West Nusa Tenggara 83127</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.06 6.06l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Phone</div>
+              <div class="contact-value">+62 853 3866 2750</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value">suitesupports@mingcan.co.site</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner fade-up">
+    <span class="label" style="text-align:center;">Ready to Work Together?</span>
+    <h2>Let's Build Something <em>Great</em></h2>
+    <p>Whether you're a single-villa operation or a multi-property group, we'd love to learn about your business and show you what's possible. Every great partnership starts with a conversation.</p>
+    <div class="cta-buttons">
+      <a href="suitesupports-website.html#contact" class="btn-primary">Start a Conversation</a>
+      <a href="suitesupports-website.html#services" class="btn-outline">Explore Our Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Suite<em>Supports</em></div>
+        <div class="footer-brand-tag">MingCan Network</div>
+        <p class="footer-brand-desc">Empowering hospitality businesses with AI, web, revenue management, and digital marketing expertise since 2017.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="service-ai-chatbot.html">AI Chatbot Solutions</a></li>
+          <li><a href="service-web-design.html">Web Design</a></li>
+          <li><a href="service-revenue-management.html">Revenue Management</a></li>
+          <li><a href="service-digital-marketing.html">Digital Marketing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="suitesupports-website.html#testimonials">Client Testimonials</a></li>
+          <li><a href="suitesupports-website.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/6285338662750">WhatsApp Us</a></li>
+          <li><a href="mailto:suitesupports@mingcan.co.site">Send Email</a></li>
+          <li><a href="#">Jl. Serayu VI No. 12<br>Mataram, NTB 83127</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 SuiteSupports · MingCan Network · All rights reserved</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/6285338662750" class="wa-float" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

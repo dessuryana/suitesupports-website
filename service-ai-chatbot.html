@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chatbot Solutions — SuiteSupports</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:        #0B1C28;
+    --teal-deep:   #122A38;
+    --teal-dark:   #1A3A4A;
+    --teal-mid:    #1E5F74;
+    --teal-bright: #2D8FA0;
+    --teal-light:  #4AABB8;
+    --gold:        #D4A427;
+    --gold-bright: #ECC84A;
+    --white:       #F8F9FA;
+    --muted:       #8FA9B5;
+    --muted-dark:  #4A6270;
+    --border:      rgba(212,164,39,0.2);
+    --border-light:rgba(255,255,255,0.08);
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
+  a { text-decoration: none; color: inherit; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+  .label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 20px 0 28px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(11,28,40,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    height: 68px;
+    display: flex;
+    align-items: center;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Sans', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.4px; }
+  .nav-logo em { color: var(--gold); font-style: italic; }
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--white); }
+  .nav-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 11px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 2px;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(212,164,39,0.45);
+    padding: 11px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    border-radius: 2px;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(155deg, #0B1C28 0%, #122A38 50%, #0D2030 100%);
+    padding-top: 68px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -150px; right: -150px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,164,39,0.07);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(45,143,160,0.08);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 48px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted-dark);
+    margin-bottom: 20px;
+  }
+  .breadcrumb a { color: var(--muted-dark); transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: var(--gold); }
+  .breadcrumb svg { width: 10px; height: 10px; stroke: var(--muted-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212,164,39,0.08);
+    border: 0.5px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .hero-tag svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 68px;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 500px;
+    margin-bottom: 36px;
+  }
+  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+  /* Hero right — chat mockup */
+  .chat-mockup {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid var(--border-light);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .chat-header {
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.04);
+    border-bottom: 0.5px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chat-avatar {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--teal-mid), var(--teal-bright));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chat-avatar svg { width: 14px; height: 14px; stroke: var(--white); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .chat-name { font-size: 13px; font-weight: 500; color: var(--white); }
+  .chat-status { font-size: 11px; color: var(--teal-light); }
+  .chat-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; margin-left: auto; }
+  .chat-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .chat-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 80%;
+  }
+  .chat-msg.bot { align-self: flex-start; }
+  .chat-msg.user { align-self: flex-end; }
+  .chat-bubble {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .chat-msg.bot .chat-bubble { background: rgba(255,255,255,0.07); color: var(--white); border-bottom-left-radius: 2px; }
+  .chat-msg.user .chat-bubble { background: var(--gold); color: var(--navy); font-weight: 500; border-bottom-right-radius: 2px; }
+  .chat-time { font-size: 10px; color: var(--muted-dark); }
+  .chat-msg.user .chat-time { text-align: right; }
+  .chat-typing {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 12px;
+    border-bottom-left-radius: 2px;
+    width: fit-content;
+  }
+  .typing-dot {
+    width: 5px; height: 5px;
+    background: var(--muted);
+    border-radius: 50%;
+    animation: typing 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing {
+    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
+  }
+  .chat-footer {
+    padding: 12px 16px;
+    border-top: 0.5px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chat-input-mock {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--muted-dark);
+  }
+  .chat-send {
+    width: 30px; height: 30px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .chat-send svg { width: 12px; height: 12px; stroke: var(--navy); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 96px 0; }
+  section.alt { background: var(--teal-deep); }
+
+  /* ─── FEATURES ─── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border-light);
+    border: 0.5px solid var(--border-light);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0;
+  }
+  .feature-card {
+    background: var(--navy);
+    padding: 36px 32px;
+    transition: background 0.2s;
+  }
+  .feature-card:hover { background: rgba(26,58,74,0.8); }
+  .feature-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .feature-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .feature-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+  /* ─── HOW IT WORKS ─── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--border-light);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .step {
+    padding: 36px 28px;
+    border-right: 0.5px solid var(--border-light);
+    position: relative;
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: rgba(212,164,39,0.12);
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* ─── USE CASES ─── */
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .use-case-card {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid var(--border-light);
+    border-radius: 2px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .use-case-card:hover { border-color: rgba(212,164,39,0.3); }
+  .use-case-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .use-case-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: rgba(212,164,39,0.1);
+    line-height: 1;
+    position: absolute;
+    top: 16px; right: 20px;
+  }
+  .use-case-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .use-case-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+  /* ─── BENEFITS ─── */
+  .benefits-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .benefits-list { display: flex; flex-direction: column; gap: 0; }
+  .benefit-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 0.5px solid var(--border-light);
+    align-items: flex-start;
+  }
+  .benefit-item:last-child { border-bottom: none; }
+  .benefit-check {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .benefit-check svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .benefit-text {}
+  .benefit-title { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .benefit-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .benefits-visual {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid var(--border-light);
+    border-radius: 2px;
+    padding: 36px;
+  }
+  .stat-highlight {
+    text-align: center;
+    padding: 24px 0;
+    border-bottom: 0.5px solid var(--border-light);
+    margin-bottom: 0;
+  }
+  .stat-highlight:last-child { border-bottom: none; }
+  .stat-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-desc { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* ─── CTA ─── */
+  .cta-block {
+    background: linear-gradient(135deg, #1A3A4A 0%, #0B1C28 60%);
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    padding: 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-block::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,164,39,0.06);
+  }
+  .cta-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-block-title em { color: var(--gold); font-style: italic; }
+  .cta-block-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 36px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-block-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  /* ─── FOOTER ─── */
+  .page-footer {
+    background: var(--teal-deep);
+    border-top: 0.5px solid var(--border-light);
+    padding: 40px 0;
+  }
+  .page-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; }
+  .footer-logo em { color: var(--gold); font-style: italic; }
+  .footer-copy { font-size: 12px; color: var(--muted-dark); }
+  .footer-back a {
+    font-size: 13px;
+    color: var(--muted-dark);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .footer-back a:hover { color: var(--gold); }
+  .footer-back svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── WHATSAPP FLOAT ─── */
+  .wa-float {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 200;
+    width: 52px; height: 52px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: translateY(-3px) scale(1.05); }
+  .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-title { font-size: 52px; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .benefits-layout { grid-template-columns: 1fr; }
+    .use-cases-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .container { padding: 0 24px; }
+    .nav-inner { padding: 0 24px; }
+    .hero-inner { padding: 60px 24px; }
+    .hero-title { font-size: 44px; }
+    section { padding: 72px 0; }
+    .features-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .cta-block { padding: 40px 24px; }
+    .cta-block-title { font-size: 36px; }
+    .page-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- WhatsApp Float -->
+<a class="wa-float" href="https://wa.me/6285338662750" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="suitesupports-website.html" class="nav-logo">Suite<em>Supports</em></a>
+    <a href="suitesupports-website.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+    <a href="suitesupports-website.html#contact" class="btn-primary">Get Started</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="suitesupports-website.html">Home</a>
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <a href="suitesupports-website.html#services">Services</a>
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>AI Chatbot Solutions</span>
+      </div>
+      <div class="hero-tag">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Service 01 — AI Chatbot Solutions
+      </div>
+      <h1 class="hero-title">Intelligent<br>Conversations,<br><em>24/7</em></h1>
+      <p class="hero-desc">Streamline customer interactions with intelligent chatbot technology. Our AI-powered chatbots handle inquiries, reservations, and guest communication around the clock — so your team can focus on what matters most.</p>
+      <div class="hero-cta">
+        <a href="suitesupports-website.html#contact" class="btn-primary">Request a Demo</a>
+        <a href="#features" class="btn-outline">Explore Features</a>
+      </div>
+    </div>
+
+    <!-- Chat Mockup -->
+    <div class="chat-mockup">
+      <div class="chat-header">
+        <div class="chat-avatar">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div>
+          <div class="chat-name">SuiteBot</div>
+          <div class="chat-status">AI Assistant</div>
+        </div>
+        <div class="chat-dot"></div>
+      </div>
+      <div class="chat-body">
+        <div class="chat-msg bot">
+          <div class="chat-bubble">Hello! Welcome to SuiteSupports. How can I assist you today?</div>
+          <div class="chat-time">10:02 AM</div>
+        </div>
+        <div class="chat-msg user">
+          <div class="chat-bubble">I'd like to check room availability for next weekend.</div>
+          <div class="chat-time">10:03 AM</div>
+        </div>
+        <div class="chat-msg bot">
+          <div class="chat-bubble">Of course! We have availability for Fri–Sun. Would you prefer a Deluxe Room or a Suite?</div>
+          <div class="chat-time">10:03 AM</div>
+        </div>
+        <div class="chat-msg user">
+          <div class="chat-bubble">A suite, please.</div>
+          <div class="chat-time">10:04 AM</div>
+        </div>
+        <div class="chat-msg bot">
+          <div class="chat-bubble">Perfect — I'll hold a suite for you. Shall I send a booking confirmation to your email?</div>
+          <div class="chat-time">10:04 AM</div>
+        </div>
+        <div class="chat-typing">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      </div>
+      <div class="chat-footer">
+        <div class="chat-input-mock">Type a message…</div>
+        <div class="chat-send">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">What's Included</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:700; letter-spacing:-1.5px; color:var(--white); margin-bottom:14px;">Everything Your<br><em style="color:var(--gold); font-style:italic;">Chatbot Needs</em></h2>
+      <div class="gold-line"></div>
+      <p style="font-size:15px; color:var(--muted); max-width:540px; line-height:1.85;">A complete AI chatbot solution — designed for hospitality, built for results, deployed in days.</p>
+    </div>
+    <div class="features-grid fade-up">
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="feature-name">24/7 Availability</div>
+        <p class="feature-desc">Your chatbot never sleeps. Handle guest inquiries, bookings, and support requests at any hour — without staffing costs.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="feature-name">Natural Conversations</div>
+        <p class="feature-desc">Powered by advanced NLP, our chatbots understand intent and respond naturally — making guests feel genuinely heard.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="feature-name">Multi-Channel Support</div>
+        <p class="feature-desc">Deploy across your website, WhatsApp, Facebook Messenger, and booking platforms — all from one unified system.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></div>
+        <div class="feature-name">Seamless Handoff</div>
+        <p class="feature-desc">When a conversation needs a human touch, the chatbot smoothly transfers to your team with full context — no repetition for guests.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="feature-name">Analytics & Insights</div>
+        <p class="feature-desc">Understand what guests are asking, where they drop off, and how to continuously improve — with real-time reporting dashboards.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="feature-name">Fully Customisable</div>
+        <p class="feature-desc">Branded to your property, trained on your services, and tuned to your tone — no generic bots, only solutions built for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="alt">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">How It Works</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:700; letter-spacing:-1.5px; color:var(--white); margin-bottom:14px;">From Setup to<br><em style="color:var(--gold); font-style:italic;">Live in Days</em></h2>
+      <div class="gold-line"></div>
+      <p style="font-size:15px; color:var(--muted); max-width:520px; line-height:1.85;">Our onboarding process is fast, structured, and handled entirely by our team. You focus on your guests — we handle the technology.</p>
+    </div>
+    <div class="steps-grid fade-up">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Discovery & Brief</div>
+        <p class="step-desc">We learn your property — services, FAQs, booking flow, tone of voice, and common guest requests — to train your chatbot accurately.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Build & Train</div>
+        <p class="step-desc">Our team builds and trains your AI chatbot with your data, brand language, and hospitality-specific conversation flows.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Test & Refine</div>
+        <p class="step-desc">We rigorously test across hundreds of scenarios, refining responses until every conversation feels natural and accurate.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Deploy & Optimise</div>
+        <p class="step-desc">Go live across your channels. We monitor performance and continuously improve your chatbot based on real conversation data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ USE CASES ═══ -->
+<section>
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">Use Cases</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:700; letter-spacing:-1.5px; color:var(--white); margin-bottom:14px;">Built for Every<br><em style="color:var(--gold); font-style:italic;">Guest Touchpoint</em></h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="use-cases-grid fade-up">
+      <div class="use-case-card">
+        <div class="use-case-num">01</div>
+        <div class="use-case-title">Reservation Inquiries</div>
+        <p class="use-case-desc">Instantly answer availability questions, room types, pricing, and package details — converting inquiries into confirmed bookings without manual intervention.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-num">02</div>
+        <div class="use-case-title">Pre-Arrival Communication</div>
+        <p class="use-case-desc">Automate pre-stay messages, collect guest preferences, confirm arrival times, and upsell upgrades or add-ons before guests even arrive.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-num">03</div>
+        <div class="use-case-title">In-Stay Guest Support</div>
+        <p class="use-case-desc">Handle housekeeping requests, room service orders, local recommendations, and maintenance reports — all through a simple chat interface.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-num">04</div>
+        <div class="use-case-title">Post-Stay Follow-Up</div>
+        <p class="use-case-desc">Automate feedback requests, review prompts, loyalty programme invitations, and personalised return offers to build lasting guest relationships.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BENEFITS ═══ -->
+<section class="alt">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:56px;">
+      <span class="label">Why AI Chatbots</span>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:700; letter-spacing:-1.5px; color:var(--white); margin-bottom:14px;">The Business<br><em style="color:var(--gold); font-style:italic;">Case for AI</em></h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="benefits-layout fade-up">
+      <div class="benefits-list">
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-text">
+            <div class="benefit-title">Reduce response time from hours to seconds</div>
+            <p class="benefit-desc">Guests get instant answers any time of day — dramatically improving satisfaction and reducing frustration from wait times.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-text">
+            <div class="benefit-title">Free your staff for high-value interactions</div>
+            <p class="benefit-desc">Let your team focus on in-person guest experience while the chatbot handles repetitive inquiries and routine requests.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-text">
+            <div class="benefit-title">Capture more direct bookings</div>
+            <p class="benefit-desc">Chatbots convert more website visitors into confirmed bookings by answering questions and guiding them through the reservation process.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-text">
+            <div class="benefit-title">Consistent, on-brand communication</div>
+            <p class="benefit-desc">Every interaction reflects your brand voice — no off-script responses, no bad days, just consistently excellent communication.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-text">
+            <div class="benefit-title">Scale without adding headcount</div>
+            <p class="benefit-desc">Handle 10 or 10,000 conversations simultaneously — your chatbot scales instantly with demand, no hiring required.</p>
+          </div>
+        </div>
+      </div>
+      <div class="benefits-visual">
+        <div class="stat-highlight">
+          <div class="stat-big">80%</div>
+          <div class="stat-desc">of routine guest inquiries handled automatically by AI</div>
+        </div>
+        <div class="stat-highlight">
+          <div class="stat-big">&lt;3s</div>
+          <div class="stat-desc">Average response time, 24 hours a day, 7 days a week</div>
+        </div>
+        <div class="stat-highlight">
+          <div class="stat-big">35%</div>
+          <div class="stat-desc">Average increase in direct booking conversion rate</div>
+        </div>
+        <div class="stat-highlight">
+          <div class="stat-big">4.8★</div>
+          <div class="stat-desc">Average guest satisfaction score for chatbot interactions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section>
+  <div class="container">
+    <div class="cta-block fade-up">
+      <h2 class="cta-block-title">Ready to Put Your<br>Guest Conversations on <em>Autopilot?</em></h2>
+      <p class="cta-block-sub">Book a free demo and see exactly how an AI chatbot would work for your property. No commitment — just clarity.</p>
+      <div class="cta-block-btns">
+        <a href="suitesupports-website.html#contact" class="btn-primary" style="padding:14px 32px; font-size:14px;">Request a Free Demo</a>
+        <a href="https://wa.me/6285338662750" target="_blank" class="btn-outline" style="padding:14px 32px; font-size:14px;">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="page-footer">
+  <div class="page-footer-inner">
+    <div class="footer-logo">Suite<em>Supports</em></div>
+    <div class="footer-copy">&copy; 2026 SuiteSupports · MingCan Network</div>
+    <div class="footer-back">
+      <a href="suitesupports-website.html">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) { el.target.classList.add('visible'); observer.unobserve(el.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

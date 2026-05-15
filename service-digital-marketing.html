@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Digital Marketing — SuiteSupports</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1C28; --teal-deep: #122A38; --teal-dark: #1A3A4A; --teal-mid: #1E5F74;
+    --teal-bright: #2D8FA0; --teal-light: #4AABB8; --gold: #D4A427; --gold-bright: #ECC84A;
+    --white: #F8F9FA; --muted: #8FA9B5; --muted-dark: #4A6270;
+    --border: rgba(212,164,39,0.2); --border-light: rgba(255,255,255,0.08);
+  }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
+  a { text-decoration: none; color: inherit; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 500; display: block; margin-bottom: 12px; }
+  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 20px 0 28px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11,28,40,0.97); backdrop-filter: blur(12px); border-bottom: 0.5px solid var(--border); height: 68px; display: flex; align-items: center; }
+  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'DM Sans', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.4px; }
+  .nav-logo em { color: var(--gold); font-style: italic; }
+  .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); transition: color 0.2s; }
+  .nav-back:hover { color: var(--white); }
+  .nav-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-primary { background: var(--gold); color: var(--navy); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; border-radius: 2px; display: inline-block; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(212,164,39,0.45); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; border-radius: 2px; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero { min-height: 70vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(155deg, #0B1C28 0%, #122A38 50%, #0D2030 100%); padding-top: 68px; }
+  .hero::before { content: ''; position: absolute; top: -150px; right: -150px; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(212,164,39,0.07); pointer-events: none; }
+  .hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; border-radius: 50%; border: 1px solid rgba(45,143,160,0.08); pointer-events: none; }
+  .hero-inner { max-width: 1200px; margin: 0 auto; padding: 80px 48px; width: 100%; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted-dark); margin-bottom: 20px; }
+  .breadcrumb a { color: var(--muted-dark); transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: var(--gold); }
+  .breadcrumb svg { width: 10px; height: 10px; stroke: var(--muted-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,164,39,0.08); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 2px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 24px; }
+  .hero-tag svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 68px; font-weight: 700; line-height: 0.95; letter-spacing: -2px; color: var(--white); margin-bottom: 20px; }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-desc { font-size: 15px; color: var(--muted); line-height: 1.85; max-width: 500px; margin-bottom: 36px; }
+  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+  /* Marketing metrics mockup */
+  .marketing-mockup { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 8px; overflow: hidden; }
+  .mk-header { padding: 14px 20px; background: rgba(255,255,255,0.04); border-bottom: 0.5px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; }
+  .mk-title { font-size: 13px; font-weight: 500; color: var(--white); }
+  .mk-period { font-size: 11px; color: var(--muted-dark); }
+  .mk-channels { display: flex; flex-direction: column; gap: 0; }
+  .mk-channel { padding: 14px 20px; border-bottom: 0.5px solid var(--border-light); display: grid; grid-template-columns: 120px 1fr 60px; align-items: center; gap: 16px; }
+  .mk-channel:last-child { border-bottom: none; }
+  .mk-channel-name { font-size: 12px; color: var(--white); font-weight: 400; }
+  .mk-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 2px; height: 6px; overflow: hidden; }
+  .mk-bar { height: 100%; border-radius: 2px; }
+  .mk-bar.b1 { width: 82%; background: linear-gradient(90deg, var(--teal-mid), var(--teal-light)); }
+  .mk-bar.b2 { width: 68%; background: linear-gradient(90deg, var(--gold-dark, #5C4010), var(--gold)); }
+  .mk-bar.b3 { width: 55%; background: linear-gradient(90deg, var(--teal-dark), var(--teal-bright)); }
+  .mk-bar.b4 { width: 73%; background: linear-gradient(90deg, var(--gold-dark, #5C4010), var(--gold-bright)); }
+  .mk-bar.b5 { width: 40%; background: linear-gradient(90deg, var(--teal-dark), var(--teal-mid)); }
+  .mk-pct { font-size: 12px; color: var(--gold); font-weight: 500; text-align: right; }
+  .mk-footer { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border-light); }
+  .mk-stat { background: rgba(11,28,40,0.8); padding: 14px 16px; text-align: center; }
+  .mk-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .mk-stat-label { font-size: 10px; color: var(--muted-dark); margin-top: 4px; }
+
+  section { padding: 96px 0; }
+  section.alt { background: var(--teal-deep); }
+
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border-light); border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
+  .feature-card { background: var(--navy); padding: 36px 32px; transition: background 0.2s; }
+  .feature-card:hover { background: rgba(26,58,74,0.8); }
+  .feature-icon { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+  .feature-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .feature-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.2; }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
+  .step { padding: 36px 28px; border-right: 0.5px solid var(--border-light); }
+  .step:last-child { border-right: none; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700; color: rgba(212,164,39,0.12); line-height: 1; margin-bottom: 14px; }
+  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .channels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .channel-card { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 28px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+  .channel-card:hover { border-color: rgba(212,164,39,0.3); }
+  .channel-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); }
+  .channel-icon { width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .channel-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .channel-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .channel-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .benefits-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .benefits-list { display: flex; flex-direction: column; gap: 0; }
+  .benefit-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 0.5px solid var(--border-light); align-items: flex-start; }
+  .benefit-item:last-child { border-bottom: none; }
+  .benefit-check { width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .benefit-check svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .benefit-title { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .benefit-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .benefits-visual { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 36px; }
+  .stat-highlight { text-align: center; padding: 24px 0; border-bottom: 0.5px solid var(--border-light); }
+  .stat-highlight:last-child { border-bottom: none; }
+  .stat-big { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700; color: var(--gold); line-height: 1; letter-spacing: -1px; }
+  .stat-desc { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  .cta-block { background: linear-gradient(135deg, #1A3A4A 0%, #0B1C28 60%); border: 0.5px solid var(--border); border-radius: 2px; padding: 64px; text-align: center; position: relative; overflow: hidden; }
+  .cta-block::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(212,164,39,0.06); }
+  .cta-block-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 700; color: var(--white); line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 14px; position: relative; z-index: 1; }
+  .cta-block-title em { color: var(--gold); font-style: italic; }
+  .cta-block-sub { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; line-height: 1.8; position: relative; z-index: 1; }
+  .cta-block-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .page-footer { background: var(--teal-deep); border-top: 0.5px solid var(--border-light); padding: 40px 0; }
+  .page-footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; }
+  .footer-logo em { color: var(--gold); font-style: italic; }
+  .footer-copy { font-size: 12px; color: var(--muted-dark); }
+  .footer-back a { font-size: 13px; color: var(--muted-dark); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .footer-back a:hover { color: var(--gold); }
+  .footer-back svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 200; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: transform 0.2s; }
+  .wa-float:hover { transform: translateY(-3px) scale(1.05); }
+  .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-title { font-size: 52px; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .channels-grid { grid-template-columns: 1fr 1fr; }
+    .benefits-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .container { padding: 0 24px; } .nav-inner { padding: 0 24px; }
+    .hero-inner { padding: 60px 24px; } .hero-title { font-size: 44px; }
+    section { padding: 72px 0; } .features-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; } .channels-grid { grid-template-columns: 1fr; }
+    .cta-block { padding: 40px 24px; } .cta-block-title { font-size: 36px; }
+    .page-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<a class="wa-float" href="https://wa.me/6285338662750" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<nav>
+  <div class="nav-inner">
+    <a href="suitesupports-website.html" class="nav-logo">Suite<em>Supports</em></a>
+    <a href="suitesupports-website.html" class="nav-back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to Home</a>
+    <a href="suitesupports-website.html#contact" class="btn-primary">Get Started</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="suitesupports-website.html">Home</a>
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <a href="suitesupports-website.html#services">Services</a>
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Hotel Digital Marketing</span>
+      </div>
+      <div class="hero-tag">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        Service 04 — Hotel Digital Marketing
+      </div>
+      <h1 class="hero-title">Be Seen by the<br>Guests Who<br><em>Matter Most</em></h1>
+      <p class="hero-desc">Implement targeted, industry-specific strategies to boost visibility and drive bookings. From OTA optimisation and social media to SEO and paid campaigns — we put your property in front of the right guests at the right moment.</p>
+      <div class="hero-cta">
+        <a href="suitesupports-website.html#contact" class="btn-primary">Grow Your Visibility</a>
+        <a href="#features" class="btn-outline">Explore the Service</a>
+      </div>
+    </div>
+    <!-- Marketing mockup -->
+    <div class="marketing-mockup">
+      <div class="mk-header">
+        <div class="mk-title">Channel Performance</div>
+        <div class="mk-period">Last 30 days</div>
+      </div>
+      <div class="mk-channels">
+        <div class="mk-channel">
+          <div class="mk-channel-name">Google Search Ads</div>
+          <div class="mk-bar-wrap"><div class="mk-bar b1"></div></div>
+          <div class="mk-pct">82%</div>
+        </div>
+        <div class="mk-channel">
+          <div class="mk-channel-name">OTA Optimisation</div>
+          <div class="mk-bar-wrap"><div class="mk-bar b4"></div></div>
+          <div class="mk-pct">73%</div>
+        </div>
+        <div class="mk-channel">
+          <div class="mk-channel-name">Instagram / Meta</div>
+          <div class="mk-bar-wrap"><div class="mk-bar b2"></div></div>
+          <div class="mk-pct">68%</div>
+        </div>
+        <div class="mk-channel">
+          <div class="mk-channel-name">Email Marketing</div>
+          <div class="mk-bar-wrap"><div class="mk-bar b3"></div></div>
+          <div class="mk-pct">55%</div>
+        </div>
+        <div class="mk-channel">
+          <div class="mk-channel-name">Organic SEO</div>
+          <div class="mk-bar-wrap"><div class="mk-bar b5"></div></div>
+          <div class="mk-pct">40%</div>
+        </div>
+      </div>
+      <div class="mk-footer">
+        <div class="mk-stat">
+          <div class="mk-stat-val">+41%</div>
+          <div class="mk-stat-label">Website traffic</div>
+        </div>
+        <div class="mk-stat">
+          <div class="mk-stat-val">3.2×</div>
+          <div class="mk-stat-label">ROAS on paid ads</div>
+        </div>
+        <div class="mk-stat">
+          <div class="mk-stat-val">+22%</div>
+          <div class="mk-stat-label">Direct bookings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">What's Included</span>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Full-Spectrum<br><em style="color:var(--gold);font-style:italic;">Digital Marketing</em></h2>
+      <div class="gold-line"></div>
+      <p style="font-size:15px;color:var(--muted);max-width:540px;line-height:1.85;">We don't do generic marketing. Every strategy is built around your property, your target guest, and the channels where they actually make booking decisions.</p>
+    </div>
+    <div class="features-grid fade-up">
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="feature-name">Search Engine Optimisation</div>
+        <p class="feature-desc">Rank higher on Google for the searches your ideal guests are making — organic traffic that compounds over time and costs less than paid ads long-term.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+        <div class="feature-name">OTA Listing Optimisation</div>
+        <p class="feature-desc">Maximise your ranking and conversion on Booking.com, Expedia, and Airbnb — with optimised content, imagery, review management, and promotional strategy.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        <div class="feature-name">Social Media Management</div>
+        <p class="feature-desc">Consistent, on-brand content across Instagram, Facebook, and TikTok — building an engaged audience that converts into direct bookings and brand advocates.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="feature-name">Paid Advertising (PPC)</div>
+        <p class="feature-desc">Google Ads and Meta campaigns managed for maximum ROI — targeting high-intent travellers at the exact moment they're ready to book.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="feature-name">Email Marketing</div>
+        <p class="feature-desc">Automated guest email campaigns — from pre-arrival personalisation and upsell sequences to post-stay re-engagement and loyalty offers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="feature-name">Analytics & Reporting</div>
+        <p class="feature-desc">Monthly performance reports across every channel — traffic, conversions, ROAS, booking source, and revenue attribution — so you always know what's working.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">Marketing Channels</span>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Where We Put<br><em style="color:var(--gold);font-style:italic;">Your Property</em></h2>
+      <div class="gold-line"></div>
+      <p style="font-size:15px;color:var(--muted);max-width:520px;line-height:1.85;">We identify the channels where your target guests spend their time and make their booking decisions — then we dominate them.</p>
+    </div>
+    <div class="channels-grid fade-up">
+      <div class="channel-card">
+        <div class="channel-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="channel-name">Google Search</div>
+        <p class="channel-desc">SEO and paid search campaigns targeting travellers actively searching for hotels in your destination — capturing demand at its highest point of intent.</p>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        <div class="channel-name">Instagram & Meta</div>
+        <p class="channel-desc">Visually compelling content and targeted paid campaigns on Instagram and Facebook — inspiring future guests and retargeting website visitors.</p>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"/></svg></div>
+        <div class="channel-name">OTA Platforms</div>
+        <p class="channel-desc">Optimised listings on Booking.com, Expedia, and Agoda — maximising rank, click-through rate, and conversion while managing your competitive positioning.</p>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="channel-name">Email Campaigns</div>
+        <p class="channel-desc">Segmented email marketing to past guests, enquirers, and subscribers — driving repeat bookings and direct revenue at a fraction of paid ad cost.</p>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div>
+        <div class="channel-name">Video & Content</div>
+        <p class="channel-desc">Video content strategy for YouTube, Instagram Reels, and TikTok — showcasing your property in a format that drives discovery and emotional connection.</p>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M17 2H7a5 5 0 00-5 5v10a5 5 0 005 5h10a5 5 0 005-5V7a5 5 0 00-5-5z"/><path d="M16 8.56A3 3 0 1012.44 5 3 3 0 0016 8.56z"/></svg></div>
+        <div class="channel-name">Review Management</div>
+        <p class="channel-desc">Proactive review strategy across TripAdvisor, Google, and OTA platforms — generating more 5-star reviews and responding professionally to all guest feedback.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">Our Process</span>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Strategy to<br><em style="color:var(--gold);font-style:italic;">Results</em></h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="steps-grid fade-up">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Audit & Research</div>
+        <p class="step-desc">We audit your current digital presence, analyse your target audience, and benchmark your performance against key competitors in your market.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Strategy & Planning</div>
+        <p class="step-desc">A tailored multi-channel marketing plan — with channel selection, content calendar, budget allocation, and clear KPIs tied to booking revenue.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Execute & Publish</div>
+        <p class="step-desc">We manage all content creation, campaign setup, and publishing across every channel — consistently and on brand, every week without fail.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Measure & Optimise</div>
+        <p class="step-desc">Monthly reporting with clear attribution — and continuous campaign optimisation to improve performance and lower your cost per booking over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:56px;">
+      <span class="label">Why Digital Marketing</span>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Visibility Is<br><em style="color:var(--gold);font-style:italic;">Revenue</em></h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="benefits-layout fade-up">
+      <div class="benefits-list">
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div class="benefit-title">Reach guests before they choose a competitor</div><p class="benefit-desc">Appear at the top of search results, social feeds, and OTA listings — before your target guests have made a booking decision.</p></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div class="benefit-title">Drive direct bookings, reduce OTA fees</div><p class="benefit-desc">A strong digital presence drives guests to book directly — saving 15–25% OTA commission on every reservation shifted.</p></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div class="benefit-title">Build a loyal guest community</div><p class="benefit-desc">Consistent social content and email marketing keeps your property top-of-mind — turning one-time guests into repeat bookers and brand advocates.</p></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div class="benefit-title">Industry-specific strategy, not generic templates</div><p class="benefit-desc">We understand hospitality seasonality, OTA algorithms, and traveller booking behaviour — your strategy is built for your industry, not adapted from another.</p></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div class="benefit-title">Measurable ROI on every channel</div><p class="benefit-desc">Every marketing activity is tracked and attributed to booking revenue — so you always know exactly what's working and why.</p></div>
+        </div>
+      </div>
+      <div class="benefits-visual">
+        <div class="stat-highlight"><div class="stat-big">+41%</div><div class="stat-desc">Average increase in website traffic within 90 days</div></div>
+        <div class="stat-highlight"><div class="stat-big">3.2×</div><div class="stat-desc">Average return on ad spend across Google and Meta campaigns</div></div>
+        <div class="stat-highlight"><div class="stat-big">+22%</div><div class="stat-desc">Average uplift in direct booking conversion rate</div></div>
+        <div class="stat-highlight"><div class="stat-big">4.8★</div><div class="stat-desc">Average review score achieved across managed properties</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta-block fade-up">
+      <h2 class="cta-block-title">Ready to Put Your Property<br>on the <em>Digital Map?</em></h2>
+      <p class="cta-block-sub">Book a free digital marketing audit and discover where your property's biggest visibility opportunities are — with no commitment required.</p>
+      <div class="cta-block-btns">
+        <a href="suitesupports-website.html#contact" class="btn-primary" style="padding:14px 32px;font-size:14px;">Book a Free Audit</a>
+        <a href="https://wa.me/6285338662750" target="_blank" class="btn-outline" style="padding:14px 32px;font-size:14px;">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-footer">
+  <div class="page-footer-inner">
+    <div class="footer-logo">Suite<em>Supports</em></div>
+    <div class="footer-copy">&copy; 2026 SuiteSupports · MingCan Network</div>
+    <div class="footer-back"><a href="suitesupports-website.html"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to Home</a></div>
+  </div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); observer.unobserve(el.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) { e.preventDefault(); window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

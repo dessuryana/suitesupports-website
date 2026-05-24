@@ -69,6 +69,15 @@
   .nav-links a { font-size: 13px; color: var(--muted); transition: color 0.2s; font-weight: 400; white-space: nowrap; }
   .nav-links a:hover { color: var(--white); }
   .nav-links a.active { color: var(--gold); }
+  .mobile-gold-link {
+    display: none;
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .mobile-gold-link:hover { color: var(--gold-bright); }
   .nav-cta {
     background: var(--gold); color: var(--navy); padding: 9px 22px;
     font-size: 12px; font-weight: 600; letter-spacing: 0.5px; border-radius: 1px;
@@ -386,8 +395,18 @@
     .cta-buttons { flex-direction: column; align-items: center; }
     .footer-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
+    .nav-inner { gap: 12px; padding: 0 24px; }
+    .mobile-gold-link { display: inline-block; }
+    .nav-logo-tag { display: none; }
+    .nav-cta { padding: 8px 12px; font-size: 11px; }
     .breadcrumb-inner { padding: 20px 24px; }
     .cta-inner { padding: 0 24px; }
+  }
+  @media (max-width: 420px) {
+    .nav-inner { padding: 0 18px; gap: 10px; }
+    .nav-logo-text { font-size: 16px; }
+    .mobile-gold-link { font-size: 11px; }
+    .nav-cta { display: none; }
   }
 </style>
 </head>
@@ -400,12 +419,13 @@
       <div class="nav-logo-text">Suite<em>Supports</em></div>
       <div class="nav-logo-tag">MingCan Network</div>
     </a>
+    <a href="https://suitesupports-gold-intelligence.netlify.app/" class="mobile-gold-link">Gold Intelligence</a>
     <ul class="nav-links">
       <li><a href="suitesupports-website.html">Home</a></li>
       <li><a href="suitesupports-website.html#services">Services</a></li>
       <li><a href="about-us.html" class="active">About Us</a></li>
       <li><a href="suitesupports-website.html#testimonials">Client Stories</a></li>
-      <li><a href="https://suitesupports-gold-intelligence.netlify.app/" target="_blank" rel="noopener">Gold Intelligence</a></li>
+      <li><a href="https://suitesupports-gold-intelligence.netlify.app/">Gold Intelligence</a></li>
       <li><a href="suitesupports-website.html#contact">Contact</a></li>
     </ul>
     <a href="suitesupports-website.html#contact" class="nav-cta">Get Started</a>

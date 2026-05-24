@@ -575,6 +575,9 @@
   @media (max-width: 768px) {
     .container { padding: 0 24px; }
     .nav-inner { padding: 0 24px; }
+    .nav-back { display: none; }
+    .nav-gold { font-size: 12px; }
+    .btn-primary { padding: 9px 12px; font-size: 12px; }
     .hero-inner { padding: 60px 24px; }
     .hero-title { font-size: 44px; }
     section { padding: 72px 0; }
@@ -583,6 +586,12 @@
     .cta-block { padding: 40px 24px; }
     .cta-block-title { font-size: 36px; }
     .page-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  }
+  @media (max-width: 420px) {
+    .nav-inner { padding: 0 18px; gap: 10px; }
+    .nav-logo { font-size: 17px; }
+    .nav-gold { font-size: 11px; }
+    nav .btn-primary { display: none; }
   }
 </style>
 </head>
@@ -601,7 +610,7 @@
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       Back to Home
     </a>
-    <a href="https://suitesupports-gold-intelligence.netlify.app/" class="nav-gold" target="_blank" rel="noopener">Gold Intelligence</a>
+    <a href="https://suitesupports-gold-intelligence.netlify.app/" class="nav-gold">Gold Intelligence</a>
     <a href="suitesupports-website.html#contact" class="btn-primary">Get Started</a>
   </div>
 </nav>

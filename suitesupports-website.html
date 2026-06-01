@@ -430,6 +430,50 @@
   }
   .trust-logo-name:hover { opacity: 1; }
 
+  /* ─── SERVICES VISUAL BANNER ─── */
+  .services-visual {
+    position: relative; border-radius: 3px; overflow: hidden;
+    height: 400px; margin-bottom: 56px;
+    border: 0.5px solid var(--border-light);
+  }
+  .services-visual img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: brightness(0.38) saturate(0.75);
+    transition: transform 6s ease, filter 0.6s ease;
+  }
+  .services-visual:hover img { transform: scale(1.04); filter: brightness(0.44) saturate(0.85); }
+  .services-visual-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, rgba(11,28,40,0.65) 0%, rgba(11,28,40,0.2) 55%, rgba(212,164,39,0.12) 100%);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 52px 60px;
+  }
+  .sv-brand {}
+  .sv-logo {
+    font-family: 'DM Sans', sans-serif; font-size: 38px; font-weight: 600;
+    color: var(--white); margin-bottom: 14px; letter-spacing: -0.5px;
+  }
+  .sv-logo em { color: var(--gold-bright); font-style: italic; }
+  .sv-bar { width: 52px; height: 2px; background: var(--gold); margin-bottom: 14px; }
+  .sv-tagline { font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); font-weight: 300; }
+  .sv-stats { display: flex; gap: 52px; align-items: center; }
+  .sv-stat { text-align: center; }
+  .sv-stat-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700;
+    color: var(--gold-bright); display: block; line-height: 1;
+    text-shadow: 0 0 40px rgba(212,164,39,0.4);
+  }
+  .sv-stat-label { font-size: 10px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 2.5px; margin-top: 8px; display: block; }
+  .sv-divider { width: 1px; height: 52px; background: rgba(255,255,255,0.12); }
+  @media (max-width: 768px) {
+    .services-visual { height: 280px; }
+    .services-visual-overlay { padding: 28px 24px; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .sv-logo { font-size: 26px; }
+    .sv-stats { gap: 24px; }
+    .sv-stat-num { font-size: 36px; }
+    .sv-divider { display: none; }
+  }
+
   /* ─── SERVICES ─── */
   .services-grid {
     display: grid;
@@ -1261,6 +1305,34 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       <h2 class="section-title">Tailored Solutions for<br><em>Every Challenge</em></h2>
       <div class="gold-line"></div>
       <p class="section-sub">We combine deep hospitality knowledge with modern technology to deliver services that drive real, measurable results for your business.</p>
+    </div>
+
+    <!-- Services visual banner -->
+    <div class="services-visual fade-up">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=85&auto=format&fit=crop" alt="SuiteSupports hospitality consulting workspace" loading="lazy">
+      <div class="services-visual-overlay">
+        <div class="sv-brand">
+          <div class="sv-logo">Suite<em>Supports</em></div>
+          <div class="sv-bar"></div>
+          <div class="sv-tagline">MingCan Network · Mataram, Indonesia</div>
+        </div>
+        <div class="sv-stats">
+          <div class="sv-stat">
+            <span class="sv-stat-num counter" data-target="50" data-suffix="+">50+</span>
+            <span class="sv-stat-label">Properties Served</span>
+          </div>
+          <div class="sv-divider"></div>
+          <div class="sv-stat">
+            <span class="sv-stat-num counter" data-target="8" data-suffix="+">8+</span>
+            <span class="sv-stat-label">Years Experience</span>
+          </div>
+          <div class="sv-divider"></div>
+          <div class="sv-stat">
+            <span class="sv-stat-num counter" data-target="4" data-suffix="">4</span>
+            <span class="sv-stat-label">Core Services</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="services-grid fade-up">

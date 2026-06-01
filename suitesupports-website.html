@@ -1335,8 +1335,8 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       </div>
     </div>
 
-    <div class="services-grid fade-up">
-      <div class="service-card featured" id="service-ai" style="position:relative;">
+    <div class="services-grid">
+      <div class="service-card featured fade-up" id="service-ai" style="position:relative;">
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         </div>
@@ -1344,10 +1344,10 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         <div class="service-name">AI Chatbot Solutions</div>
         <p class="service-desc">Streamline customer interactions with intelligent chatbot technology. Our AI-powered chatbots handle inquiries, reservations, and guest communication around the clock — reducing response times and freeing your team to focus on high-value interactions.</p>
         <div class="service-divider"></div>
-        <a href="#contact" class="service-link">Get started &rarr;</a>
+        <a href="service-ai-chatbot.html" class="service-link">Explore service &rarr;</a>
       </div>
 
-      <div class="service-card" id="service-web" style="position:relative;">
+      <div class="service-card fade-up" id="service-web" style="position:relative;">
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
@@ -1355,10 +1355,10 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         <div class="service-name">Web Design & Development</div>
         <p class="service-desc">Create engaging digital platforms tailored to your business needs. From booking-optimised hotel websites to full business web platforms, we design and develop digital experiences that convert visitors into loyal customers.</p>
         <div class="service-divider"></div>
-        <a href="#contact" class="service-link">Get started &rarr;</a>
+        <a href="service-web-design.html" class="service-link">Explore service &rarr;</a>
       </div>
 
-      <div class="service-card" id="service-revenue" style="position:relative;">
+      <div class="service-card fade-up" id="service-revenue" style="position:relative;">
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         </div>
@@ -1366,10 +1366,10 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         <div class="service-name">Revenue Management</div>
         <p class="service-desc">Optimize pricing strategies and maximize profitability for growth. Our revenue management approach combines data intelligence with hospitality expertise to ensure your rates, channels, and inventory are always working at peak performance.</p>
         <div class="service-divider"></div>
-        <a href="#contact" class="service-link">Get started &rarr;</a>
+        <a href="service-revenue-management.html" class="service-link">Explore service &rarr;</a>
       </div>
 
-      <div class="service-card" id="service-marketing" style="position:relative;">
+      <div class="service-card fade-up" id="service-marketing" style="position:relative;">
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
         </div>
@@ -1377,7 +1377,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         <div class="service-name">Hotel Digital Marketing</div>
         <p class="service-desc">Implement targeted, industry-specific strategies to boost visibility. From OTA optimisation and social media management to email campaigns and SEO, we increase your property's reach and drive direct bookings that protect your bottom line.</p>
         <div class="service-divider"></div>
-        <a href="#contact" class="service-link">Get started &rarr;</a>
+        <a href="service-digital-marketing.html" class="service-link">Explore service &rarr;</a>
       </div>
     </div>
   </div>
@@ -1824,7 +1824,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
   document.querySelectorAll('[data-target], .gold-line, .label, .counter').forEach(el => _obs2.observe(el));
 
   // Stagger card animations
-  document.querySelectorAll('.services-grid, .features-grid, .values-grid, .team-grid, .why-numbers, .channels-grid, .use-cases-grid').forEach(g => {
+  document.querySelectorAll('.features-grid, .values-grid, .team-grid, .why-numbers, .channels-grid, .use-cases-grid').forEach(g => {
     g.classList.add('stagger');
     g.querySelectorAll(':scope > *').forEach(c => { if(!c.classList.contains('fade-up')) c.classList.add('fade-up'); });
   });

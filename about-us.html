@@ -87,7 +87,7 @@
 
   /* ─── BREADCRUMB ─── */
   .breadcrumb {
-    padding-top: 96px; padding-bottom: 0;
+    padding-top: 68px; padding-bottom: 0;
     background: var(--navy);
   }
   .breadcrumb-inner {
@@ -104,7 +104,7 @@
   /* ─── HERO ─── */
   .hero {
     background: linear-gradient(160deg, var(--navy) 0%, var(--teal-dark) 55%, #0e2b3a 100%);
-    padding: 80px 0 96px;
+    padding: 60px 0 88px;
     position: relative; overflow: hidden;
   }
   .hero::before {
@@ -169,8 +169,8 @@
   .dot.gold { background: rgba(212,164,39,0.4); }
 
   /* ─── SECTION BASE ─── */
-  section { padding: 96px 0; }
-  .section-header { margin-bottom: 56px; }
+  section { padding: 88px 0; }
+  .section-header { margin-bottom: 48px; }
   .section-title { font-size: 48px; line-height: 1.1; margin-bottom: 8px; }
   .section-title em { color: var(--gold-bright); font-style: italic; }
   .section-sub { font-size: 15px; color: var(--muted); max-width: 560px; line-height: 1.85; }
@@ -195,7 +195,7 @@
   .timeline-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
   /* ─── MISSION / VISION ─── */
-  .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .mv-card {
     background: var(--teal-dark); border: 0.5px solid var(--border-light);
     padding: 48px 40px; border-radius: 2px; position: relative; overflow: hidden;
@@ -226,7 +226,7 @@
   .value-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
 
   /* ─── TEAM ─── */
-  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .team-card {
     background: var(--teal-dark); border: 0.5px solid var(--border-light);
     border-radius: 2px; overflow: hidden; transition: transform 0.3s;
@@ -264,7 +264,7 @@
   .why-numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .why-stat {
     background: var(--teal-dark); border: 0.5px solid var(--border-light);
-    padding: 32px 24px; border-radius: 2px; text-align: center;
+    padding: 32px 24px; border-radius: 2px; text-align: left;
     position: relative;
   }
   .why-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 700; color: var(--gold-bright); line-height: 1; }
@@ -318,7 +318,7 @@
   /* ─── CTA ─── */
   .cta-section {
     background: linear-gradient(135deg, var(--teal-dark) 0%, var(--navy) 50%, var(--gold-dark) 100%);
-    padding: 96px 0;
+    padding: 80px 0;
   }
   .cta-inner { max-width: 800px; margin: 0 auto; padding: 0 48px; text-align: center; }
   .cta-inner h2 { font-size: 52px; line-height: 1.1; margin-bottom: 20px; }
@@ -341,7 +341,7 @@
   /* ─── FOOTER ─── */
   footer {
     background: var(--teal-deep); border-top: 0.5px solid var(--border-light);
-    padding: 64px 0 32px;
+    padding: 56px 0 32px;
   }
   .footer-grid {
     display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
@@ -387,22 +387,25 @@
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
   @media (max-width: 768px) {
-    section { padding: 64px 0; }
+    section { padding: 60px 0; }
+    .container { padding: 0 20px; }
+    .hero-inner { padding: 56px 20px; }
     .hero-title { font-size: 38px; }
     .section-title { font-size: 36px; }
     .hero-stats { grid-template-columns: 1fr 1fr; }
     .values-grid { grid-template-columns: 1fr; }
     .team-grid { grid-template-columns: 1fr; }
     .why-numbers { grid-template-columns: 1fr 1fr; }
+    .why-stat { text-align: center; }
     .cta-buttons { flex-direction: column; align-items: center; }
     .footer-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
-    .nav-inner { gap: 12px; padding: 0 24px; }
+    .nav-inner { gap: 12px; padding: 0 20px; }
     .mobile-gold-link { display: inline-block; }
     .nav-logo-tag { display: none; }
     .nav-cta { padding: 8px 12px; font-size: 11px; }
-    .breadcrumb-inner { padding: 20px 24px; }
-    .cta-inner { padding: 0 24px; }
+    .breadcrumb-inner { padding: 20px 20px; }
+    .cta-inner { padding: 0 20px; }
     .nav-burger { display: flex !important; }
   }
   @media (max-width: 420px) {
@@ -813,9 +816,9 @@ body { animation: pageFadeIn 0.6s ease forwards; }
 <hr class="section-divider">
 
 <!-- MISSION & VISION -->
-<section style="background: var(--navy); padding: 96px 0;">
+<section style="background: var(--navy); padding: 88px 0;">
   <div class="container">
-    <div class="section-header fade-up" style="text-align:center; max-width:600px; margin:0 auto 56px;">
+    <div class="section-header fade-up" style="text-align:center; max-width:600px; margin:0 auto 48px;">
       <span class="label" style="text-align:center;">What Drives Us</span>
       <h2 class="section-title" style="font-size:48px;">Mission &amp; <em>Vision</em></h2>
       <div class="gold-line" style="margin:20px auto;"></div>
@@ -886,7 +889,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
 <hr class="section-divider">
 
 <!-- TEAM -->
-<section style="background: var(--navy); padding: 96px 0;">
+<section style="background: var(--navy); padding: 88px 0;">
   <div class="container">
     <div class="section-header fade-up">
       <span class="label">The People Behind It</span>
@@ -1133,6 +1136,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.stagger > .fade-up').forEach(el => observer.observe(el));
 
   function toggleMobileMenu() {
     const menu = document.getElementById('mobileMenu');

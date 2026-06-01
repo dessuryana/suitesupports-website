@@ -147,7 +147,7 @@
   .hero-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 80px 48px;
+    padding: 60px 48px;
     width: 100%;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -203,7 +203,7 @@
     max-width: 500px;
     margin-bottom: 36px;
   }
-  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .hero-cta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 
   /* Hero right — chat mockup */
   .chat-mockup {
@@ -301,7 +301,7 @@
   .chat-send svg { width: 12px; height: 12px; stroke: var(--navy); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
   /* ─── SECTIONS ─── */
-  section { padding: 96px 0; }
+  section { padding: 88px 0; }
   section.alt { background: var(--teal-deep); }
 
   /* ─── FEATURES ─── */
@@ -514,7 +514,7 @@
   .page-footer {
     background: var(--teal-deep);
     border-top: 0.5px solid var(--border-light);
-    padding: 40px 0;
+    padding: 56px 0 32px;
   }
   .page-footer-inner {
     max-width: 1200px;
@@ -573,14 +573,14 @@
     .use-cases-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
-    .container { padding: 0 24px; }
+    .container { padding: 0 20px; }
     .nav-inner { padding: 0 24px; }
     .nav-back { display: none; }
     .nav-gold { font-size: 12px; }
     .btn-primary { padding: 9px 12px; font-size: 12px; }
-    .hero-inner { padding: 60px 24px; }
+    .hero-inner { padding: 56px 20px; }
     .hero-title { font-size: 44px; }
-    section { padding: 72px 0; }
+    section { padding: 60px 0; }
     .features-grid { grid-template-columns: 1fr; }
     .steps-grid { grid-template-columns: 1fr; }
     .cta-block { padding: 40px 24px; }
@@ -952,8 +952,6 @@ body { animation: pageFadeIn 0.6s ease forwards; }
   </div>
 </div>
 
-<hr class="section-divider">
-
 <!-- ═══ FEATURES ═══ -->
 <section id="features">
   <div class="container">
@@ -1074,7 +1072,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
 <!-- ═══ BENEFITS ═══ -->
 <section class="alt">
   <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:56px;">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
       <span class="label">Why AI Chatbots</span>
       <h2 style="font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:700; letter-spacing:-1.5px; color:var(--white); margin-bottom:14px;">The Business<br><em style="color:var(--gold); font-style:italic;">Case for AI</em></h2>
       <div class="gold-line"></div>
@@ -1142,7 +1140,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
 <hr class="section-divider">
 
 <!-- ═══ CTA ═══ -->
-<section>
+<section style="padding:80px 0;">
   <div class="container">
     <div class="cta-block fade-up">
       <h2 class="cta-block-title">Ready to Put Your<br>Guest Conversations on <em>Autopilot?</em></h2>
@@ -1176,6 +1174,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.stagger > .fade-up').forEach(el => observer.observe(el));
 
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {

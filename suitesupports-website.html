@@ -1006,6 +1006,32 @@
 }
 .mobile-nav-cta:hover { background: var(--gold-bright); }
 
+/* ─── HERO TITLE CHARACTER GLOW ─── */
+.glow-char {
+  display: inline-block;
+  transition: text-shadow 0.3s ease, color 0.3s ease, transform 0.25s ease;
+  will-change: text-shadow, color;
+}
+.glow-char.glowing {
+  color: #ffffff !important;
+  transform: translateY(-2px) scale(1.06);
+  text-shadow:
+    0 0 4px rgba(255,255,255,1),
+    0 0 12px rgba(236,200,74,1),
+    0 0 24px rgba(212,164,39,0.9),
+    0 0 48px rgba(212,164,39,0.6),
+    0 0 80px rgba(212,164,39,0.3);
+}
+.hero-title em .glow-char.glowing {
+  color: #ffffff !important;
+  text-shadow:
+    0 0 4px rgba(255,255,255,1),
+    0 0 14px rgba(255,240,100,1),
+    0 0 28px rgba(236,200,74,1),
+    0 0 56px rgba(212,164,39,0.8),
+    0 0 90px rgba(212,164,39,0.4);
+}
+
 /* ═══ PREMIUM ENHANCEMENTS ═══ */
 
 /* Scroll progress bar */
@@ -1851,6 +1877,71 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       else card.insertBefore(stars, card.firstChild);
     }
   });
+
+  // ─── HERO TITLE CHARACTER GLOW ───
+  (function() {
+    var title = document.querySelector('.hero-title');
+    if (!title) return;
+
+    var chars = [];
+
+    function processNode(node) {
+      if (node.nodeType === 3) {
+        var text = node.textContent;
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < text.length; i++) {
+          var c = text[i];
+          if (c === ' ' || c === '\n' || c === '\r') {
+            frag.appendChild(document.createTextNode(c));
+          } else {
+            var span = document.createElement('span');
+            span.className = 'glow-char';
+            span.textContent = c;
+            chars.push(span);
+            frag.appendChild(span);
+          }
+        }
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1 && node.tagName !== 'BR') {
+        var children = Array.prototype.slice.call(node.childNodes);
+        children.forEach(processNode);
+      }
+    }
+
+    processNode(title);
+    if (!chars.length) return;
+
+    var STEP = 110;       // ms between each character lighting up
+    var HOLD = 420;       // ms the glow stays on per character
+    var PAUSE = 1800;     // ms pause after full word before restarting
+    var current = 0;
+    var timers = [];
+
+    function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+    function runCycle() {
+      clearTimers();
+      current = 0;
+      function next() {
+        if (current >= chars.length) {
+          timers.push(setTimeout(runCycle, PAUSE));
+          return;
+        }
+        var ch = chars[current];
+        ch.classList.add('glowing');
+        var idx = current;
+        timers.push(setTimeout(function() {
+          chars[idx].classList.remove('glowing');
+        }, HOLD));
+        current++;
+        timers.push(setTimeout(next, STEP));
+      }
+      next();
+    }
+
+    // Start after hero has loaded
+    timers.push(setTimeout(runCycle, 1200));
+  })();
 
   // GALAXY PARTICLE SYSTEM v3
   (function() {

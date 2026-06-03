@@ -1315,39 +1315,38 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         this.vx *= 0.96; this.vy *= 0.96;
 
       } else if (state === 1) {
-        // GATHER — spring toward galaxy targets
+        // GATHER — strong direct pull, heavy damping, almost no jitter — particles stop cleanly
         var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
         var dx = tx - this.x, dy = ty - this.y;
         var dist = Math.sqrt(dx*dx+dy*dy) || 1;
-        var pull = Math.min(dist * 0.045, 1.2);
+        var pull = Math.min(dist * 0.07, 1.6);
         this.vx += (dx/dist)*pull;
         this.vy += (dy/dist)*pull;
-        this.vx += (Math.random()-0.5)*0.04;
-        this.vy += (Math.random()-0.5)*0.04;
+        this.vx += (Math.random()-0.5)*0.008;
+        this.vy += (Math.random()-0.5)*0.008;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 3.5) { this.vx=this.vx/spd*3.5; this.vy=this.vy/spd*3.5; }
-        this.vx *= 0.94; this.vy *= 0.94;
+        if (spd > 4.5) { this.vx=this.vx/spd*4.5; this.vy=this.vy/spd*4.5; }
+        this.vx *= 0.86; this.vy *= 0.86;
 
       } else if (state === 2) {
-        // SWIRL — orbit + spring: galaxy spins before dispersing
-        // Tangential (orbital) force grows over swirlProgress 0→1
+        // SWIRL — first 2s: hold still at galaxy positions. Then orbital force ramps up.
         var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
         var dx = tx - this.x, dy = ty - this.y;
         var cx = W*0.5, cy = H*0.5;
         var rx = this.x - cx, ry = this.y - cy;
-        // Perpendicular to radius = tangential orbit direction
         var tang = Math.sqrt(rx*rx+ry*ry) || 1;
         var tangX = -ry/tang, tangY = rx/tang;
-        // Orbit force ramps up as swirl progresses (0→0.14)
-        var orbitF = 0.02 + swirlProgress * 0.12;
-        // Spring back force weakens as swirl progresses (0.018→0.004)
-        var springF = 0.018 - swirlProgress * 0.014;
-        this.vx += dx * springF + tangX * orbitF + Math.sin(this.wobble)*0.02;
-        this.vy += dy * springF + tangY * orbitF + Math.cos(this.wobble*0.8)*0.02;
+        // Dead zone: no orbital force for first 2s (swirlProgress < 0.11 of 18s)
+        var spinP = Math.max(0, (swirlProgress - 0.11)) / 0.89;
+        var orbitF = spinP * spinP * 0.16;
+        // Spring holds tight at start, releases as spin grows
+        var springF = 0.028 - spinP * 0.022;
+        this.vx += dx * springF + tangX * orbitF;
+        this.vy += dy * springF + tangY * orbitF;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        var maxSpd = 0.8 + swirlProgress * 2.2;
+        var maxSpd = 0.4 + spinP * spinP * 3.0;
         if (spd > maxSpd) { this.vx=this.vx/spd*maxSpd; this.vy=this.vy/spd*maxSpd; }
-        this.vx *= 0.96; this.vy *= 0.96;
+        this.vx *= 0.97; this.vy *= 0.97;
 
       } else if (state === 3) {
         // SPREAD — slow lazy drift outward

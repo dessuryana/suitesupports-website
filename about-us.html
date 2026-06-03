@@ -1235,7 +1235,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     }
   });
 
-  // GALAXY PARTICLE SYSTEM v2
+  // GALAXY PARTICLE SYSTEM v3
   (function() {
     var canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
@@ -1247,10 +1247,11 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     var COLORS = ['212,164,39','236,200,74','74,171,184','45,143,160','248,249,250','143,169,181','180,137,26'];
     var COUNT = 220;
 
-    // State machine: 0=DRIFT 1=GATHER 2=HOLD 3=SPREAD
+    // States: 0=DRIFT  1=GATHER  2=SWIRL(orbit galaxy before spreading)  3=SPREAD
     var idleState = 0;
     var stateStart = Date.now();
-    var STATE_MS = [3200, 4000, 2200, 2800];
+    //           DRIFT   GATHER  SWIRL   SPREAD
+    var STATE_MS = [3200,  4200,   4500,   6500];
 
     var galaxyTargets = [];
 
@@ -1259,14 +1260,12 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       var cx = W * 0.5, cy = H * 0.5;
       var maxR = Math.min(W, H) * 0.30;
       var numArms = 3;
-      // Core cluster
       var coreCount = Math.floor(COUNT * 0.15);
       for (var i = 0; i < coreCount; i++) {
         var angle = Math.random() * Math.PI * 2;
         var r = Math.pow(Math.random(), 1.5) * maxR * 0.25;
         galaxyTargets.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) * 0.9 });
       }
-      // Spiral arms
       for (var i = coreCount; i < COUNT; i++) {
         var t = (i - coreCount) / (COUNT - coreCount);
         var arm = i % numArms;
@@ -1297,11 +1296,11 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       this.wobbleV = (Math.random() - 0.5) * 0.045;
     }
 
-    Particle.prototype.update = function(state) {
+    Particle.prototype.update = function(state, swirlProgress) {
       this.wobble += this.wobbleV;
 
       if (mouseActive) {
-        // BEE MODE — swarm toward cursor
+        // BEE SWARM
         var dx = mouseX - this.x, dy = mouseY - this.y;
         var dist = Math.sqrt(dx*dx + dy*dy) || 1;
         if (dist < 400) {
@@ -1316,7 +1315,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         this.vx *= 0.96; this.vy *= 0.96;
 
       } else if (state === 1) {
-        // GATHER — spring toward galaxy target
+        // GATHER — spring toward galaxy targets
         var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
         var dx = tx - this.x, dy = ty - this.y;
         var dist = Math.sqrt(dx*dx+dy*dy) || 1;
@@ -1330,30 +1329,42 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         this.vx *= 0.94; this.vy *= 0.94;
 
       } else if (state === 2) {
-        // HOLD — orbit gently near galaxy position
+        // SWIRL — orbit + spring: galaxy spins before dispersing
+        // Tangential (orbital) force grows over swirlProgress 0→1
         var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
         var dx = tx - this.x, dy = ty - this.y;
-        this.vx += dx * 0.018 + Math.sin(this.wobble) * 0.025;
-        this.vy += dy * 0.018 + Math.cos(this.wobble * 0.8) * 0.025;
+        var cx = W*0.5, cy = H*0.5;
+        var rx = this.x - cx, ry = this.y - cy;
+        // Perpendicular to radius = tangential orbit direction
+        var tang = Math.sqrt(rx*rx+ry*ry) || 1;
+        var tangX = -ry/tang, tangY = rx/tang;
+        // Orbit force ramps up as swirl progresses (0→0.14)
+        var orbitF = 0.02 + swirlProgress * 0.12;
+        // Spring back force weakens as swirl progresses (0.018→0.004)
+        var springF = 0.018 - swirlProgress * 0.014;
+        this.vx += dx * springF + tangX * orbitF + Math.sin(this.wobble)*0.02;
+        this.vy += dy * springF + tangY * orbitF + Math.cos(this.wobble*0.8)*0.02;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 1.8) { this.vx=this.vx/spd*1.8; this.vy=this.vy/spd*1.8; }
-        this.vx *= 0.93; this.vy *= 0.93;
+        var maxSpd = 0.8 + swirlProgress * 2.2;
+        if (spd > maxSpd) { this.vx=this.vx/spd*maxSpd; this.vy=this.vy/spd*maxSpd; }
+        this.vx *= 0.96; this.vy *= 0.96;
 
       } else if (state === 3) {
-        // SPREAD — explode outward from center
+        // SPREAD — slow lazy drift outward
         var cx = W*0.5, cy = H*0.5;
         var dx = this.x - cx, dy = this.y - cy;
         var dist = Math.sqrt(dx*dx+dy*dy) || 1;
-        this.vx += (dx/dist)*0.18 + (Math.random()-0.5)*0.25;
-        this.vy += (dy/dist)*0.18 + (Math.random()-0.5)*0.25;
+        // Very gentle outward nudge + small random drift
+        this.vx += (dx/dist)*0.04 + (Math.random()-0.5)*0.08;
+        this.vy += (dy/dist)*0.04 + (Math.random()-0.5)*0.08;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 4.5) { this.vx=this.vx/spd*4.5; this.vy=this.vy/spd*4.5; }
-        this.vx *= 0.97; this.vy *= 0.97;
+        if (spd > 1.6) { this.vx=this.vx/spd*1.6; this.vy=this.vy/spd*1.6; }
+        this.vx *= 0.985; this.vy *= 0.985;
 
       } else {
-        // DRIFT — sinusoidal float
-        this.vx += Math.sin(this.wobble) * 0.03;
-        this.vy += Math.cos(this.wobble*0.7) * 0.03;
+        // DRIFT — gentle sinusoidal float
+        this.vx += Math.sin(this.wobble)*0.03;
+        this.vy += Math.cos(this.wobble*0.7)*0.03;
         this.vx += (Math.random()-0.5)*0.07;
         this.vy += (Math.random()-0.5)*0.07;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
@@ -1384,22 +1395,30 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     var particles = [];
     for (var i=0;i<COUNT;i++) particles.push(new Particle(i));
 
+    var swirlProgress = 0;
+
     function tickState() {
       var now = Date.now();
-      if (now - stateStart > STATE_MS[idleState]) {
-        var prev = idleState;
+      var elapsed = now - stateStart;
+      if (elapsed > STATE_MS[idleState]) {
         idleState = (idleState + 1) % 4;
         stateStart = now;
-        // Kick particles outward when entering SPREAD
+        elapsed = 0;
+        swirlProgress = 0;
+        // When entering SPREAD: tiny gentle push (NOT explosive)
         if (idleState === 3) {
           var cx=W*0.5, cy=H*0.5;
           for (var i=0;i<particles.length;i++) {
             var dx=particles[i].x-cx, dy=particles[i].y-cy;
             var d=Math.sqrt(dx*dx+dy*dy)||1;
-            particles[i].vx += (dx/d)*(1.8+Math.random()*1.2);
-            particles[i].vy += (dy/d)*(1.8+Math.random()*1.2);
+            // Very small initial push — let the force do the work gradually
+            particles[i].vx += (dx/d)*(0.3+Math.random()*0.4);
+            particles[i].vy += (dy/d)*(0.3+Math.random()*0.4);
           }
         }
+      }
+      if (idleState === 2) {
+        swirlProgress = Math.min(elapsed / STATE_MS[2], 1);
       }
       return idleState;
     }
@@ -1429,7 +1448,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       ctx.clearRect(0,0,W,H);
       var state = mouseActive ? -1 : tickState();
       for (var i=0;i<particles.length;i++) {
-        particles[i].update(state);
+        particles[i].update(state, swirlProgress);
         particles[i].draw();
       }
       requestAnimationFrame(animate);

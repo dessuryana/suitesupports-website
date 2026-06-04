@@ -3,7 +3,7 @@ import os, re
 DIR = r"C:\DOR - Files\Data_Claude Code\SuiteSupports Website"
 
 NEW_JS = r"""
-  // GALAXY PARTICLE SYSTEM v3
+  // GALAXY PARTICLE SYSTEM v4 — 3 triangle galaxies
   (function() {
     var canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
@@ -13,50 +13,79 @@ NEW_JS = r"""
     var mouseX = -9999, mouseY = -9999;
     var mouseActive = false, mouseTimer;
     var COLORS = ['212,164,39','236,200,74','74,171,184','45,143,160','248,249,250','143,169,181','180,137,26'];
-    var COUNT = 220;
+    var COUNT = 240;
+    var G = 3; // number of groups
+    var GS = Math.floor(COUNT / G); // particles per group
 
-    // States: 0=DRIFT  1=GATHER  2=SWIRL(orbit galaxy before spreading)  3=SPREAD
+    // States: 0=DRIFT  1=GATHER  2=SWIRL  3=SPREAD
     var idleState = 0;
     var stateStart = Date.now();
-    //           DRIFT   GATHER  SWIRL   SPREAD
-    var STATE_MS = [3200,  4200,   4500,   6500];
+    var STATE_MS = [3200, 5500, 36000, 6500];
+    var swirlProgress = 0;
 
     var galaxyTargets = [];
+    var groupCenters = [];
+
+    function computeCenters() {
+      var cx = W * 0.5, cy = H * 0.5;
+      var r = Math.min(W, H) * 0.26;
+      // Equilateral triangle — top, bottom-right, bottom-left
+      groupCenters = [
+        { x: cx,               y: cy - r },
+        { x: cx + r * 0.866,   y: cy + r * 0.5 },
+        { x: cx - r * 0.866,   y: cy + r * 0.5 }
+      ];
+    }
 
     function computeGalaxy() {
+      computeCenters();
       galaxyTargets = [];
-      var cx = W * 0.5, cy = H * 0.5;
-      var maxR = Math.min(W, H) * 0.30;
-      var numArms = 3;
-      var coreCount = Math.floor(COUNT * 0.15);
-      for (var i = 0; i < coreCount; i++) {
-        var angle = Math.random() * Math.PI * 2;
-        var r = Math.pow(Math.random(), 1.5) * maxR * 0.25;
-        galaxyTargets.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) * 0.9 });
-      }
-      for (var i = coreCount; i < COUNT; i++) {
-        var t = (i - coreCount) / (COUNT - coreCount);
-        var arm = i % numArms;
-        var armAngle = (arm / numArms) * Math.PI * 2;
-        var r = Math.pow(t, 0.5) * maxR;
-        var spiral = armAngle + t * Math.PI * 4.5;
-        var jx = (Math.random() - 0.5) * maxR * 0.18;
-        var jy = (Math.random() - 0.5) * maxR * 0.12;
-        galaxyTargets.push({
-          x: cx + r * Math.cos(spiral) + jx,
-          y: cy + r * Math.sin(spiral) * 0.52 + jy
-        });
+      var maxR = Math.min(W, H) * 0.10;
+      for (var g = 0; g < G; g++) {
+        var gcx = groupCenters[g].x, gcy = groupCenters[g].y;
+        var start = g * GS;
+        var end = (g === G - 1) ? COUNT : start + GS;
+        var size = end - start;
+        var coreCount = Math.floor(size * 0.18);
+        // Core cluster
+        for (var i = 0; i < coreCount; i++) {
+          var angle = Math.random() * Math.PI * 2;
+          var r = Math.pow(Math.random(), 1.6) * maxR * 0.28;
+          galaxyTargets.push({ x: gcx + r * Math.cos(angle), y: gcy + r * Math.sin(angle) * 0.88 });
+        }
+        // 3-arm spiral around group center
+        for (var i = coreCount; i < size; i++) {
+          var t = (i - coreCount) / (size - coreCount);
+          var arm = i % 3;
+          var armAngle = (arm / 3) * Math.PI * 2;
+          var r = Math.pow(t, 0.5) * maxR;
+          var spiral = armAngle + t * Math.PI * 4.5;
+          var jx = (Math.random() - 0.5) * maxR * 0.22;
+          var jy = (Math.random() - 0.5) * maxR * 0.14;
+          galaxyTargets.push({
+            x: gcx + r * Math.cos(spiral) + jx,
+            y: gcy + r * Math.sin(spiral) * 0.55 + jy
+          });
+        }
       }
     }
 
     function Particle(idx) {
       this.idx = idx;
+      this.group = Math.min(Math.floor(idx / GS), G - 1);
       this.x = Math.random() * W;
       this.y = Math.random() * H;
       this.vx = (Math.random() - 0.5) * 1.2;
       this.vy = (Math.random() - 0.5) * 1.2;
       this.size = Math.random() * 1.9 + 0.4;
-      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      // Slight color tint per group
+      var groupTints = [
+        ['212,164,39','236,200,74','248,249,250'],   // group 0 — gold
+        ['74,171,184','45,143,160','143,169,181'],   // group 1 — teal
+        ['180,137,26','212,164,39','248,249,250']    // group 2 — warm gold
+      ];
+      var tints = groupTints[this.group];
+      this.color = tints[Math.floor(Math.random() * tints.length)];
       this.baseAlpha = Math.random() * 0.38 + 0.07;
       this.pSpeed = Math.random() * 0.022 + 0.005;
       this.pOff = Math.random() * Math.PI * 2;
@@ -64,11 +93,12 @@ NEW_JS = r"""
       this.wobbleV = (Math.random() - 0.5) * 0.045;
     }
 
-    Particle.prototype.update = function(state, swirlProgress) {
+    Particle.prototype.update = function(state, swP) {
       this.wobble += this.wobbleV;
+      var gc = groupCenters[this.group];
 
       if (mouseActive) {
-        // BEE SWARM
+        // BEE SWARM toward cursor
         var dx = mouseX - this.x, dy = mouseY - this.y;
         var dist = Math.sqrt(dx*dx + dy*dy) || 1;
         if (dist < 400) {
@@ -83,46 +113,42 @@ NEW_JS = r"""
         this.vx *= 0.96; this.vy *= 0.96;
 
       } else if (state === 1) {
-        // GATHER — spring toward galaxy targets
+        // GATHER — strong direct pull toward own group galaxy target
         var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
         var dx = tx - this.x, dy = ty - this.y;
         var dist = Math.sqrt(dx*dx+dy*dy) || 1;
-        var pull = Math.min(dist * 0.045, 1.2);
+        var pull = Math.min(dist * 0.07, 1.6);
         this.vx += (dx/dist)*pull;
         this.vy += (dy/dist)*pull;
-        this.vx += (Math.random()-0.5)*0.04;
-        this.vy += (Math.random()-0.5)*0.04;
+        this.vx += (Math.random()-0.5)*0.008;
+        this.vy += (Math.random()-0.5)*0.008;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 3.5) { this.vx=this.vx/spd*3.5; this.vy=this.vy/spd*3.5; }
-        this.vx *= 0.94; this.vy *= 0.94;
+        if (spd > 4.5) { this.vx=this.vx/spd*4.5; this.vy=this.vy/spd*4.5; }
+        this.vx *= 0.86; this.vy *= 0.86;
 
       } else if (state === 2) {
-        // SWIRL — orbit + spring: galaxy spins before dispersing
-        // Tangential (orbital) force grows over swirlProgress 0→1
+        // SWIRL — orbit around OWN group center
         var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
         var dx = tx - this.x, dy = ty - this.y;
-        var cx = W*0.5, cy = H*0.5;
-        var rx = this.x - cx, ry = this.y - cy;
-        // Perpendicular to radius = tangential orbit direction
+        // Tangential vector around group center
+        var rx = this.x - gc.x, ry = this.y - gc.y;
         var tang = Math.sqrt(rx*rx+ry*ry) || 1;
         var tangX = -ry/tang, tangY = rx/tang;
-        // Orbit force ramps up as swirl progresses (0→0.14)
-        var orbitF = 0.02 + swirlProgress * 0.12;
-        // Spring back force weakens as swirl progresses (0.018→0.004)
-        var springF = 0.018 - swirlProgress * 0.014;
-        this.vx += dx * springF + tangX * orbitF + Math.sin(this.wobble)*0.02;
-        this.vy += dy * springF + tangY * orbitF + Math.cos(this.wobble*0.8)*0.02;
+        // Dead zone first 2s, then quadratic ramp
+        var spinP = Math.max(0, (swP - 0.056)) / 0.944;
+        var orbitF = spinP * spinP * 0.17;
+        var springF = 0.028 - spinP * 0.022;
+        this.vx += dx * springF + tangX * orbitF;
+        this.vy += dy * springF + tangY * orbitF;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        var maxSpd = 0.8 + swirlProgress * 2.2;
+        var maxSpd = 0.4 + spinP * spinP * 3.2;
         if (spd > maxSpd) { this.vx=this.vx/spd*maxSpd; this.vy=this.vy/spd*maxSpd; }
-        this.vx *= 0.96; this.vy *= 0.96;
+        this.vx *= 0.97; this.vy *= 0.97;
 
       } else if (state === 3) {
-        // SPREAD — slow lazy drift outward
-        var cx = W*0.5, cy = H*0.5;
-        var dx = this.x - cx, dy = this.y - cy;
+        // SPREAD — drift outward from own group center
+        var dx = this.x - gc.x, dy = this.y - gc.y;
         var dist = Math.sqrt(dx*dx+dy*dy) || 1;
-        // Very gentle outward nudge + small random drift
         this.vx += (dx/dist)*0.04 + (Math.random()-0.5)*0.08;
         this.vy += (dy/dist)*0.04 + (Math.random()-0.5)*0.08;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
@@ -130,7 +156,7 @@ NEW_JS = r"""
         this.vx *= 0.985; this.vy *= 0.985;
 
       } else {
-        // DRIFT — gentle sinusoidal float
+        // DRIFT — sinusoidal float
         this.vx += Math.sin(this.wobble)*0.03;
         this.vy += Math.cos(this.wobble*0.7)*0.03;
         this.vx += (Math.random()-0.5)*0.07;
@@ -163,8 +189,6 @@ NEW_JS = r"""
     var particles = [];
     for (var i=0;i<COUNT;i++) particles.push(new Particle(i));
 
-    var swirlProgress = 0;
-
     function tickState() {
       var now = Date.now();
       var elapsed = now - stateStart;
@@ -173,13 +197,12 @@ NEW_JS = r"""
         stateStart = now;
         elapsed = 0;
         swirlProgress = 0;
-        // When entering SPREAD: tiny gentle push (NOT explosive)
         if (idleState === 3) {
-          var cx=W*0.5, cy=H*0.5;
+          // Gentle push outward from each group center
           for (var i=0;i<particles.length;i++) {
-            var dx=particles[i].x-cx, dy=particles[i].y-cy;
+            var gc = groupCenters[particles[i].group];
+            var dx=particles[i].x-gc.x, dy=particles[i].y-gc.y;
             var d=Math.sqrt(dx*dx+dy*dy)||1;
-            // Very small initial push — let the force do the work gradually
             particles[i].vx += (dx/d)*(0.3+Math.random()*0.4);
             particles[i].vy += (dy/d)*(0.3+Math.random()*0.4);
           }

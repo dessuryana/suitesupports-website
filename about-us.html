@@ -1225,47 +1225,13 @@ body { animation: pageFadeIn 0.6s ease forwards; }
   }
 
 
-
-
-
-
-    // 3. Fisher-Yates shuffle of destination indices
-    var order = nat.map(function(_, i) { return i; });
-    for (var i = order.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
-    }
-
-    // 4. Snap each char to its shuffled position (no transition yet)
-    chars.forEach(function(s, i) {
-      var dx = nat[order[i]].x - nat[i].x;
-      var dy = nat[order[i]].y - nat[i].y;
-      s.style.transition = 'none';
-      s.style.transform  = 'translate(' + dx + 'px,' + dy + 'px)';
-    });
-
-    // 5. Two rAF frames later → animate every char home over 8-10 s
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        chars.forEach(function(s, i) {
-          var delay    = i * 28 + Math.random() * 500;
-          var duration = 8000 + Math.random() * 2000;
-          s.style.transition = 'transform ' + duration + 'ms cubic-bezier(0.16,1,0.3,1) ' + delay + 'ms';
-          s.style.transform  = 'translate(0,0)';
-        });
-      });
-    });
-  });
-
-  // ── SCRAMBLE TITLE ANIMATION ─────────────────────────────────────────────
-  // Rebuild h1 as flat spans (no <em> wrappers) so gold chars never duplicate.
-  // Gold/italic is applied directly on each span instead of via em inheritance.
+  // ── SCRAMBLE TITLE ANIMATION ───────────────────────────────────────────
   document.fonts.ready.then(function() {
     var el = document.querySelector('.hero-title');
     if (!el || el.dataset.sc) return;
     el.dataset.sc = '1';
 
-    // 1. Walk current DOM, collect every character with its gold status
+    // Collect every char + gold flag by walking current DOM
     var charList = [];
     (function scan(node, gold) {
       if (node.nodeType === 3) {
@@ -1279,7 +1245,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       }
     })(el, false);
 
-    // 2. Rebuild h1 as flat structure — no em tags, gold applied inline
+    // Rebuild h1 as flat spans — no em wrappers, gold applied directly
     el.innerHTML = '';
     var chars = [];
     charList.forEach(function(ci) {
@@ -1294,29 +1260,27 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     });
     if (!chars.length) return;
 
-    // 3. Measure every character (fonts loaded = accurate positions)
+    // Measure natural positions (fonts loaded = pixel-accurate)
     var er  = el.getBoundingClientRect();
     var nat = chars.map(function(s) {
       var r = s.getBoundingClientRect();
       return { x: r.left - er.left, y: r.top - er.top };
     });
 
-    // 4. Fisher-Yates shuffle of destination indices
+    // Fisher-Yates shuffle
     var order = nat.map(function(_, i) { return i; });
     for (var i = order.length - 1; i > 0; i--) {
-      var j   = Math.floor(Math.random() * (i + 1));
+      var j = Math.floor(Math.random() * (i + 1));
       var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
     }
 
-    // 5. Snap every char to its shuffled position (no transition)
+    // Snap to scrambled positions
     chars.forEach(function(s, i) {
       s.style.transition = 'none';
-      s.style.transform  = 'translate(' +
-        (nat[order[i]].x - nat[i].x) + 'px,' +
-        (nat[order[i]].y - nat[i].y) + 'px)';
+      s.style.transform  = 'translate(' + (nat[order[i]].x - nat[i].x) + 'px,' + (nat[order[i]].y - nat[i].y) + 'px)';
     });
 
-    // 6. Two rAF frames later → animate each char home over 8-10 s
+    // Two rAF frames then animate home over 8-10 s
     requestAnimationFrame(function() {
       requestAnimationFrame(function() {
         chars.forEach(function(s, i) {
@@ -1328,6 +1292,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       });
     });
   });
+
 
   // Add star ratings to testimonials
   document.querySelectorAll('.t-card').forEach(card => {

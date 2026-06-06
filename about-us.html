@@ -1259,8 +1259,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     if (!charData.length) return;
 
     // 2. Hide original title text (keep layout space so page doesnt jump)
-    titleEl.style.color = 'transparent';
-    titleEl.querySelectorAll('em').forEach(function(e) { e.style.color = 'transparent'; });
+    titleEl.style.visibility = 'hidden';
 
     // 3. Overlay container inside .hero-left
     var heroLeft = titleEl.closest('.hero-left') || titleEl.parentElement;
@@ -1322,8 +1321,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       });
       // After all animations finish, restore original title and remove overlay
       setTimeout(function() {
-        titleEl.style.color = '';
-        titleEl.querySelectorAll('em').forEach(function(e) { e.style.color = ''; });
+        titleEl.style.visibility = '';
         overlay.remove();
       }, 13000);
     }, 350);

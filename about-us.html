@@ -129,6 +129,7 @@
   .hero-tagline { font-size: 14px; color: var(--teal-light); font-weight: 400; margin-bottom: 28px; letter-spacing: 0.3px; }
   .hero-title { font-size: 64px; line-height: 1.05; margin-bottom: 24px; }
   .hero-title em { color: var(--gold-bright); font-style: italic; }
+  .sc { display: inline-block; }
 
   .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 480px; }
   .hero-stats {
@@ -1223,109 +1224,70 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     }, { passive: true });
   }
 
-  // ── SCRAMBLE TITLE ANIMATION ──────────────────────────────────────────
-  // Overlay approach: hide title text, measure every char via Range API,
-  // create absolutely-positioned overlay spans, shuffle, animate home.
-  (function() {
-    var titleEl = document.querySelector('.hero-title');
-    if (!titleEl || titleEl.dataset.scrambled) return;
-    titleEl.dataset.scrambled = '1';
 
-    // 1. Collect character positions using Range API (works through em tags)
-    var charData = [];
-    var tRect = titleEl.getBoundingClientRect();
 
-    function collectNode(node, isGold, isItalic) {
+
+  // ── SCRAMBLE TITLE ANIMATION (in-place, fonts-ready) ─────────────────────
+  document.fonts.ready.then(function() {
+    var el = document.querySelector('.hero-title');
+    if (!el || el.dataset.sc) return;
+    el.dataset.sc = '1';
+
+    // 1. Wrap every non-space character in a span.sc (preserves em colour/italic)
+    var chars = [];
+    (function wrap(node) {
       if (node.nodeType === 3) {
-        var txt = node.textContent;
-        for (var i = 0; i < txt.length; i++) {
-          if (txt[i] === ' ' || txt[i].charCodeAt(0) === 10) continue;
-          var rng = document.createRange();
-          rng.setStart(node, i);
-          rng.setEnd(node, i + 1);
-          var cr = rng.getBoundingClientRect();
-          if (cr.width < 1 && cr.height < 1) continue;
-          charData.push({ ch: txt[i], x: cr.left - tRect.left, y: cr.top - tRect.top, gold: isGold, italic: isItalic });
+        var t = node.textContent;
+        var f = document.createDocumentFragment();
+        for (var i = 0; i < t.length; i++) {
+          if (t[i] === ' ') { f.appendChild(document.createTextNode(' ')); continue; }
+          var s = document.createElement('span');
+          s.className = 'sc';
+          s.textContent = t[i];
+          f.appendChild(s);
+          chars.push(s);
         }
-        return;
+        node.parentNode.replaceChild(f, node);
+      } else if (node.nodeType === 1 && node.tagName !== 'BR') {
+        Array.from(node.childNodes).forEach(wrap);
       }
-      if (node.nodeType === 1 && node.tagName !== 'BR') {
-        var g = isGold   || node.tagName === 'EM';
-        var k = isItalic || node.tagName === 'EM';
-        Array.from(node.childNodes).forEach(function(c) { collectNode(c, g, k); });
-      }
-    }
-    collectNode(titleEl, false, false);
-    if (!charData.length) return;
+    })(el);
+    if (!chars.length) return;
 
-    // 2. Hide original title text (keep layout space so page doesnt jump)
-    titleEl.style.visibility = 'hidden';
-
-    // 3. Overlay container inside .hero-left
-    var heroLeft = titleEl.closest('.hero-left') || titleEl.parentElement;
-    heroLeft.style.position = 'relative';
-    var hlRect = heroLeft.getBoundingClientRect();
-
-    var overlay = document.createElement('div');
-    overlay.style.cssText = 'position:absolute;top:0;left:0;width:200%;height:300%;pointer-events:none;z-index:5;';
-    heroLeft.appendChild(overlay);
-
-    // 4. Compute natural absolute positions within heroLeft
-    var natX = [], natY = [];
-    var cs = window.getComputedStyle(titleEl);
-    var fFamily = cs.fontFamily;
-    var fWeight = cs.fontWeight;
-    var fSize   = cs.fontSize;
-    var WHITE = '#F8F9FA', GOLD = '#ECC84A';
-
-    var spans = charData.map(function(cd, idx) {
-      var ox = tRect.left - hlRect.left + cd.x;
-      var oy = tRect.top  - hlRect.top  + cd.y;
-      natX.push(ox); natY.push(oy);
-
-      var sp = document.createElement('span');
-      sp.textContent = cd.ch;
-      sp.style.cssText = [
-        'position:absolute', 'left:0', 'top:0',
-        'transform:translate(' + ox + 'px,' + oy + 'px)',
-        'font-family:' + fFamily,
-        'font-size:' + fSize,
-        'font-weight:' + fWeight,
-        'font-style:' + (cd.italic ? 'italic' : 'normal'),
-        'color:' + (cd.gold ? GOLD : WHITE),
-        'line-height:1', 'white-space:nowrap', 'will-change:transform', 'display:block'
-      ].join(';');
-      overlay.appendChild(sp);
-      return sp;
+    // 2. Measure every character's natural position (fonts loaded = pixel-accurate)
+    var er  = el.getBoundingClientRect();
+    var nat = chars.map(function(s) {
+      var r = s.getBoundingClientRect();
+      return { x: r.left - er.left, y: r.top - er.top };
     });
 
-    // 5. Fisher-Yates shuffle of target positions
-    var order = spans.map(function(_, i) { return i; });
+    // 3. Fisher-Yates shuffle of destination indices
+    var order = nat.map(function(_, i) { return i; });
     for (var i = order.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
     }
-    // Move each span to its shuffled target immediately
-    spans.forEach(function(sp, idx) {
-      sp.style.transition = 'none';
-      sp.style.transform  = 'translate(' + natX[order[idx]] + 'px,' + natY[order[idx]] + 'px)';
+
+    // 4. Snap each char to its shuffled position (no transition yet)
+    chars.forEach(function(s, i) {
+      var dx = nat[order[i]].x - nat[i].x;
+      var dy = nat[order[i]].y - nat[i].y;
+      s.style.transition = 'none';
+      s.style.transform  = 'translate(' + dx + 'px,' + dy + 'px)';
     });
 
-    // 6. Animate every span back to its correct (natural) position
-    setTimeout(function() {
-      spans.forEach(function(sp, idx) {
-        var delay    = idx * 30 + Math.random() * 600;
-        var duration = 7500 + Math.random() * 2500;
-        sp.style.transition = 'transform ' + duration + 'ms cubic-bezier(0.22,1,0.36,1) ' + delay + 'ms';
-        sp.style.transform  = 'translate(' + natX[idx] + 'px,' + natY[idx] + 'px)';
+    // 5. Two rAF frames later → animate every char home over 8-10 s
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        chars.forEach(function(s, i) {
+          var delay    = i * 28 + Math.random() * 500;
+          var duration = 8000 + Math.random() * 2000;
+          s.style.transition = 'transform ' + duration + 'ms cubic-bezier(0.16,1,0.3,1) ' + delay + 'ms';
+          s.style.transform  = 'translate(0,0)';
+        });
       });
-      // After all animations finish, restore original title and remove overlay
-      setTimeout(function() {
-        titleEl.style.visibility = '';
-        overlay.remove();
-      }, 13000);
-    }, 350);
-  })();
+    });
+  });
 
   // Add star ratings to testimonials
   document.querySelectorAll('.t-card').forEach(card => {

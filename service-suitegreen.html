@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuiteGreen Housekeeping — Smart QR Housekeeping Preference Platform | SuiteSupports</title>
+<meta name="description" content="Guest-led housekeeping preferences via in-room QR. Save linen, water and labour while improving guest privacy. Built for modern hotels.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:        #0B1C28;
+    --teal-deep:   #122A38;
+    --teal-dark:   #1A3A4A;
+    --teal-mid:    #1E5F74;
+    --teal-bright: #2D8FA0;
+    --teal-light:  #4AABB8;
+    --gold:        #D4A427;
+    --gold-bright: #ECC84A;
+    --white:       #F8F9FA;
+    --muted:       #8FA9B5;
+    --muted-dark:  #4A6270;
+    --border:      rgba(212,164,39,0.2);
+    --border-light:rgba(255,255,255,0.08);
+    --green:       #4ade80;
+    --orange:      #fb923c;
+    --red:         #f87171;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
+  a { text-decoration: none; color: inherit; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 500; display: block; margin-bottom: 12px; }
+  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 20px 0 28px; }
+
+  /* ─── NAV ─── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11,28,40,0.97); backdrop-filter: blur(12px); border-bottom: 0.5px solid var(--border); height: 68px; display: flex; align-items: center; }
+  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'DM Sans', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.4px; }
+  .nav-logo em { color: var(--gold); font-style: italic; }
+  .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); transition: color 0.2s; }
+  .nav-back:hover { color: var(--white); }
+  .nav-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-gold { font-size: 13px; color: var(--gold); transition: color 0.2s; white-space: nowrap; }
+  .nav-gold:hover { color: var(--gold-bright); }
+  .btn-primary { background: var(--gold); color: var(--navy); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; border-radius: 2px; display: inline-block; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(212,164,39,0.45); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; border-radius: 2px; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── MOBILE NAV ─── */
+  .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-burger span { display: block; width: 22px; height: 1.5px; background: var(--white); }
+  .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(11,28,40,0.99); backdrop-filter: blur(16px); border-bottom: 0.5px solid var(--border); padding: 20px 24px 28px; z-index: 99; flex-direction: column; gap: 4px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-nav-link { font-size: 15px; color: var(--muted); padding: 10px 0; border-bottom: 0.5px solid var(--border-light); transition: color 0.2s; }
+  .mobile-nav-link:hover, .mobile-nav-link.active { color: var(--white); }
+  .mobile-nav-sub { font-size: 13px; color: var(--muted); padding: 8px 12px; transition: color 0.2s; }
+  .mobile-nav-sub:hover, .mobile-nav-sub.active { color: var(--gold); }
+  .mobile-nav-section { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted-dark); padding: 14px 0 4px; font-weight: 500; }
+  .mobile-nav-cta { margin-top: 12px; background: var(--gold); color: var(--navy); padding: 12px 24px; font-size: 13px; font-weight: 600; text-align: center; border-radius: 2px; }
+
+  /* ─── HERO ─── */
+  .hero { min-height: 72vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(155deg, #0B1C28 0%, #0D2234 50%, #122A38 100%); padding-top: 68px; }
+  .hero::before { content: ''; position: absolute; top: -120px; right: -120px; width: 540px; height: 540px; border-radius: 50%; border: 1px solid rgba(212,164,39,0.06); pointer-events: none; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 360px; height: 360px; border-radius: 50%; border: 1px solid rgba(45,143,160,0.07); pointer-events: none; }
+  .hero-inner { max-width: 1200px; margin: 0 auto; padding: 60px 48px; width: 100%; display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center; position: relative; z-index: 1; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted-dark); margin-bottom: 20px; }
+  .breadcrumb a { color: var(--muted-dark); transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: var(--gold); }
+  .breadcrumb svg { width: 10px; height: 10px; stroke: var(--muted-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,164,39,0.08); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 2px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 24px; }
+  .hero-tag svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 68px; font-weight: 700; line-height: 0.95; letter-spacing: -2px; color: var(--white); margin-bottom: 20px; }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-desc { font-size: 15px; color: var(--muted); line-height: 1.85; max-width: 500px; margin-bottom: 36px; }
+  .hero-cta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
+  /* ─── PHONE MOCKUP (Guest housekeeping screen) ─── */
+  .phone-wrap { display: flex; justify-content: center; align-items: center; }
+  .phone { width: 280px; background: #0a1820; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 32px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04); position: relative; }
+  .phone-notch { width: 80px; height: 20px; background: #0a1820; border-radius: 0 0 12px 12px; margin: 0 auto; border: 1.5px solid rgba(255,255,255,0.08); border-top: none; }
+  .phone-status { padding: 6px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--muted-dark); }
+  /* dark header band like SuiteGreen */
+  .phone-header { background: linear-gradient(155deg, #0B1C28 0%, #122A38 100%); padding: 12px 18px 22px; border-bottom: 0.5px solid var(--border-light); position: relative; overflow: hidden; }
+  .phone-header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; border-radius: 50%; border: 1px solid rgba(212,164,39,0.12); }
+  .phone-wordmark { font-size: 13px; font-weight: 600; letter-spacing: -0.3px; text-align: center; }
+  .phone-wordmark em { color: var(--gold); font-style: italic; }
+  .phone-eyebrow { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-top: 14px; display: flex; align-items: center; gap: 5px; }
+  .phone-eyebrow svg { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+  .phone-hotel { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--white); line-height: 1.05; margin-top: 4px; }
+  .phone-hotel-sub { font-size: 9px; color: var(--muted); margin-top: 4px; }
+  .phone-goldline { width: 22px; height: 1.5px; background: var(--gold); margin-top: 8px; }
+
+  .phone-body { padding: 14px 14px 14px; background: #f4f6f8; }
+  .phone-stay-card { background: #fff; border-radius: 10px; padding: 10px 12px; display: flex; gap: 10px; align-items: center; box-shadow: 0 1px 2px rgba(11,28,40,0.04), 0 6px 16px -8px rgba(11,28,40,0.06); }
+  .phone-stay-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .phone-stay-avatar svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .phone-stay-label { font-size: 7px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+  .phone-stay-name { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; color: var(--navy); line-height: 1; margin-top: 1px; }
+  .phone-stay-dates { font-size: 8px; color: var(--muted-dark); margin-top: 3px; }
+
+  .phone-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .phone-tile { background: var(--navy); color: var(--white); border-radius: 10px; padding: 10px 10px; display: flex; flex-direction: column; gap: 4px; position: relative; }
+  .phone-tile.light { background: #fff; color: var(--navy); border: 0.5px solid rgba(11,28,40,0.08); }
+  .phone-tile-icon { width: 18px; height: 18px; }
+  .phone-tile.light .phone-tile-icon svg { stroke: var(--muted-dark); }
+  .phone-tile-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .phone-tile-title { font-size: 10px; font-weight: 600; line-height: 1.2; margin-top: 4px; }
+  .phone-tile-sub { font-size: 8px; opacity: 0.7; line-height: 1.2; }
+  .phone-tile-check { position: absolute; right: 6px; top: 6px; width: 13px; height: 13px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; }
+  .phone-tile-check svg { width: 8px; height: 8px; stroke: var(--navy); fill: none; stroke-width: 3; }
+
+  .phone-question { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 700; color: var(--navy); margin: 12px 4px 8px; line-height: 1.2; }
+  .phone-dayrow { background: #fff; border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; box-shadow: 0 1px 2px rgba(11,28,40,0.04); border: 0.5px solid rgba(11,28,40,0.05); }
+  .phone-checkbox { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid rgba(11,28,40,0.25); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .phone-checkbox.checked { background: var(--navy); border-color: var(--navy); }
+  .phone-checkbox.checked svg { width: 10px; height: 10px; stroke: var(--gold); fill: none; stroke-width: 3; }
+  .phone-cal-chip { width: 22px; height: 22px; border-radius: 50%; background: #EEF2F4; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .phone-cal-chip svg { width: 11px; height: 11px; stroke: var(--gold); fill: none; stroke-width: 1.6; }
+  .phone-day-name { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .phone-day-date { font-size: 8px; color: var(--muted-dark); margin-top: 2px; }
+  .phone-day-pill { margin-left: auto; font-size: 7px; padding: 2px 6px; background: rgba(212,164,39,0.12); color: var(--gold); border: 0.5px solid rgba(212,164,39,0.3); border-radius: 2px; font-weight: 600; letter-spacing: 0.5px; }
+
+  .phone-submit { margin: 12px 4px 6px; background: var(--navy); padding: 11px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .phone-submit svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .phone-submit-text { font-size: 10px; font-weight: 600; color: var(--gold); letter-spacing: 0.3px; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 88px 0; }
+  section.alt { background: var(--teal-deep); }
+  .section-header { max-width: 640px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 700; line-height: 1.05; letter-spacing: -1px; color: var(--white); margin-bottom: 8px; }
+  .section-title em { color: var(--gold); font-style: italic; }
+  .section-sub { font-size: 15px; color: var(--muted); line-height: 1.8; }
+  .section-divider { border: none; border-top: 0.5px solid var(--border-light); margin: 0; }
+
+  /* ─── FLOW STEPS ─── */
+  .flow-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; position: relative; }
+  .flow-grid::before { content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), var(--border), var(--border), transparent); z-index: 0; }
+  .flow-step { padding: 0 16px; text-align: center; position: relative; z-index: 1; }
+  .flow-num { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--border); background: var(--navy); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--gold); transition: background 0.2s, border-color 0.2s; }
+  .flow-step:hover .flow-num { background: rgba(212,164,39,0.08); border-color: rgba(212,164,39,0.5); }
+  .flow-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 8px; line-height: 1.2; }
+  .flow-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
+
+  /* ─── FEATURES GRID ─── */
+  .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border-light); border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
+  .feature-card { background: var(--navy); padding: 36px 32px; transition: background 0.2s; }
+  .feature-card:hover { background: rgba(26,58,74,0.8); }
+  .feature-icon { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: border-color 0.2s; }
+  .feature-card:hover .feature-icon { border-color: rgba(212,164,39,0.4); }
+  .feature-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .feature-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.2; }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+  /* ─── ROLE CARDS ─── */
+  .dept-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .dept-card { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 28px 24px; text-align: center; transition: border-color 0.2s, background 0.2s; }
+  .dept-card:hover { border-color: rgba(212,164,39,0.3); background: rgba(26,58,74,0.5); }
+  .dept-icon { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .dept-icon svg { width: 22px; height: 22px; stroke: var(--teal-light); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .dept-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .dept-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
+
+  /* ─── HIGHLIGHTS ─── */
+  .highlight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .highlight-card { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 40px 36px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+  .highlight-card:hover { border-color: rgba(212,164,39,0.3); }
+  .highlight-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--teal-mid), transparent); }
+  .highlight-card.gold::before { background: linear-gradient(90deg, var(--gold), transparent); }
+  .highlight-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 12px; line-height: 1.15; }
+  .highlight-desc { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+  .highlight-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .highlight-bullets li { font-size: 12px; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .highlight-bullets li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--teal-light); margin-top: 7px; flex-shrink: 0; }
+  .highlight-card.gold .highlight-bullets li::before { background: var(--gold); }
+
+  /* ─── STATS STRIP ─── */
+  .stats-strip { background: var(--teal-deep); border-top: 0.5px solid var(--border-light); border-bottom: 0.5px solid var(--border-light); padding: 32px 0; }
+  .stats-inner { display: grid; grid-template-columns: repeat(4,1fr); text-align: center; }
+  .stat-col { padding: 0 24px; border-right: 0.5px solid var(--border-light); }
+  .stat-col:last-child { border-right: none; }
+  .stat-big { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 700; line-height: 1; }
+  .stat-small { font-size: 11px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 2px; }
+
+  /* ─── TECH STACK ─── */
+  .stack-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border-light); border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
+  .stack-card { background: var(--navy); padding: 28px 24px; transition: background 0.2s; }
+  .stack-card:hover { background: rgba(26,58,74,0.8); }
+  .stack-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-light); margin-bottom: 8px; font-weight: 500; }
+  .stack-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .stack-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
+
+  /* ─── CTA ─── */
+  .cta-block { background: rgba(255,255,255,0.02); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 64px 80px; text-align: center; position: relative; overflow: hidden; }
+  .cta-block::before { content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 400px; height: 120px; background: radial-gradient(ellipse, rgba(212,164,39,0.07) 0%, transparent 70%); pointer-events: none; }
+  .cta-block-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 700; line-height: 1.1; letter-spacing: -1px; color: var(--white); margin-bottom: 16px; }
+  .cta-block-title em { color: var(--gold); font-style: italic; }
+  .cta-block-sub { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .cta-block-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── FOOTER ─── */
+  .page-footer { background: var(--navy); border-top: 0.5px solid var(--border-light); padding: 28px 0; }
+  .page-footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; }
+  .footer-logo em { color: var(--gold); font-style: italic; }
+  .footer-copy { font-size: 12px; color: var(--muted-dark); }
+  .footer-back a { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted-dark); transition: color 0.2s; }
+  .footer-back a:hover { color: var(--gold); }
+  .footer-back svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ─── MISC ─── */
+  #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); z-index: 200; width: 0; transition: width 0.1s linear; }
+  #scroll-top { position: fixed; bottom: 32px; right: 32px; width: 40px; height: 40px; background: rgba(11,28,40,0.95); border: 0.5px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: opacity 0.3s, transform 0.2s; z-index: 90; }
+  #scroll-top.visible { opacity: 1; }
+  #scroll-top:hover { transform: translateY(-2px); }
+  #scroll-top svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .wa-float { position: fixed; bottom: 80px; right: 32px; width: 44px; height: 44px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37,211,102,0.3); z-index: 90; transition: transform 0.2s, box-shadow 0.2s; }
+  .wa-float:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
+  .wa-float svg { width: 22px; height: 22px; fill: #fff; }
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fade-up.visible { opacity: 1; transform: none; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 60px; }
+    .hero-title { font-size: 48px; }
+    .phone-wrap { display: none; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .dept-grid { grid-template-columns: 1fr 1fr; }
+    .highlight-grid { grid-template-columns: 1fr; }
+    .stack-grid { grid-template-columns: 1fr 1fr; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .stat-col { border-right: none; border-bottom: 0.5px solid var(--border-light); padding: 16px; }
+    .flow-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .flow-grid::before { display: none; }
+    section { padding: 60px 0; }
+    .cta-block { padding: 48px 32px; }
+    .container { padding: 0 24px; }
+    .nav-inner { padding: 0 24px; }
+    .nav-back, .nav-gold, .btn-primary { display: none; }
+    .nav-burger { display: flex; }
+    .page-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .features-grid, .stack-grid { grid-template-columns: 1fr; }
+    .dept-grid { grid-template-columns: 1fr; }
+    .stats-inner { grid-template-columns: 1fr; }
+    .flow-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+<div id="scroll-top"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+
+<a class="wa-float" href="https://wa.me/6285338662750" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="suitesupports-website.html" class="nav-logo">Suite<em>Supports</em></a>
+    <a href="suitesupports-website.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+    <a href="https://suitesupports-gold-intelligence.netlify.app/" class="nav-gold">Gold Intelligence</a>
+    <a href="suitesupports-website.html#contact" class="btn-primary">Get Started</a>
+    <button class="nav-burger" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="suitesupports-website.html" class="mobile-nav-link">Home</a>
+  <div class="mobile-nav-section">Services</div>
+  <a href="service-ai-chatbot.html" class="mobile-nav-sub">AI Chatbot Solutions</a>
+  <a href="service-web-design.html" class="mobile-nav-sub">Web Design &amp; Development</a>
+  <a href="service-revenue-management.html" class="mobile-nav-sub">Revenue Management</a>
+  <a href="service-digital-marketing.html" class="mobile-nav-sub">Hotel Digital Marketing</a>
+  <div class="mobile-nav-section">Products</div>
+  <a href="service-pms.html" class="mobile-nav-sub">SS PMS Cloud</a>
+  <a href="service-booking-engine.html" class="mobile-nav-sub">Booking Engine</a>
+  <a href="service-crm.html" class="mobile-nav-sub">CRM Platform</a>
+  <a href="service-suitecomm.html" class="mobile-nav-sub">SuiteComm</a>
+  <a href="service-suitegreen.html" class="mobile-nav-sub active">SuiteGreen Housekeeping</a>
+  <a href="about-us.html" class="mobile-nav-link">About Us</a>
+  <a href="suitesupports-website.html#contact" class="mobile-nav-link">Contact</a>
+  <a href="suitesupports-website.html#contact" class="mobile-nav-cta">Get Started</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="suitesupports-website.html">Home</a>
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <a href="suitesupports-website.html#services">Products</a>
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>SuiteGreen Housekeeping</span>
+      </div>
+      <div class="hero-tag">
+        <svg viewBox="0 0 24 24"><path d="M3 12c0 5 4 9 9 9s9-4 9-9-4-9-9-9"/><path d="M3 12l3-3 3 3"/><path d="M21 12l-3 3-3-3"/></svg>
+        Product — Sustainability &amp; Housekeeping
+      </div>
+      <h1 class="hero-title">Save Linen,<br>Water and Labour<br>— <em>Guest-Led.</em></h1>
+      <p class="hero-desc"><span><span style="color:var(--gold)">● </span>SuiteGreen Housekeeping is a QR-first guest platform. Guests scan a card in the room, choose &ldquo;do not clean my room&rdquo; for the exact days they want privacy, and Housekeeping plans the floor around it. Less linen washed, less water used, fewer disturbances — measurable savings, every day.</span></p>
+      <div class="hero-cta">
+        <a href="suitesupports-website.html#contact" class="btn-primary">Request a Demo</a>
+        <a href="#features" class="btn-outline">See How It Works</a>
+      </div>
+    </div>
+
+    <!-- Phone Mockup: SuiteGreen guest housekeeping screen -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-status">
+          <span>9:41</span>
+          <span>●●● 100%</span>
+        </div>
+        <div class="phone-header">
+          <div class="phone-wordmark">Suite<em>Supports</em></div>
+          <div class="phone-eyebrow">
+            <svg viewBox="0 0 24 24"><path d="M6 17h12l-1.5-2V11a4.5 4.5 0 0 0-9 0v4L6 17Z"/><path d="M10.5 20a1.8 1.8 0 0 0 3 0"/></svg>
+            HOUSEKEEPING
+          </div>
+          <div class="phone-hotel">Duxton Hotel Perth</div>
+          <div class="phone-goldline"></div>
+          <div class="phone-hotel-sub">Room 701 · Wed, 10 June 2026</div>
+        </div>
+        <div class="phone-body">
+          <!-- Your stay -->
+          <div class="phone-stay-card">
+            <div class="phone-stay-avatar">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.5"/><path d="M5.5 19c1.4-3 4-4.5 6.5-4.5s5.1 1.5 6.5 4.5"/></svg>
+            </div>
+            <div>
+              <div class="phone-stay-label">Your stay</div>
+              <div class="phone-stay-name">Aiko Tanaka</div>
+              <div class="phone-stay-dates">Tue, 9 Jun — Sat, 13 Jun · 4 nights</div>
+            </div>
+          </div>
+          <!-- Tiles -->
+          <div class="phone-tiles">
+            <div class="phone-tile">
+              <div class="phone-tile-check"><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></div>
+              <div class="phone-tile-icon">
+                <svg viewBox="0 0 24 24"><path d="M9 4h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H9V4Z"/><path d="M7 9h8a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1Z"/><circle cx="11" cy="14.5" r="1.4"/></svg>
+              </div>
+              <div class="phone-tile-title">Do not clean my room</div>
+              <div class="phone-tile-sub">Pick the days</div>
+            </div>
+            <div class="phone-tile light">
+              <div class="phone-tile-icon">
+                <svg viewBox="0 0 24 24"><rect x="4" y="7"  width="16" height="3.2" rx="1.2"/><rect x="4" y="11" width="16" height="3.2" rx="1.2"/><rect x="4" y="15" width="16" height="3.2" rx="1.2"/></svg>
+              </div>
+              <div class="phone-tile-title">Other preference</div>
+              <div class="phone-tile-sub">Towel only, eco refresh…</div>
+            </div>
+          </div>
+          <!-- Question -->
+          <div class="phone-question">Which days should we not clean your room?</div>
+          <!-- Day rows -->
+          <div class="phone-dayrow">
+            <div class="phone-checkbox"></div>
+            <div class="phone-cal-chip"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9.5h17"/><path d="M8 4v3M16 4v3"/></svg></div>
+            <div>
+              <div class="phone-day-name">Today</div>
+              <div class="phone-day-date">10 June</div>
+            </div>
+          </div>
+          <div class="phone-dayrow">
+            <div class="phone-checkbox checked"><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></div>
+            <div class="phone-cal-chip"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9.5h17"/><path d="M8 4v3M16 4v3"/></svg></div>
+            <div>
+              <div class="phone-day-name">Thursday</div>
+              <div class="phone-day-date">11 June</div>
+            </div>
+            <div class="phone-day-pill">On file</div>
+          </div>
+          <div class="phone-dayrow">
+            <div class="phone-checkbox checked"><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></div>
+            <div class="phone-cal-chip"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9.5h17"/><path d="M8 4v3M16 4v3"/></svg></div>
+            <div>
+              <div class="phone-day-name">Friday</div>
+              <div class="phone-day-date">12 June</div>
+            </div>
+            <div class="phone-day-pill">On file</div>
+          </div>
+          <div class="phone-submit">
+            <svg viewBox="0 0 24 24"><path d="M21 3 10.5 13.5"/><path d="m21 3-7.5 18-3-7.5L3 10.5 21 3Z"/></svg>
+            <div class="phone-submit-text">Submit preference</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STATS STRIP ═══ -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-col">
+        <div class="stat-big" style="color:var(--gold);">QR</div>
+        <div class="stat-small">In-room, no app download</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-big" style="color:var(--teal-light);">Multi-day</div>
+        <div class="stat-small">Pick every privacy night</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-big" style="color:var(--white);">Live</div>
+        <div class="stat-small">Dashboard for Housekeeping</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-big" style="color:var(--white);">Report</div>
+        <div class="stat-small">Linen · Water · Labour saved</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section id="features">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:56px;">
+      <span class="label">How It Works</span>
+      <h2 class="section-title">Scan, Choose,<br>Done. The Hotel <em>Plans Around It.</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">SuiteGreen turns the in-room QR card into a complete guest preference channel. No app downloads, no front-office calls, no door hangers. Five steps from scan to a measurable saving.</p>
+    </div>
+    <div class="flow-grid fade-up">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-title">Guest Scans QR</div>
+        <p class="flow-desc">The guest opens the QR card in their room. SuiteGreen recognises the room, greets them by name, and shows their stay window — all from a single secure token. No login required.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-title">Picks Privacy Days</div>
+        <p class="flow-desc">&ldquo;Do not clean my room&rdquo; is the lead option. The guest ticks any combination of remaining nights — today, tomorrow, the night before they leave — and submits in one tap.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-title">Live to Dashboard</div>
+        <p class="flow-desc">The Housekeeping dashboard updates instantly. Supervisors see the guest name, room, the days picked, and any notes. Late requests are flagged automatically based on the property cut-off.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-title">Attendant Plans Ahead</div>
+        <p class="flow-desc">An &ldquo;Upcoming preferences · next 7 days&rdquo; panel groups every future privacy day by date so the attendant can brief the team and re-plan linen and water use before the shift starts.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-title">Savings Reported</div>
+        <p class="flow-desc">Every accepted request rolls into a sustainability report — estimated linen sets saved, towel sets saved, labour minutes saved — with CSV export ready for the monthly review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══ FEATURES ═══ -->
+<section class="alt">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">Platform Features</span>
+      <h2 class="section-title">Everything Your Floor<br>Team <em>Actually Needs</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Designed around how hotel housekeeping actually runs — the morning cut-off, the per-floor plan, the supervisor handover, the monthly sustainability report — not a generic survey tool reshaped into a hospitality skin.</p>
+    </div>
+    <div class="features-grid fade-up">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h2v2H8zM14 8h2v2h-2zM8 14h2v2H8zM14 14h2v2h-2z"/></svg>
+        </div>
+        <div class="feature-name">Secure In-Room QR</div>
+        <p class="feature-desc">Every room has a rotatable, unguessable token (<code style="font-size:11px; color:var(--teal-light);">sg_…</code>). The token never exposes the room number publicly. Disable or rotate per room in one click — no reprinting required for the full floor.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9.5h17"/><path d="M8 4v3M16 4v3"/></svg>
+        </div>
+        <div class="feature-name">Multi-Day Picker</div>
+        <p class="feature-desc">Guests tick any combination of remaining stay nights in one screen — instead of submitting a fresh request every morning. Less friction for the guest, less repeat work for Front Office.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="feature-name">Property Cut-Off Aware</div>
+        <p class="feature-desc">A configurable daily cut-off (default 09:30) marks late same-day requests with an amber pill. Future days are unaffected. Supervisors decide which late requests can still be actioned.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 19c0-7 4-13 14-13 0 9-6 14-13 14"/><path d="M5 19c3-4 6-6 9-7"/></svg>
+        </div>
+        <div class="feature-name">Sustainability Reporting</div>
+        <p class="feature-desc">Configurable per-option savings (linen sets, towel sets, labour minutes) roll up into daily and monthly reports — defensible numbers for ESG, the brand standard, or owner reviews. CSV export included.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="feature-name">Daily CSV Export</div>
+        <p class="feature-desc">One click downloads the full day&rsquo;s requests with room, guest name, preference, late flag, status, and notes. Perfect for shift handover, printed floor sheets, or your existing reporting flow.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 4v6M16 4v6"/></svg>
+        </div>
+        <div class="feature-name">Role-Based Access</div>
+        <p class="feature-desc">Admin, Housekeeping Supervisor, Attendant, Front Office, Executive — every role sees only what it should. Guest data is minimal and audit-logged on every change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══ ROLES ═══ -->
+<section>
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">Built For Every Role</span>
+      <h2 class="section-title">One Platform.<br>Every Part of the <em>Day.</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">SuiteGreen connects the guest&rsquo;s wishes to the people who plan the floor, brief the team, and report to ownership — without re-keying anything between systems.</p>
+    </div>
+    <div class="dept-grid fade-up">
+      <div class="dept-card">
+        <div class="dept-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.5"/><path d="M5.5 19c1.4-3 4-4.5 6.5-4.5s5.1 1.5 6.5 4.5"/></svg>
+        </div>
+        <div class="dept-name">Guest</div>
+        <p class="dept-desc">Scans the in-room QR. Sees their stay, picks the privacy days, taps Submit. The whole flow is mobile-first, no app download, no account creation.</p>
+      </div>
+      <div class="dept-card">
+        <div class="dept-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="dept-name">Front Office</div>
+        <p class="dept-desc">Sees every guest preference at a glance, can submit on behalf of the guest, and never has to relay &ldquo;please don&rsquo;t clean Room 701 tomorrow&rdquo; over the radio again.</p>
+      </div>
+      <div class="dept-card">
+        <div class="dept-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="dept-name">Housekeeping</div>
+        <p class="dept-desc">Live daily dashboard, kanban supervisor board, per-floor filters, status updates in one click. Plus an &ldquo;Upcoming · 7 days&rdquo; panel so the team can plan the linen run ahead of time.</p>
+      </div>
+      <div class="dept-card">
+        <div class="dept-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="dept-name">Executive</div>
+        <p class="dept-desc">Sustainability dashboard with monthly linen / towel / labour savings — and a CSV export ready for the owner&rsquo;s monthly review or ESG submission.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══ HIGHLIGHTS ═══ -->
+<section class="alt">
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">Where SuiteGreen Pays Off</span>
+      <h2 class="section-title">Privacy <em>Plus</em><br>Real Operational Saving.</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Two outcomes the hotel feels every single day — better guest experience and a measurable drop in linen, water, and labour usage. Both are tracked, audited, and reportable from day one.</p>
+    </div>
+    <div class="highlight-grid fade-up">
+      <div class="highlight-card">
+        <div class="highlight-label">Guest Experience</div>
+        <div class="highlight-title">Privacy on Their Terms</div>
+        <p class="highlight-desc">The guest never has to hang a door card, dodge an attendant, or call Reception. They tick the nights they want privacy on the in-room QR and Housekeeping plans the floor around them — quietly.</p>
+        <ul class="highlight-bullets">
+          <li>No app to download — works in any modern mobile browser</li>
+          <li>Mobile-first design with the SuiteSupports brand identity baked in</li>
+          <li>Optional notes field for &ldquo;please leave extra water&rdquo; style asks</li>
+          <li>Guests can update or add more privacy days anytime — rescanning the QR resumes their preferences</li>
+        </ul>
+      </div>
+      <div class="highlight-card gold">
+        <div class="highlight-label">Sustainability &amp; Cost</div>
+        <div class="highlight-title">Measured Linen, Water, Labour Saved</div>
+        <p class="highlight-desc">Every option you offer (Do not clean, No sheet change, Eco refresh, Towel only) carries configurable savings factors. Accepted requests roll up into daily and monthly reports — numbers you can defend.</p>
+        <ul class="highlight-bullets">
+          <li>Per-option linen sets, towel sets, labour minutes — fully configurable</li>
+          <li>Daily &amp; monthly summary by date, by floor, by preference type</li>
+          <li>CSV export for owner reviews, ESG submissions, brand-standard reports</li>
+          <li>Audit log for every guest submission, status change, and admin action</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══ TECH STACK ═══ -->
+<section>
+  <div class="container">
+    <div class="section-header fade-up" style="margin-bottom:48px;">
+      <span class="label">Built to Last</span>
+      <h2 class="section-title">Modern Stack,<br><em>Pilot-Ready</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">SuiteGreen Housekeeping ships as a pluggable Next.js application — runs standalone for a one-floor pilot today, scales to the full property when you&rsquo;re ready, integrates with Shiji or SuiteSupports PMS Cloud later.</p>
+    </div>
+    <div class="stack-grid fade-up">
+      <div class="stack-card">
+        <div class="stack-tag">Frontend</div>
+        <div class="stack-name">Next.js 15 + React 19</div>
+        <p class="stack-desc">App Router, server components, mobile-first design. Cormorant Garamond + DM Sans typography matching the SuiteSupports brand book. Loads fast, looks luxury.</p>
+      </div>
+      <div class="stack-card">
+        <div class="stack-tag">Database</div>
+        <div class="stack-name">PostgreSQL · Pluggable</div>
+        <p class="stack-desc">Local JSON store for instant pilots, Supabase Postgres for production. Same schema, single env-var switch — pilot today, go live the next month with no rewrite.</p>
+      </div>
+      <div class="stack-card">
+        <div class="stack-tag">Auth &amp; Security</div>
+        <div class="stack-name">Role-Based · Audit-Logged</div>
+        <p class="stack-desc">Staff log in with Supabase Auth. Five roles (Admin, Supervisor, Attendant, Front Office, Executive). Every important action writes to an immutable audit log.</p>
+      </div>
+      <div class="stack-card">
+        <div class="stack-tag">QR Tokens</div>
+        <div class="stack-name">Unguessable · Rotatable</div>
+        <p class="stack-desc">Per-room URL-safe tokens. Never expose the room number publicly. Rotate or disable any QR card in one click — without reprinting the entire floor.</p>
+      </div>
+      <div class="stack-card">
+        <div class="stack-tag">PMS-Ready</div>
+        <div class="stack-name">Shiji / SS PMS Cloud</div>
+        <p class="stack-desc">Built standalone for the pilot, but the schema is PMS-ready. Stayover detection, room status sync, and guest verification all wire in cleanly when you&rsquo;re ready.</p>
+      </div>
+      <div class="stack-card">
+        <div class="stack-tag">Deployment</div>
+        <div class="stack-name">Vercel · Cloud-Ready</div>
+        <p class="stack-desc">Deploys to Vercel out of the box. Custom domain such as <code style="font-size:11px;color:var(--teal-light);">green.suitesupports.pro</code> sits cleanly alongside this site. QR cards point straight at the subdomain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══ CTA ═══ -->
+<section style="padding:80px 0;">
+  <div class="container">
+    <div class="cta-block fade-up">
+      <h2 class="cta-block-title">Ready to Save Linen,<br>Water, and Labour — <em>Guest-Led?</em></h2>
+      <p class="cta-block-sub">Book a free demo and see SuiteGreen Housekeeping running with real reservations and a live Housekeeping dashboard. We&rsquo;ll walk through the guest QR flow, the multi-day picker, and the sustainability report — start to finish — at your team&rsquo;s pace.</p>
+      <div class="cta-block-btns">
+        <a href="suitesupports-website.html#contact" class="btn-primary" style="padding:14px 32px; font-size:14px;">Schedule a Demo</a>
+        <a href="https://wa.me/6285338662750" target="_blank" rel="noopener" class="btn-outline" style="padding:14px 32px; font-size:14px;">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="page-footer">
+  <div class="page-footer-inner">
+    <div class="footer-logo">Suite<em>Supports</em></div>
+    <div class="footer-copy">&copy; 2026 SuiteSupports · MingCan Network</div>
+    <div class="footer-back">
+      <a href="suitesupports-website.html">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('scroll', function() {
+    var s = document.documentElement.scrollTop || document.body.scrollTop;
+    var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('scroll-progress').style.width = (h > 0 ? (s/h)*100 : 0) + '%';
+    var st = document.getElementById('scroll-top');
+    if (s > 400) st.classList.add('visible'); else st.classList.remove('visible');
+  }, { passive: true });
+  document.getElementById('scroll-top').addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  var obs = new IntersectionObserver(function(e) { e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+  document.querySelectorAll('a[href^="#"]').forEach(function(l) { l.addEventListener('click', function(e) { var t = document.querySelector(l.getAttribute('href')); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
+  function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+</script>
+</body>
+</html>

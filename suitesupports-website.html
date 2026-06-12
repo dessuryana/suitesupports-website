@@ -2150,9 +2150,10 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     var GS = Math.floor(COUNT / G); // particles per group
 
     // States: 0=STREAM  1=GATHER  2=SWIRL  3=SPREAD
+    // Stream is the dominant phase — 45s of diagonal flow, ~22s galaxy interlude
     var idleState = 0;
     var stateStart = Date.now();
-    var STATE_MS = [18000, 5500, 22000, 6500];
+    var STATE_MS = [45000, 5000, 12000, 5000];
     var swirlProgress = 0;
 
     var galaxyTargets = [];

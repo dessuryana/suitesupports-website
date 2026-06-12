@@ -2299,9 +2299,9 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         this.vx *= 0.985; this.vy *= 0.985;
 
       } else {
-        // DRIFT — sinusoidal float
-        this.vx += Math.sin(this.wobble)*0.03;
-        this.vy += Math.cos(this.wobble*0.7)*0.03;
+        // DRIFT — sinusoidal float with gentle diagonal bias (top-left → bottom-right)
+        this.vx += Math.sin(this.wobble)*0.03 + 0.008;
+        this.vy += Math.cos(this.wobble*0.7)*0.03 + 0.006;
         this.vx += (Math.random()-0.5)*0.07;
         this.vy += (Math.random()-0.5)*0.07;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);

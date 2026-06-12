@@ -2149,10 +2149,10 @@ body { animation: pageFadeIn 0.6s ease forwards; }
     var G = 3; // number of groups
     var GS = Math.floor(COUNT / G); // particles per group
 
-    // States: 0=DRIFT  1=GATHER  2=SWIRL  3=SPREAD
+    // States: 0=STREAM  1=GATHER  2=SWIRL  3=SPREAD
     var idleState = 0;
     var stateStart = Date.now();
-    var STATE_MS = [3200, 5500, 36000, 6500];
+    var STATE_MS = [18000, 5500, 22000, 6500];
     var swirlProgress = 0;
 
     var galaxyTargets = [];
@@ -2299,24 +2299,55 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         this.vx *= 0.985; this.vy *= 0.985;
 
       } else {
-        // DRIFT — sinusoidal float with gentle diagonal bias (top-left → bottom-right)
-        this.vx += Math.sin(this.wobble)*0.03 + 0.008;
-        this.vy += Math.cos(this.wobble*0.7)*0.03 + 0.006;
-        this.vx += (Math.random()-0.5)*0.07;
-        this.vy += (Math.random()-0.5)*0.07;
+        // STREAM — visible comet flow from top-left to bottom-right
+        var flow = 0.10 + this.size * 0.05;          // bigger stars fly faster (parallax)
+        this.vx += flow + Math.sin(this.wobble)*0.025;
+        this.vy += flow * 0.74 + Math.cos(this.wobble*0.7)*0.025;
+        this.vx += (Math.random()-0.5)*0.04;
+        this.vy += (Math.random()-0.5)*0.04;
+        var maxSpd = 1.8 + this.size * 0.9;
         var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 1.4) { this.vx=this.vx/spd*1.4; this.vy=this.vy/spd*1.4; }
-        this.vx *= 0.965; this.vy *= 0.965;
+        if (spd > maxSpd) { this.vx=this.vx/spd*maxSpd; this.vy=this.vy/spd*maxSpd; }
+        this.vx *= 0.975; this.vy *= 0.975;
       }
 
       this.x += this.vx; this.y += this.vy;
-      if (this.x < -15) this.x = W+15; if (this.x > W+15) this.x = -15;
-      if (this.y < -15) this.y = H+15; if (this.y > H+15) this.y = -15;
+      if (idleState === 0 && !mouseActive) {
+        // STREAM wrap: exit bottom/right → respawn along the top/left entry edges
+        if (this.x > W+20 || this.y > H+20) {
+          if (Math.random() < 0.6) { this.x = -15 + Math.random()*W*0.25; this.y = -15; }
+          else                     { this.x = -15; this.y = -15 + Math.random()*H*0.5; }
+          this.vx = 0.6 + Math.random()*0.8;
+          this.vy = (0.6 + Math.random()*0.8) * 0.74;
+        }
+        if (this.x < -25) this.x = -20;
+        if (this.y < -25) this.y = -20;
+      } else {
+        if (this.x < -15) this.x = W+15; if (this.x > W+15) this.x = -15;
+        if (this.y < -15) this.y = H+15; if (this.y > H+15) this.y = -15;
+      }
     };
 
     Particle.prototype.draw = function() {
       var pulse = Math.sin(Date.now() * this.pSpeed + this.pOff) * 0.32 + 0.68;
       var a = this.baseAlpha * pulse, s = this.size;
+      // Comet tail while streaming — streak opposite to velocity
+      var spd = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+      if (spd > 0.8) {
+        var tailLen = Math.min(spd * 9, 34) + s * 4;
+        var tx = this.x - (this.vx/spd) * tailLen;
+        var ty = this.y - (this.vy/spd) * tailLen;
+        var tail = ctx.createLinearGradient(this.x, this.y, tx, ty);
+        tail.addColorStop(0, 'rgba('+this.color+','+(a*0.85)+')');
+        tail.addColorStop(1, 'rgba('+this.color+',0)');
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(tx, ty);
+        ctx.strokeStyle = tail;
+        ctx.lineWidth = s * 0.9;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }
       var glow = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,s*5.5);
       glow.addColorStop(0,'rgba('+this.color+','+(a*0.6)+')');
       glow.addColorStop(0.35,'rgba('+this.color+','+(a*0.22)+')');

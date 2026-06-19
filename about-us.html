@@ -679,6 +679,25 @@ body { animation: pageFadeIn 0.6s ease forwards; }
   border-color: rgba(212,164,39,0.5) !important;
   transform: scale(1.1);
 }
+
+/* ─── About-page luxury background ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(160deg, rgba(11,28,40,0.90) 0%, rgba(13,32,48,0.84) 45%, rgba(11,28,40,0.93) 100%),
+    url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1920&q=80&auto=format&fit=crop');
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  pointer-events: none;
+}
+/* Let the luxury backdrop show through the main sections (cards stay solid) */
+.hero { background: linear-gradient(160deg, rgba(11,28,40,0.58) 0%, rgba(18,42,56,0.34) 55%, rgba(14,43,58,0.58) 100%) !important; }
+.story, .values, .why { background: rgba(11,28,40,0.34) !important; }
+section[style*="var(--navy)"] { background: rgba(11,28,40,0.34) !important; }
 </style>
 </head>
 <body>

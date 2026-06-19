@@ -313,6 +313,12 @@
   * { scroll-behavior: auto !important; }
 }
 
+
+/* ─── Animated gold border-runner (auto-applied) ─── */
+.value-border { position: absolute; top: 1px; left: 1px; width: calc(100% - 2px); height: calc(100% - 2px); pointer-events: none; z-index: 4; overflow: visible; }
+.value-border rect { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 22 78; filter: drop-shadow(0 0 4px rgba(212,164,39,0.55)); animation: valueBorderRun 4.8s linear infinite; }
+@keyframes valueBorderRun { to { stroke-dashoffset: -100; } }
+@media (prefers-reduced-motion: reduce) { .value-border rect { animation: none !important; stroke: rgba(212,164,39,0.28); stroke-dasharray: none; } }
 </style>
 </head>
 <body>
@@ -758,6 +764,28 @@
   document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
   document.querySelectorAll('a[href^="#"]').forEach(function(l) { l.addEventListener('click', function(e) { var t = document.querySelector(l.getAttribute('href')); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
   function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+</script>
+<script>
+/* BORDER-RUNNER AUTO */
+(function(){
+  var sel = '.service-card, .feature-card, .module-card, .channel-card, .dept-card, .role-card, .trust-card, .stack-card, .inside-card, .smart-card, .roadmap-item, .admin-card';
+  var ns = 'http://www.w3.org/2000/svg';
+  var n = 0;
+  document.querySelectorAll(sel).forEach(function(card){
+    if (card.querySelector(':scope > svg.value-border')) return;
+    var svg = document.createElementNS(ns,'svg');
+    svg.setAttribute('class','value-border');
+    svg.setAttribute('preserveAspectRatio','none');
+    var rect = document.createElementNS(ns,'rect');
+    rect.setAttribute('width','100%'); rect.setAttribute('height','100%');
+    rect.setAttribute('rx','2'); rect.setAttribute('pathLength','100');
+    rect.style.animationDelay = (-(n % 8) * 0.6).toFixed(2) + 's';
+    svg.appendChild(rect);
+    if (getComputedStyle(card).position === 'static') card.style.position = 'relative';
+    card.insertBefore(svg, card.firstChild);
+    n++;
+  });
+})();
 </script>
 </body>
 </html>

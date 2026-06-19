@@ -687,7 +687,7 @@ body::before {
   inset: 0;
   z-index: -1;
   background-image:
-    linear-gradient(160deg, rgba(11,28,40,0.62) 0%, rgba(13,32,48,0.45) 45%, rgba(11,28,40,0.66) 100%),
+    linear-gradient(160deg, rgba(11,28,40,0.82) 0%, rgba(13,32,48,0.78) 50%, rgba(11,28,40,0.82) 100%),
     url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1920&q=80&auto=format&fit=crop');
   background-size: cover, cover;
   background-position: center, center;
@@ -695,9 +695,9 @@ body::before {
   pointer-events: none;
 }
 /* Let the luxury backdrop show through the main sections (cards stay solid) */
-.hero { background: linear-gradient(160deg, rgba(11,28,40,0.42) 0%, rgba(18,42,56,0.16) 55%, rgba(14,43,58,0.42) 100%) !important; }
-.story, .values, .why { background: rgba(11,28,40,0.62) !important; }
-section[style*="var(--navy)"] { background: rgba(11,28,40,0.62) !important; }
+.hero { background: transparent !important; }
+.story, .values, .why { background: transparent !important; }
+section[style*="var(--navy)"] { background: transparent !important; }
 </style>
 </head>
 <body>

@@ -215,13 +215,8 @@
   .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .mv-card {
     background: var(--teal-dark); border: 0.5px solid var(--border-light);
-    padding: 48px 40px; border-radius: 2px; position: relative; overflow: hidden;
+    padding: 48px 40px; border-radius: 2px; position: relative;
   }
-  .mv-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent);
-  }
-  .mv-icon { font-size: 32px; margin-bottom: 20px; line-height: 1; }
   .mv-card h3 { font-size: 30px; margin-bottom: 16px; }
   .mv-card h3 em { color: var(--gold-bright); font-style: italic; }
   .mv-card p { font-size: 15px; color: var(--muted); line-height: 1.85; }
@@ -245,13 +240,13 @@
   .value-name { font-size: 18px; font-weight: 500; color: var(--white); margin-bottom: 12px; }
   .value-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
 
-  /* Animated gold border-runner on value cards */
-  .value-card .value-border {
+  /* Animated gold border-runner on cards */
+  .value-card .value-border, .mv-card .value-border {
     position: absolute; top: 1px; left: 1px;
     width: calc(100% - 2px); height: calc(100% - 2px);
     pointer-events: none; z-index: 4; overflow: visible;
   }
-  .value-card .value-border rect {
+  .value-card .value-border rect, .mv-card .value-border rect {
     fill: none; stroke: var(--gold); stroke-width: 2;
     stroke-dasharray: 22 78; stroke-dashoffset: 0;
     filter: drop-shadow(0 0 4px rgba(212,164,39,0.6));
@@ -263,8 +258,10 @@
   .value-card:nth-child(4) .value-border rect { animation-delay: -2.25s; }
   .value-card:nth-child(5) .value-border rect { animation-delay: -3s; }
   .value-card:nth-child(6) .value-border rect { animation-delay: -3.75s; }
+  .mv-card .value-border rect { animation-duration: 5.5s; }
+  .mv-card:nth-child(2) .value-border rect { animation-delay: -2.75s; }
   @media (prefers-reduced-motion: reduce) {
-    .value-card .value-border rect { animation: none; stroke: rgba(212,164,39,0.3); stroke-dasharray: none; }
+    .value-card .value-border rect, .mv-card .value-border rect { animation: none; stroke: rgba(212,164,39,0.3); stroke-dasharray: none; }
   }
 
   /* ─── TEAM ─── */
@@ -873,13 +870,13 @@ section[style*="var(--navy)"] { background: transparent !important; }
     </div>
     <div class="mv-grid fade-up">
       <div class="mv-card">
-        <div class="mv-icon">🎯</div>
+        <svg class="value-border" preserveAspectRatio="none"><rect width="100%" height="100%" rx="2" pathLength="100"></rect></svg>
         <h3>Our <em>Mission</em></h3>
         <p>To empower independent hospitality businesses with the same calibre of digital tools, strategic intelligence, and operational support that large hotel chains take for granted — delivered with the agility, care, and personal attention that only a boutique consultancy can provide.</p>
         <p style="margin-top:16px;">We measure our success by your success. Every recommendation we make, every solution we build, is designed to deliver measurable results for your property.</p>
       </div>
       <div class="mv-card">
-        <div class="mv-icon">🌟</div>
+        <svg class="value-border" preserveAspectRatio="none"><rect width="100%" height="100%" rx="2" pathLength="100"></rect></svg>
         <h3>Our <em>Vision</em></h3>
         <p>A hospitality landscape in Indonesia — and beyond — where every independent hotel, villa, and boutique property has the confidence, tools, and support to thrive in an increasingly competitive, digitally-driven market.</p>
         <p style="margin-top:16px;">We envision a future where personalized hospitality and smart technology work hand in hand, creating exceptional guest experiences and sustainable business growth.</p>

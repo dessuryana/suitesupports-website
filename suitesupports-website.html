@@ -1254,6 +1254,57 @@ body { animation: pageFadeIn 0.6s ease forwards; }
 @keyframes valueBorderRun { to { stroke-dashoffset: -100; } }
 @media (prefers-reduced-motion: reduce) { .value-border rect { animation: none !important; stroke: rgba(212,164,39,0.28); stroke-dasharray: none; } }
 </style>
+<style id="light-skin">
+  /* ═══ THEME TOGGLE BUTTON ═══ */
+  .theme-toggle { background: transparent; border: 0.5px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin-right: 8px; transition: border-color .2s, background .2s; flex-shrink: 0; }
+  .theme-toggle:hover { border-color: var(--gold); background: rgba(212,164,39,0.08); }
+  .theme-toggle svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .theme-toggle .ico-sun { display: none; }
+  :root[data-theme="light"] .theme-toggle .ico-moon { display: none; }
+  :root[data-theme="light"] .theme-toggle .ico-sun { display: inline; }
+
+  /* ═══════════ LIGHT SKIN ═══════════ */
+  :root[data-theme="light"] {
+    --navy: #F3F6F8;
+    --teal-deep: #E7EDF1;
+    --teal-dark: #FFFFFF;
+    --teal-mid: #BFD5DD;
+    --teal-bright: #227A8C;
+    --teal-light: #1C6072;
+    --gold: #9A7108;
+    --gold-bright: #7E5D06;
+    --white: #10222E;
+    --muted: #4E6975;
+    --muted-dark: #7C939F;
+    --border: rgba(154,113,8,0.28);
+    --border-light: rgba(16,34,46,0.12);
+  }
+  :root[data-theme="light"] body { background: var(--navy); color: var(--white); }
+  :root[data-theme="light"] nav { background: rgba(255,255,255,0.92) !important; border-bottom-color: rgba(16,34,46,0.09) !important; }
+  :root[data-theme="light"] .hero { background: linear-gradient(155deg, #F8FAFB 0%, #E9EFF2 55%, #F2F6F8 100%) !important; }
+  :root[data-theme="light"] #particle-canvas { display: none; }
+  :root[data-theme="light"] .service-card.featured { background: linear-gradient(140deg, #FFFFFF 0%, #EDF2F5 100%) !important; }
+  :root[data-theme="light"] .service-card.featured:hover { background: linear-gradient(140deg, #FFFFFF 0%, #E4ECF0 100%) !important; }
+  :root[data-theme="light"] .nav-dropdown-menu { background: #FFFFFF !important; box-shadow: 0 12px 40px rgba(16,34,46,0.12) !important; }
+  :root[data-theme="light"] .mobile-menu { background: rgba(255,255,255,0.98) !important; }
+  :root[data-theme="light"] .btn-primary, :root[data-theme="light"] .mobile-nav-cta, :root[data-theme="light"] .nav-cta { color: #FFFFFF !important; }
+  /* flip faint white overlays (used inline) so boxes/borders read on light */
+  :root[data-theme="light"] [style*="rgba(255,255,255,0.04)"] { background-color: rgba(16,34,46,0.04) !important; }
+  :root[data-theme="light"] [style*="rgba(255,255,255,0.03)"] { background-color: rgba(16,34,46,0.03) !important; }
+  :root[data-theme="light"] [style*="rgba(255,255,255,0.08)"] { border-color: rgba(16,34,46,0.12) !important; }
+  :root[data-theme="light"] .footer-links a, :root[data-theme="light"] .footer-copy, :root[data-theme="light"] .footer-legal a, :root[data-theme="light"] .footer-desc, :root[data-theme="light"] .footer-tagline { color: #47626F !important; }
+  :root[data-theme="light"] .footer-links a:hover, :root[data-theme="light"] .footer-legal a:hover { color: #10222E !important; }
+  :root[data-theme="light"] .mobile-nav-link, :root[data-theme="light"] .mobile-nav-sub { color: #47626F; }
+  :root[data-theme="light"] .services-visual-overlay { background: linear-gradient(140deg, rgba(16,34,46,0.55), rgba(16,34,46,0.35)) !important; }
+</style>
+<script>
+  (function(){ try { if (localStorage.getItem('ss-theme') === 'light') document.documentElement.setAttribute('data-theme','light'); } catch(e){} })();
+  function toggleTheme(){
+    var root = document.documentElement, isLight = root.getAttribute('data-theme') === 'light';
+    if (isLight) { root.removeAttribute('data-theme'); try{ localStorage.setItem('ss-theme','dark'); }catch(e){} }
+    else { root.setAttribute('data-theme','light'); try{ localStorage.setItem('ss-theme','light'); }catch(e){} }
+  }
+</script>
 </head>
 <body>
 <div id="scroll-progress"></div>
@@ -1366,6 +1417,10 @@ body { animation: pageFadeIn 0.6s ease forwards; }
       <li><a href="https://suitesupports-gold-intelligence.netlify.app/">Gold Intelligence</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="theme-toggle" aria-label="Toggle light and dark theme" onclick="toggleTheme()">
+      <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
     <a href="#contact" class="btn-primary">Schedule a Consultation</a>
     <button class="nav-burger" aria-label="Open menu" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>

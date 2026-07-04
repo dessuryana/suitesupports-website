@@ -1295,15 +1295,6 @@ body { animation: pageFadeIn 0.6s ease forwards; }
               <div class="dd-desc">Engaging digital platforms for your business</div>
             </div>
           </a>
-          <a href="service-revenue-management.html" class="nav-dropdown-item">
-            <div class="dd-icon">
-              <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            </div>
-            <div class="dd-text">
-              <div class="dd-name">Revenue Management</div>
-              <div class="dd-desc">Optimize pricing & maximize profitability</div>
-            </div>
-          </a>
           <a href="service-digital-marketing.html" class="nav-dropdown-item">
             <div class="dd-icon">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
@@ -1358,6 +1349,15 @@ body { animation: pageFadeIn 0.6s ease forwards; }
               <div class="dd-desc">Save linen, water and labour — guest-led</div>
             </div>
           </a>
+          <a href="service-suiteorder.html" class="nav-dropdown-item" style="padding-top:8px;">
+            <div class="dd-icon" style="border-color:rgba(212,164,39,0.35);">
+              <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 00-3 4.5V11a2 2 0 002 2h1zm0 0v7"/></svg>
+            </div>
+            <div class="dd-text">
+              <div class="dd-name" style="color:var(--gold-bright);">SuiteOrder</div>
+              <div class="dd-desc">QR restaurant ordering &amp; room service</div>
+            </div>
+          </a>
         </div>
       </li>
       <li><a href="about-us.html">About Us</a></li>
@@ -1376,7 +1376,6 @@ body { animation: pageFadeIn 0.6s ease forwards; }
   <div class="mobile-nav-section">Services</div>
   <a href="service-ai-chatbot.html" class="mobile-nav-sub">AI Chatbot Solutions</a>
   <a href="service-web-design.html" class="mobile-nav-sub">Web Design & Development</a>
-  <a href="service-revenue-management.html" class="mobile-nav-sub">Revenue Management</a>
   <a href="service-digital-marketing.html" class="mobile-nav-sub">Hotel Digital Marketing</a>
   <div class="mobile-nav-section">Products</div>
   <a href="service-pms.html" class="mobile-nav-sub" style="color:var(--gold);">SS PMS Cloud</a>
@@ -1384,6 +1383,7 @@ body { animation: pageFadeIn 0.6s ease forwards; }
   <a href="service-crm.html" class="mobile-nav-sub" style="color:var(--gold);">CRM Platform</a>
   <a href="service-suitecomm.html" class="mobile-nav-sub" style="color:var(--gold);">SuiteComm</a>
   <a href="service-suitegreen.html" class="mobile-nav-sub" style="color:var(--gold);">SuiteGreen Housekeeping</a>
+  <a href="service-suiteorder.html" class="mobile-nav-sub" style="color:var(--gold);">SuiteOrder</a>
   <a href="about-us.html" class="mobile-nav-link">About Us</a>
   <a href="#testimonials" class="mobile-nav-link">Client Stories</a>
   <a href="#contact" class="mobile-nav-link">Contact</a>
@@ -1507,22 +1507,11 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         <a href="service-web-design.html" class="service-link">Explore service &rarr;</a>
       </div>
 
-      <div class="service-card fade-up" id="service-revenue" style="position:relative;">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <div class="service-tag">Service 03</div>
-        <div class="service-name">Revenue Management</div>
-        <p class="service-desc">Optimize pricing strategies and maximize profitability for growth. Our revenue management approach combines data intelligence with hospitality expertise to ensure your rates, channels, and inventory are always working at peak performance.</p>
-        <div class="service-divider"></div>
-        <a href="service-revenue-management.html" class="service-link">Explore service &rarr;</a>
-      </div>
-
       <div class="service-card fade-up" id="service-marketing" style="position:relative;">
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
         </div>
-        <div class="service-tag">Service 04</div>
+        <div class="service-tag">Service 03</div>
         <div class="service-name">Hotel Digital Marketing</div>
         <p class="service-desc">Implement targeted, industry-specific strategies to boost visibility. From OTA optimisation and social media management to email campaigns and SEO, we increase your property's reach and drive direct bookings that protect your bottom line.</p>
         <div class="service-divider"></div>
@@ -1665,6 +1654,35 @@ body { animation: pageFadeIn 0.6s ease forwards; }
             <div style="background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.08); border-radius:2px; padding:16px 18px;">
               <div style="font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">Sustainability Report</div>
               <div style="font-size:12px; color:var(--muted); line-height:1.6;">Linen, towel, and labour savings rolled up daily and monthly — CSV export ready for the owner&rsquo;s review.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card featured fade-up" id="service-suiteorder" style="position:relative; grid-column: 1 / -1;">
+        <div style="display:flex; align-items:flex-start; gap:32px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:220px;">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 00-3 4.5V11a2 2 0 002 2h1zm0 0v7"/></svg>
+            </div>
+            <div class="service-tag" style="color:var(--gold-bright);">Product</div>
+            <div class="service-name">SuiteOrder</div>
+            <p class="service-desc">A multi-tenant restaurant &amp; room-service ordering platform. Guests scan a QR at the table or in their room, browse the menu, and order — dine-in, takeaway, delivery, or charged straight to their room folio. Orders land live on the kitchen display, and managers run menus, payments, and reports from one dashboard.</p>
+            <div class="service-divider"></div>
+            <a href="service-suiteorder.html" class="service-link">Explore product &rarr;</a>
+          </div>
+          <div style="flex:2; min-width:280px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; align-self:center;">
+            <div style="background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.08); border-radius:2px; padding:16px 18px;">
+              <div style="font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">QR Ordering</div>
+              <div style="font-size:12px; color:var(--muted); line-height:1.6;">Guests scan and order from any phone — no app. Dine-in, takeaway, delivery, pre-order, and room service.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.08); border-radius:2px; padding:16px 18px;">
+              <div style="font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">Charge to Room</div>
+              <div style="font-size:12px; color:var(--muted); line-height:1.6;">Hotel mode posts room-service orders straight to the guest folio via your PMS — no manual re-keying.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.08); border-radius:2px; padding:16px 18px;">
+              <div style="font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">Live Kitchen Display</div>
+              <div style="font-size:12px; color:var(--muted); line-height:1.6;">Every order appears instantly on the kitchen screen with timers and modifiers — nothing gets missed.</div>
             </div>
           </div>
         </div>
@@ -1914,8 +1932,8 @@ body { animation: pageFadeIn 0.6s ease forwards; }
               <option value="" disabled selected>Select a service</option>
               <option>AI Chatbot Solutions</option>
               <option>Web Design & Development</option>
-              <option>Revenue Management</option>
               <option>Hotel Digital Marketing</option>
+              <option>SuiteOrder — Restaurant Ordering</option>
               <option>General Enquiry</option>
             </select>
           </div>
@@ -1947,8 +1965,8 @@ body { animation: pageFadeIn 0.6s ease forwards; }
         <ul class="footer-links">
           <li><a href="#services">AI Chatbot Solutions</a></li>
           <li><a href="#services">Web Design & Development</a></li>
-          <li><a href="#services">Revenue Management</a></li>
           <li><a href="#services">Hotel Digital Marketing</a></li>
+          <li><a href="service-suiteorder.html">SuiteOrder</a></li>
         </ul>
       </div>
       <div>

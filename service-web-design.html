@@ -3,1159 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Hotel web design & development by SuiteSupports — fast, elegant, mobile-first websites that turn visitors into direct bookings.">
-<link rel="canonical" href="https://suitesupports.pro/service-web-design.html">
-<meta name="theme-color" content="#0B1C28">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SuiteSupports">
-<meta property="og:url" content="https://suitesupports.pro/service-web-design.html">
-<meta property="og:title" content="Web Design & Development — SuiteSupports">
-<meta property="og:description" content="Hotel web design & development by SuiteSupports — fast, elegant, mobile-first websites that turn visitors into direct bookings.">
-<meta property="og:image" content="https://suitesupports.pro/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Web Design & Development — SuiteSupports">
-<meta name="twitter:description" content="Hotel web design & development by SuiteSupports — fast, elegant, mobile-first websites that turn visitors into direct bookings.">
-<meta name="twitter:image" content="https://suitesupports.pro/og-image.png">
-<title>Web Design & Development — SuiteSupports</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --navy: #0B1C28; --teal-deep: #122A38; --teal-dark: #1A3A4A; --teal-mid: #1E5F74;
-    --teal-bright: #2D8FA0; --teal-light: #4AABB8; --gold: #D4A427; --gold-bright: #ECC84A;
-    --white: #F8F9FA; --muted: #8FA9B5; --muted-dark: #4A6270;
-    --border: rgba(212,164,39,0.2); --border-light: rgba(255,255,255,0.08);
-  }
-  html { font-size: 16px; scroll-behavior: smooth; }
-  body { background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
-  a { text-decoration: none; color: inherit; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
-  .label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 500; display: block; margin-bottom: 12px; }
-  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 20px 0 28px; }
-
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11,28,40,0.97); backdrop-filter: blur(12px); border-bottom: 0.5px solid var(--border); height: 68px; display: flex; align-items: center; }
-  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-  .nav-logo { font-family: 'DM Sans', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.4px; }
-  .nav-logo em { color: var(--gold); font-style: italic; }
-  .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); transition: color 0.2s; }
-  .nav-back:hover { color: var(--white); }
-  .nav-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .nav-gold { font-size: 13px; color: var(--gold); transition: color 0.2s; white-space: nowrap; }
-  .nav-gold:hover { color: var(--gold-bright); }
-  .btn-primary { background: var(--gold); color: var(--navy); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; border-radius: 2px; display: inline-block; transition: background 0.2s, transform 0.15s; }
-  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(212,164,39,0.45); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; border-radius: 2px; display: inline-block; transition: border-color 0.2s, color 0.2s; }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-  .hero { min-height: 70vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(155deg, #0B1C28 0%, #122A38 50%, #0D2030 100%); padding-top: 68px; }
-  .hero::before { content: ''; position: absolute; top: -150px; right: -150px; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(212,164,39,0.07); pointer-events: none; }
-  .hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; border-radius: 50%; border: 1px solid rgba(45,143,160,0.08); pointer-events: none; }
-  .hero-inner { max-width: 1200px; margin: 0 auto; padding: 60px 48px; width: 100%; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
-  .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted-dark); margin-bottom: 20px; }
-  .breadcrumb a { color: var(--muted-dark); transition: color 0.2s; }
-  .breadcrumb a:hover { color: var(--gold); }
-  .breadcrumb span { color: var(--gold); }
-  .breadcrumb svg { width: 10px; height: 10px; stroke: var(--muted-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,164,39,0.08); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 2px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 24px; }
-  .hero-tag svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 68px; font-weight: 700; line-height: 0.95; letter-spacing: -2px; color: var(--white); margin-bottom: 20px; }
-  .hero-title em { color: var(--gold); font-style: italic; }
-  .hero-desc { font-size: 15px; color: var(--muted); line-height: 1.85; max-width: 500px; margin-bottom: 36px; }
-  .hero-cta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-
-  /* Browser mockup */
-  .browser-mockup { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 8px; overflow: hidden; }
-  .browser-bar { padding: 12px 16px; background: rgba(255,255,255,0.05); border-bottom: 0.5px solid var(--border-light); display: flex; align-items: center; gap: 12px; }
-  .browser-dots { display: flex; gap: 6px; }
-  .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .browser-dot.red { background: rgba(255,95,87,0.5); }
-  .browser-dot.yellow { background: rgba(255,189,46,0.5); }
-  .browser-dot.green { background: rgba(40,200,64,0.5); }
-  .browser-url { flex: 1; background: rgba(255,255,255,0.06); border-radius: 4px; padding: 5px 12px; font-size: 11px; color: var(--muted-dark); }
-  .browser-body { padding: 0; }
-  .mock-nav { background: rgba(11,28,40,0.9); padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 0.5px solid var(--border-light); }
-  .mock-logo { font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; }
-  .mock-logo em { color: var(--gold); font-style: italic; }
-  .mock-nav-links { display: flex; gap: 16px; }
-  .mock-nav-link { font-size: 10px; color: var(--muted-dark); }
-  .mock-cta { background: var(--gold); color: var(--navy); font-size: 10px; font-weight: 600; padding: 5px 10px; border-radius: 2px; }
-  .mock-hero { background: linear-gradient(135deg, #0B1C28, #1A3A4A); padding: 28px 20px; }
-  .mock-hero-tag { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .mock-hero-h { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; line-height: 1; letter-spacing: -1px; color: var(--white); margin-bottom: 6px; }
-  .mock-hero-h em { color: var(--gold); font-style: italic; }
-  .mock-hero-p { font-size: 9px; color: var(--muted); line-height: 1.6; max-width: 260px; margin-bottom: 14px; }
-  .mock-hero-btns { display: flex; gap: 8px; }
-  .mock-btn-p { background: var(--gold); color: var(--navy); font-size: 9px; font-weight: 600; padding: 5px 12px; border-radius: 2px; }
-  .mock-btn-o { border: 0.5px solid rgba(212,164,39,0.4); color: var(--white); font-size: 9px; padding: 5px 12px; border-radius: 2px; }
-  .mock-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; padding: 16px 20px; background: rgba(18,42,56,0.5); }
-  .mock-card { background: rgba(255,255,255,0.04); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 10px; }
-  .mock-card-icon { width: 20px; height: 20px; background: rgba(212,164,39,0.12); border-radius: 2px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; }
-  .mock-card-icon svg { width: 10px; height: 10px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .mock-card-title { font-size: 8px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
-  .mock-card-desc { font-size: 7px; color: var(--muted-dark); line-height: 1.4; }
-
-  section { padding: 88px 0; }
-  section.alt { background: var(--teal-deep); }
-
-  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border-light); border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
-  .feature-card { background: var(--navy); padding: 36px 32px; transition: background 0.2s; position: relative; }
-  .feature-card:hover { background: rgba(26,58,74,0.8); }
-  .feature-icon { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-  .feature-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .feature-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.2; }
-  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
-
-  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
-  .step { padding: 36px 28px; border-right: 0.5px solid var(--border-light); }
-  .step:last-child { border-right: none; }
-  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700; color: rgba(212,164,39,0.12); line-height: 1; margin-bottom: 14px; }
-  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
-
-  .portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-  .portfolio-item { border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; transition: border-color 0.2s; }
-  .portfolio-item:hover { border-color: rgba(212,164,39,0.3); }
-  .portfolio-thumb { height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-  .portfolio-thumb.t1 { background: linear-gradient(135deg, #0B1C28, #1E5F74); }
-  .portfolio-thumb.t2 { background: linear-gradient(135deg, #1A3A4A, #2D8FA0); }
-  .portfolio-thumb.t3 { background: linear-gradient(135deg, #122A38, #1A3A4A); }
-  .portfolio-thumb.t4 { background: linear-gradient(135deg, #0D2030, #1E5F74); }
-  .portfolio-thumb.t5 { background: linear-gradient(135deg, #1A3A4A, #0B1C28); }
-  .portfolio-thumb.t6 { background: linear-gradient(135deg, #122A38, #2D8FA0); }
-  .portfolio-mock-inner { text-align: center; }
-  .portfolio-mock-logo { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--white); opacity: 0.7; }
-  .portfolio-mock-logo em { color: var(--gold-bright); font-style: italic; }
-  .portfolio-mock-tag { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted-dark); margin-top: 4px; }
-  .portfolio-info { padding: 16px; }
-  .portfolio-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 4px; }
-  .portfolio-name { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
-  .portfolio-desc { font-size: 12px; color: var(--muted-dark); line-height: 1.5; }
-
-  .benefits-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  .benefits-list { display: flex; flex-direction: column; gap: 0; }
-  .benefit-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 0.5px solid var(--border-light); align-items: flex-start; }
-  .benefit-item:last-child { border-bottom: none; }
-  .benefit-check { width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-  .benefit-check svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-  .benefit-title { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
-  .benefit-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
-  .benefits-visual { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 36px; }
-  .stat-highlight { text-align: center; padding: 24px 0; border-bottom: 0.5px solid var(--border-light); }
-  .stat-highlight:last-child { border-bottom: none; }
-  .stat-big { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700; color: var(--gold); line-height: 1; letter-spacing: -1px; }
-  .stat-desc { font-size: 12px; color: var(--muted); margin-top: 6px; }
-
-  .cta-block { background: linear-gradient(135deg, #1A3A4A 0%, #0B1C28 60%); border: 0.5px solid var(--border); border-radius: 2px; padding: 64px; text-align: center; position: relative; overflow: hidden; }
-  .cta-block::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(212,164,39,0.06); }
-  .cta-block-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 700; color: var(--white); line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 14px; position: relative; z-index: 1; }
-  .cta-block-title em { color: var(--gold); font-style: italic; }
-  .cta-block-sub { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; line-height: 1.8; position: relative; z-index: 1; }
-  .cta-block-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-
-  .page-footer { background: var(--teal-deep); border-top: 0.5px solid var(--border-light); padding: 40px 0; }
-  .page-footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; }
-  .footer-logo em { color: var(--gold); font-style: italic; }
-  .footer-copy { font-size: 12px; color: var(--muted-dark); }
-  .footer-back a { font-size: 13px; color: var(--muted-dark); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-  .footer-back a:hover { color: var(--gold); }
-  .footer-back svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-  .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 200; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: transform 0.2s; }
-  .wa-float:hover { transform: translateY(-3px) scale(1.05); }
-  .wa-float svg { width: 26px; height: 26px; fill: #fff; }
-
-  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 1024px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-    .hero-title { font-size: 52px; }
-    .features-grid { grid-template-columns: 1fr 1fr; }
-    .steps-grid { grid-template-columns: 1fr 1fr; }
-    .benefits-layout { grid-template-columns: 1fr; }
-    .portfolio-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 768px) {
-    .container { padding: 0 20px; }
-    .nav-inner { padding: 0 20px; }
-    .nav-back { display: none; }
-    .nav-gold { font-size: 12px; }
-    .btn-primary { padding: 9px 12px; font-size: 12px; }
-    .hero-inner { padding: 56px 20px; }
-    .hero-title { font-size: 44px; }
-    section { padding: 60px 0; }
-    .features-grid { grid-template-columns: 1fr; }
-    .steps-grid { grid-template-columns: 1fr; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .cta-block { padding: 40px 24px; }
-    .cta-block-title { font-size: 36px; }
-    .page-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-    .nav-burger { display: flex !important; }
-  }
-  @media (max-width: 420px) {
-    .nav-inner { padding: 0 18px; gap: 10px; }
-    .nav-logo { font-size: 17px; }
-    .nav-gold { font-size: 11px; }
-    nav .btn-primary { display: none; }
-  }
-
-/* ─── BURGER MENU ─── */
-.nav-burger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  z-index: 200;
-  flex-shrink: 0;
-}
-.nav-burger span {
-  display: block;
-  width: 22px;
-  height: 1.5px;
-  background: var(--white);
-  transition: transform 0.3s, opacity 0.3s, width 0.3s;
-  transform-origin: center;
-}
-.nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.nav-burger.open span:nth-child(2) { opacity: 0; width: 0; }
-.nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-.mobile-menu {
-  display: none;
-  position: fixed;
-  top: 68px; left: 0; right: 0; bottom: 0;
-  background: rgba(11,28,40,0.98);
-  backdrop-filter: blur(16px);
-  z-index: 99;
-  overflow-y: auto;
-  padding: 32px 24px 48px;
-  flex-direction: column;
-  gap: 0;
-  transform: translateY(-8px);
-  opacity: 0;
-  transition: opacity 0.25s, transform 0.25s;
-}
-.mobile-menu.open {
-  display: flex;
-  opacity: 1;
-  transform: translateY(0);
-}
-.mobile-nav-link {
-  display: block;
-  padding: 18px 0;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--muted);
-  border-bottom: 0.5px solid var(--border-light);
-  transition: color 0.2s;
-  text-decoration: none;
-  font-family: 'Cormorant Garamond', serif;
-}
-.mobile-nav-link:hover, .mobile-nav-link.active { color: var(--white); }
-.mobile-nav-section {
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 500;
-  padding: 24px 0 12px;
-  font-family: 'DM Sans', sans-serif;
-}
-.mobile-nav-sub {
-  display: block;
-  padding: 12px 16px;
-  font-size: 14px;
-  color: var(--muted);
-  border-bottom: 0.5px solid rgba(255,255,255,0.04);
-  transition: color 0.2s;
-  text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-}
-.mobile-nav-sub:hover { color: var(--white); }
-.mobile-nav-sub:last-of-type { border-bottom: 0.5px solid var(--border-light); }
-.mobile-nav-cta {
-  margin-top: 32px;
-  display: block;
-  background: var(--gold);
-  color: var(--navy);
-  padding: 16px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  border-radius: 1px;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.mobile-nav-cta:hover { background: var(--gold-bright); }
-
-/* ═══ PREMIUM ENHANCEMENTS ═══ */
-
-/* Scroll progress bar */
-#scroll-progress {
-  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
-  background: linear-gradient(90deg, var(--gold), var(--teal-light), var(--gold));
-  z-index: 9999; transition: width 0.08s linear;
-  box-shadow: 0 0 10px rgba(212,164,39,0.5);
-  pointer-events: none;
-}
-
-/* Page entrance */
-body { animation: pageFadeIn 0.6s ease forwards; }
-@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* Button shimmer */
-.btn-primary, .nav-cta, .mobile-nav-cta, a.btn-primary {
-  position: relative !important; overflow: hidden !important;
-}
-.btn-primary::after, .nav-cta::after, .mobile-nav-cta::after {
-  content: ''; position: absolute; top: 0; left: -100%;
-  width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-  transform: skewX(-20deg); transition: left 0.5s ease;
-}
-.btn-primary:hover::after, .nav-cta:hover::after, .mobile-nav-cta:hover::after { left: 150%; }
-
-/* Card glow on hover */
-.service-card, .feature-card, .value-card, .t-card, .step-card, .result-card, .why-stat, .mv-card, .timeline-item {
-  position: relative;
-}
-.service-card:hover, .feature-card:hover, .value-card:hover {
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,164,39,0.2) !important;
-  transform: translateY(-6px) !important;
-}
-
-/* Gradient border on hover */
-.service-card::before, .feature-card::before, .value-card::before {
-  content: ''; position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(135deg, rgba(212,164,39,0.3), transparent 50%, rgba(74,171,184,0.2));
-  opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 0;
-}
-.service-card:hover::before, .feature-card:hover::before, .value-card:hover::before { opacity: 1; }
-.service-card > *, .feature-card > *, .value-card > * { position: relative; z-index: 1; }
-
-/* Animated gold line */
-.gold-line { width: 0 !important; transition: width 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s !important; }
-.gold-line.visible { width: 48px !important; }
-
-/* Label reveal animation */
-.label { opacity: 0; transform: translateY(-10px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.label.visible { opacity: 1; transform: translateY(0); }
-
-/* Stagger fade-up delays */
-.stagger > *:nth-child(1) { transition-delay: 0.05s !important; }
-.stagger > *:nth-child(2) { transition-delay: 0.12s !important; }
-.stagger > *:nth-child(3) { transition-delay: 0.19s !important; }
-.stagger > *:nth-child(4) { transition-delay: 0.26s !important; }
-.stagger > *:nth-child(5) { transition-delay: 0.33s !important; }
-.stagger > *:nth-child(6) { transition-delay: 0.40s !important; }
-
-/* WhatsApp float pulse ring */
-.wa-float { position: fixed !important; }
-.wa-float::before {
-  content: ''; position: absolute; inset: -4px; border-radius: 50%;
-  background: rgba(37,211,102,0.35); animation: waPulse 2.2s ease-out infinite;
-  pointer-events: none;
-}
-@keyframes waPulse { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.6); opacity: 0; } }
-
-/* Nav link hover underline */
-.nav-links a { position: relative; }
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -2px; left: 0;
-  width: 0; height: 1px; background: var(--gold); transition: width 0.25s ease;
-}
-.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
-/* Hero cursor glow orb */
-.hero-orb {
-  position: absolute; width: 700px; height: 700px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(212,164,39,0.07) 0%, transparent 65%);
-  pointer-events: none; z-index: 0; transition: transform 0.4s ease; will-change: transform;
-}
-
-/* Section headings gradient highlight */
-.section-title em, h1 em, h2 em {
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-
-/* Testimonial star icons */
-.t-stars { color: var(--gold); letter-spacing: 3px; font-size: 13px; display: block; margin-bottom: 14px; }
-
-/* Smooth image placeholders */
-.img-placeholder {
-  background: linear-gradient(135deg, var(--teal-dark) 0%, var(--navy) 60%);
-  border-radius: 2px; overflow: hidden; position: relative;
-}
-.img-placeholder::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.04) 50%, transparent 75%);
-  background-size: 200% 100%; animation: shimmerLoad 1.8s infinite;
-}
-@keyframes shimmerLoad { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-
-/* Better section spacing and dividers */
-.section-divider {
-  height: 1px; border: none;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-  margin: 0;
-}
-
-/* Stats number glow */
-.stat-num, .hero-stat-num, .why-stat-num {
-  text-shadow: 0 0 40px rgba(212,164,39,0.3);
-}
-
-/* Enhanced mobile menu */
-.mobile-menu { box-shadow: 0 24px 80px rgba(0,0,0,0.6); }
-.mobile-nav-link, .mobile-nav-sub {
-  position: relative; transition: color 0.2s, padding-left 0.2s !important;
-}
-.mobile-nav-link:hover { padding-left: 8px !important; }
-.mobile-nav-sub:hover { padding-left: 24px !important; }
-
-/* Scroll-to-top button */
-#scroll-top {
-  position: fixed; bottom: 90px; right: 28px; z-index: 998;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(11,28,40,0.9); border: 0.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; opacity: 0; transform: translateY(10px);
-  transition: opacity 0.3s, transform 0.3s;
-  backdrop-filter: blur(8px);
-}
-#scroll-top.visible { opacity: 1; transform: translateY(0); }
-#scroll-top svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-#scroll-top:hover { background: rgba(212,164,39,0.15); border-color: var(--gold); }
-
-/* Process step number glow */
-.step-number { box-shadow: 0 0 24px rgba(212,164,39,0.2); }
-
-/* Feature icons enhanced */
-.feature-icon, .dd-icon { transition: background 0.3s, border-color 0.3s, transform 0.3s !important; }
-.feature-card:hover .feature-icon, .nav-dropdown-item:hover .dd-icon {
-  background: rgba(212,164,39,0.15) !important;
-  border-color: rgba(212,164,39,0.5) !important;
-  transform: scale(1.1);
-}
-
-/* ─── CARD ANIMATIONS v2 (shared, injected) ─── */
-/* Cascade: grid fades opacity only; cards stagger in individually */
-[class*="-grid"].fade-up { transform: none !important; }
-[class*="-grid"].visible > * { animation: cardCascade .55s cubic-bezier(.2,.7,.2,1) backwards; }
-@keyframes cardCascade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-[class*="-grid"].visible > *:nth-child(1)  { animation-delay: .04s; }
-[class*="-grid"].visible > *:nth-child(2)  { animation-delay: .10s; }
-[class*="-grid"].visible > *:nth-child(3)  { animation-delay: .16s; }
-[class*="-grid"].visible > *:nth-child(4)  { animation-delay: .22s; }
-[class*="-grid"].visible > *:nth-child(5)  { animation-delay: .28s; }
-[class*="-grid"].visible > *:nth-child(6)  { animation-delay: .34s; }
-[class*="-grid"].visible > *:nth-child(7)  { animation-delay: .40s; }
-[class*="-grid"].visible > *:nth-child(8)  { animation-delay: .46s; }
-[class*="-grid"].visible > *:nth-child(9)  { animation-delay: .52s; }
-[class*="-grid"].visible > *:nth-child(10) { animation-delay: .58s; }
-[class*="-grid"].visible > *:nth-child(11) { animation-delay: .64s; }
-[class*="-grid"].visible > *:nth-child(12) { animation-delay: .70s; }
-
-/* Icon fills gold and tilts when its card is hovered */
-[class*="-card"] [class*="-icon"] { transition: background .35s ease, border-color .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
-[class*="-card"]:hover [class*="-icon"] { background: var(--gold) !important; border-color: var(--gold) !important; transform: rotate(-6deg) scale(1.06); }
-[class*="-card"] [class*="-icon"] svg { transition: stroke .35s ease; }
-[class*="-card"]:hover [class*="-icon"] svg { stroke: var(--navy) !important; }
-
-/* Subtle lift on every card hover */
-[class*="-card"] { transition: background .25s ease, box-shadow .4s ease, transform .4s cubic-bezier(.2,.7,.2,1), border-color .3s ease; }
-[class*="-card"]:hover { transform: translateY(-5px); box-shadow: 0 18px 50px rgba(0,0,0,0.38); }
-
-/* Highlight cards: a soft light sweeps across on hover */
-.highlight-card { overflow: hidden; }
-.highlight-card::after { content: ''; position: absolute; top: 0; bottom: 0; left: -70%; width: 45%; background: linear-gradient(105deg, transparent, rgba(255,255,255,0.06), transparent); transform: skewX(-18deg); pointer-events: none; z-index: 0; }
-.highlight-card:hover::after { animation: cardShine 1.05s ease forwards; }
-@keyframes cardShine { from { left: -70%; } to { left: 130%; } }
-
-/* Accessibility: honour reduced-motion preference */
-@media (prefers-reduced-motion: reduce) {
-  [class*="-grid"].visible > * { animation: none !important; }
-  [class*="-card"]:hover { transform: none !important; }
-  [class*="-card"]:hover [class*="-icon"] { transform: none !important; }
-  .highlight-card:hover::after { animation: none !important; }
-  .fade-up { transition: opacity .3s ease !important; transform: none !important; }
-  * { scroll-behavior: auto !important; }
-}
-
-
-/* ─── Animated gold border-runner (auto-applied) ─── */
-.value-border { position: absolute; top: 1px; left: 1px; width: calc(100% - 2px); height: calc(100% - 2px); pointer-events: none; z-index: 4; overflow: visible; }
-.value-border rect { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 22 78; filter: drop-shadow(0 0 4px rgba(212,164,39,0.55)); animation: valueBorderRun 4.8s linear infinite; }
-@keyframes valueBorderRun { to { stroke-dashoffset: -100; } }
-@media (prefers-reduced-motion: reduce) { .value-border rect { animation: none !important; stroke: rgba(212,164,39,0.28); stroke-dasharray: none; } }
-</style>
+<title>Web Design &amp; Development — SuiteSupports</title>
+<meta name="description" content="Hotel web design and development by SuiteSupports — fast, elegant, mobile-first websites, integrated with your booking engine, that turn visitors into direct bookings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<div id="scroll-progress"></div>
-<canvas id="particle-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;"></canvas>
-<div id="scroll-top"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+<div class="grain" aria-hidden="true"></div>
 
-<a class="wa-float" href="https://wa.me/6285338662750" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
-<nav>
-  <div class="nav-inner">
-    <a href="suitesupports-website.html" class="nav-logo">Suite<em>Supports</em></a>
-    <a href="suitesupports-website.html" class="nav-back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to Home</a>
-    <a href="https://suitesupports-gold-intelligence.netlify.app/" class="nav-gold">Gold Intelligence</a>
-    <a href="suitesupports-website.html#contact" class="btn-primary">Get Started</a>
-    <button class="nav-burger" aria-label="Open menu" onclick="toggleMobileMenu()">
-      <span></span><span></span><span></span>
-    </button>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="suitesupports-website.html" class="brand">
+      <span class="mark">SS</span>
+      <span><span class="bt">SuiteSupports</span><span class="bs">Hospitality Technology</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a class="link-underline" href="suitesupports-website.html#services">Services</a></li>
+      <li><a class="link-underline" href="suitesupports-website.html#suite">The Suite</a></li>
+      <li><a class="link-underline" href="about-us.html">About</a></li>
+      <li><a class="link-underline" href="https://suitesupports-gold-intelligence.netlify.app" target="_blank" rel="noopener">Gold Intelligence</a></li>
+      <li><a class="link-underline" href="suitesupports-website.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="pill" href="https://wa.me/6285338662750" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+        <span class="num">+62 853 3866 2750</span>
+      </a>
+      <button class="burger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
   </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="suitesupports-website.html" class="mobile-nav-link">Home</a>
-  <div class="mobile-nav-section">Services</div>
-  <a href="service-ai-chatbot.html" class="mobile-nav-sub">AI Chatbot Solutions</a>
-  <a href="service-web-design.html" class="mobile-nav-sub active">Web Design & Development</a>
-  <a href="service-digital-marketing.html" class="mobile-nav-sub">Hotel Digital Marketing</a>
-  <div class="mobile-nav-section">Products</div>
-  <a href="service-pms.html" class="mobile-nav-sub">SS PMS Cloud</a>
-  <a href="service-booking-engine.html" class="mobile-nav-sub">Booking Engine</a>
-  <a href="service-crm.html" class="mobile-nav-sub">CRM Platform</a>
-  <a href="service-suitecomm.html" class="mobile-nav-sub">SuiteComm</a>
-  <a href="service-suitegreen.html" class="mobile-nav-sub">SuiteGreen Housekeeping</a>
-  <a href="service-suiteorder.html" class="mobile-nav-sub">SuiteOrder</a>
-  <a href="about-us.html" class="mobile-nav-link">About Us</a>
-  <a href="suitesupports-website.html#contact" class="mobile-nav-link">Contact</a>
-  <a href="suitesupports-website.html#contact" class="mobile-nav-cta">Get Started</a>
-</div>
+  <div class="mobile-menu">
+    <ul class="wrap">
+      <li><a href="suitesupports-website.html#services">Services</a></li>
+      <li><a href="suitesupports-website.html#suite">The Suite</a></li>
+      <li><a href="about-us.html">About</a></li>
+      <li><a href="https://suitesupports-gold-intelligence.netlify.app" target="_blank" rel="noopener">Gold Intelligence</a></li>
+      <li><a href="suitesupports-website.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
 
-<div class="hero" style="position:relative; overflow:hidden;">
-  <div class="hero-orb"></div>
-  <div class="hero-inner">
+<!-- PAGE HERO (with drawn gold line) -->
+<section class="page-hero">
+  <div class="ph-glow" aria-hidden="true"><div class="a"></div><div class="b"></div><div class="ph-dots"></div></div>
+  <svg class="ph-svg" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="ph-line" d="M-40 440 C 260 360, 560 420, 800 340 S 1240 220, 1500 260" fill="none" stroke="#d4b06a" stroke-width="1.2" stroke-dasharray="1600" stroke-dashoffset="1600" opacity="0.7"></path>
+    <circle cx="1080" cy="286" r="3" fill="#fdc66d" opacity="0.9"></circle>
+    <circle cx="1080" cy="286" r="13" fill="none" stroke="#fdc66d" stroke-width="0.8" opacity="0.5"></circle>
+  </svg>
+  <div class="wrap inner">
+    <p class="eyebrow">Web Design &amp; Development</p>
+    <h1 class="split-cascade" data-delay="0.15">Websites that book rooms, not just look beautiful.</h1>
+    <p class="lede">We design and build fast, elegant, mobile-first hotel websites — integrated with your booking engine and PMS — that turn browsers into direct reservations and cut your dependence on OTA commissions.</p>
+    <div class="hero-actions" style="opacity:1;margin-top:36px">
+      <span class="magnetic"><a class="btn-gold" href="https://wa.me/6285338662750" target="_blank" rel="noopener">Start your project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span>
+      <a class="hero-link link-underline" href="#capabilities">Explore what's included</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="sec-lg manifesto">
+  <div class="wrap">
+    <p class="lead split-scrub">Your website is often the first experience a guest has of your property — and your hardest-working salesperson. We build digital platforms with one goal: turning visitors into guests, and guests into loyal advocates for your brand.</p>
+    <div class="meta-grid" data-reveal="up" data-reveal-stagger="0.12">
+      <div><p class="k">Built for</p><p class="v">Hotels, resorts &amp; hospitality brands</p></div>
+      <div><p class="k">Approach</p><p class="v">Mobile-first, booking-optimised, SEO-ready</p></div>
+      <div><p class="k">Outcome</p><p class="v">More direct bookings, fewer OTA fees</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="sec band" id="capabilities">
+  <div class="wrap">
+    <div class="sec-head" data-reveal="up">
+      <span class="eyebrow">What's included</span>
+      <h2 class="split-cascade">Built for performance, not just polish.</h2>
+      <p class="intro">Every website we build is engineered to convert — designed mobile-first, wired to your booking engine, and tuned to load fast and rank well.</p>
+    </div>
+    <div class="feature-grid cols-3" data-reveal="up" data-reveal-stagger="0.08">
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div><h3>Mobile-first design</h3><p>More than 70% of hotel browsing happens on a phone. We design for the smallest screen first, so the experience is flawless on every device.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Booking engine integration</h3><p>Connected directly to your PMS and booking engine — driving direct reservations that bypass OTA commissions of 15–25%.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><h3>SEO optimised</h3><p>Technical SEO foundations — fast load times, structured data and clean on-page optimisation — so your property ranks higher and earns organic traffic.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><h3>Speed &amp; performance</h3><p>Built for Core Web Vitals with sub-two-second load times. Faster sites rank better, convert better, and keep guests engaged longer.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>Easy content management</h3><p>Update rates, rooms, offers and content yourself — no developer required. A simple CMS built for non-technical hotel teams.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 2 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3>Brand-perfect design</h3><p>Every pixel reflects your brand — colour, typography, photography direction and tone — creating a cohesive, premium first impression.</p><span class="bar"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS (showcase splits) -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head" data-reveal="up">
+      <span class="eyebrow">Why it matters</span>
+      <h2 class="split-cascade">Your website is your best salesperson.</h2>
+      <p class="intro">A high-converting direct-booking site does more than look elegant — it wins back margin, owns the guest relationship, and works around the clock.</p>
+    </div>
+
+    <div class="split" data-reveal="up">
+      <div class="split-media group"><div class="art art--web art--photo" data-photo="webdesign-1"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy"></div></div>
+      <div class="split-body">
+        <span class="eyebrow">01 · Direct bookings</span>
+        <h3>Reduce your OTA dependency.</h3>
+        <p>A website engineered to convert reduces your reliance on OTAs and the 15–25% commission they take on every stay. Every direct booking is margin you keep.</p>
+        <ul class="tick-list">
+          <li>Booking engine wired into the hero and every room</li>
+          <li>Direct-booking incentives and rate-parity messaging built in</li>
+          <li>Own the guest data — enabling loyalty and re-marketing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split flip" data-reveal="up">
+      <div class="split-media group"><div class="art art--web art--photo" data-photo="webdesign-2"><img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy"></div></div>
+      <div class="split-body">
+        <span class="eyebrow">02 · First impressions</span>
+        <h3>Earn trust in the first two seconds.</h3>
+        <p>Your website is often the first experience a potential guest has of your property. Immersive photography, a clear brand voice and a fast, considered layout earn their trust instantly.</p>
+        <ul class="tick-list">
+          <li>Design tailored to your property's identity, not a template</li>
+          <li>Immersive imagery and a premium, cohesive brand feel</li>
+          <li>Clear paths to booking on every page</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split" data-reveal="up">
+      <div class="split-media group"><div class="art art--web art--photo" data-photo="webdesign-3"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy"></div></div>
+      <div class="split-body">
+        <span class="eyebrow">03 · Rank higher, cost less</span>
+        <h3>Organic traffic that works 24/7.</h3>
+        <p>An SEO-optimised site generates organic traffic around the clock, reducing your dependence on paid ads over time — and compounding in value the longer it runs.</p>
+        <ul class="tick-list">
+          <li>Technical SEO foundations and structured data</li>
+          <li>Sub-two-second load times tuned for Core Web Vitals</li>
+          <li>Content you can keep fresh yourself, no developer needed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec band">
+  <div class="wrap">
+    <div class="sec-head" data-reveal="up">
+      <span class="eyebrow">Our process</span>
+      <h2 class="split-cascade">From design to launch, with no surprises.</h2>
+      <p class="intro">A clear, staged path from first conversation to go-live — you review and sign off before development ever begins.</p>
+    </div>
+    <div class="steps cols-4" data-reveal="up" data-reveal-stagger="0.1">
+      <div class="step-card"><span class="n">01</span><h3>Discovery &amp; strategy</h3><p>We understand your brand, audience, competitors and goals — building a strategic foundation before a single design decision is made.</p></div>
+      <div class="step-card"><span class="n">02</span><h3>Design &amp; prototype</h3><p>We present full visual designs for your approval — no surprises. You review, refine and sign off before development begins.</p></div>
+      <div class="step-card"><span class="n">03</span><h3>Build &amp; integrate</h3><p>Development built to spec, with your booking engine, CMS, analytics and third-party tools all integrated and thoroughly tested.</p></div>
+      <div class="step-card"><span class="n">04</span><h3>Launch &amp; support</h3><p>We manage the launch and provide ongoing support — so your site stays fast, secure and effective long after go-live.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT (navy) -->
+<section class="sec on-navy">
+  <div class="wrap">
+    <div class="sec-head" data-reveal="up">
+      <span class="eyebrow on-dark">The case for a redesign</span>
+      <h2 class="split-cascade">Every second, and every pixel, counts.</h2>
+      <p class="intro">Hotel web performance is measurable — and the gap between a good site and a converting one shows up directly in your direct-booking revenue.</p>
+    </div>
+    <div class="feature-grid cols-3" data-reveal="up" data-reveal-stagger="0.08">
+      <div class="feature"><h3>Speed sells rooms</h3><p>Every second of load-time delay costs roughly 7% in conversion. We target sub-two-second pages, so no booking is lost to a spinner.</p><span class="bar"></span></div>
+      <div class="feature"><h3>Mobile is the front desk</h3><p>The majority of hotel traffic arrives on a phone. A mobile-first build meets guests where they actually browse and book.</p><span class="bar"></span></div>
+      <div class="feature"><h3>Own the relationship</h3><p>Direct bookings hand you the guest's data — enabling personalisation, loyalty programmes and direct re-marketing you can't do through an OTA.</p><span class="bar"></span></div>
+    </div>
+    <div class="stat-row cols-4" data-reveal="up" data-reveal-stagger="0.1" style="margin-top:32px">
+      <div class="stat"><div class="v">3&times;</div><div class="l">Higher conversion vs. OTA listing pages for an optimised hotel site</div></div>
+      <div class="stat"><div class="v">22%</div><div class="l">Average lift in direct bookings after a website redesign</div></div>
+      <div class="stat"><div class="v">70%</div><div class="l">Of hotel website traffic comes from mobile devices</div></div>
+      <div class="stat"><div class="v">&lt;2s</div><div class="l">Target page load time — every delay costs conversion</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta sec-lg" id="contact">
+  <div class="cta-glow" aria-hidden="true"><div class="g1"></div><div class="g2" data-parallax="-0.4"></div></div>
+  <div class="wrap cta-inner">
+    <p class="eyebrow on-dark" data-reveal="fade">Start your project</p>
+    <h2 class="split-cascade">Ready for a website that actually drives bookings?</h2>
+    <div data-reveal="up" data-reveal-delay="0.3">
+      <p class="p">Tell us about your property and we'll show you exactly how a new website can drive more direct revenue — with zero obligation, just clarity.</p>
+    </div>
+    <div class="cta-actions" data-reveal="up" data-reveal-delay="0.45">
+      <span class="magnetic"><a class="btn-gold" href="https://wa.me/6285338662750" target="_blank" rel="noopener">Chat on WhatsApp
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span>
+      <a class="btn-outline-white" href="mailto:opsmanager@suitesupports.pro">Email the team</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap foot-grid">
     <div>
-      <div class="breadcrumb">
-        <a href="suitesupports-website.html">Home</a>
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        <a href="suitesupports-website.html#services">Services</a>
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        <span>Web Design & Development</span>
-      </div>
-      <div class="hero-tag">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        Service 02 — Web Design & Development
-      </div>
-      <h1 class="hero-title">Websites That<br>Work as Hard<br>as <em>You Do</em></h1>
-      <p class="hero-desc"><span><span style="color:var(--gold)">● </span>Create engaging digital platforms tailored to your business needs. From booking-optimised hotel websites to full business platforms, we design and build digital experiences that convert visitors into loyal customers.</span></p>
-      <div class="hero-cta">
-        <a href="suitesupports-website.html#contact" class="btn-primary">Start Your Project</a>
-        <a href="#features" class="btn-outline">Explore Features</a>
-      </div>
+      <p class="fbrand">SuiteSupports</p>
+      <p class="fdesc">Part of the MingCan Network. Delivering tailored IT and hospitality solutions since 2017 — transforming challenges into opportunities through personalized service and modern technology.</p>
     </div>
-    <div class="browser-mockup">
-      <div class="browser-bar">
-        <div class="browser-dots">
-          <div class="browser-dot red"></div>
-          <div class="browser-dot yellow"></div>
-          <div class="browser-dot green"></div>
-        </div>
-        <div class="browser-url">yourhotel.com</div>
-      </div>
-      <div class="browser-body">
-        <div class="mock-nav">
-          <div class="mock-logo">Suite<em>Supports</em></div>
-          <div class="mock-nav-links">
-            <div class="mock-nav-link">Rooms</div>
-            <div class="mock-nav-link">Dining</div>
-            <div class="mock-nav-link">Experiences</div>
-          </div>
-          <div class="mock-cta">Book Now</div>
-        </div>
-        <div class="mock-hero">
-          <div class="mock-hero-tag">Boutique Hotel · Mataram</div>
-          <div class="mock-hero-h">Experience<br><em>Luxury Redefined</em></div>
-          <p class="mock-hero-p">Nestled in the heart of the city, our hotel offers an unparalleled experience of comfort and elegance.</p>
-          <div class="mock-hero-btns">
-            <div class="mock-btn-p">Reserve a Room</div>
-            <div class="mock-btn-o">Explore</div>
-          </div>
-        </div>
-        <div class="mock-cards">
-          <div class="mock-card">
-            <div class="mock-card-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-            <div class="mock-card-title">Superior Rooms</div>
-            <div class="mock-card-desc">From $120/night</div>
-          </div>
-          <div class="mock-card">
-            <div class="mock-card-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-            <div class="mock-card-title">Spa & Wellness</div>
-            <div class="mock-card-desc">Book a session</div>
-          </div>
-          <div class="mock-card">
-            <div class="mock-card-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
-            <div class="mock-card-title">Fine Dining</div>
-            <div class="mock-card-desc">Reserve a table</div>
-          </div>
-        </div>
-      </div>
+    <div>
+      <p class="fh">Explore</p>
+      <ul>
+        <li><a href="suitesupports-website.html#services">Services</a></li>
+        <li><a href="suitesupports-website.html#suite">The Suite</a></li>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="https://suitesupports-gold-intelligence.netlify.app" target="_blank" rel="noopener">Gold Intelligence</a></li>
+        <li><a href="suitesupports-website.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="fh">Get in touch</p>
+      <address>
+        <span style="display:block">Mataram, West Nusa Tenggara</span>
+        <span style="display:block">Indonesia</span>
+        <a href="https://wa.me/6285338662750" target="_blank" rel="noopener" style="margin-top:8px;display:block">+62 853 3866 2750</a>
+        <a href="mailto:opsmanager@suitesupports.pro" style="display:block">opsmanager@suitesupports.pro</a>
+      </address>
     </div>
   </div>
-</div>
+  <div class="wrap foot-bottom"><span id="year"></span> SuiteSupports · Part of the MingCan Network. All rights reserved.</div>
+</footer>
 
-<section id="features">
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">What's Included</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Built for<br><em style="color:var(--gold);font-style:italic;">Performance</em></h2>
-      <div class="gold-line"></div>
-      <p style="font-size:15px;color:var(--muted);max-width:540px;line-height:1.85;">Every website we build is designed with one goal: turning visitors into guests and guests into loyal advocates for your brand.</p>
-    </div>
-    <div class="features-grid fade-up">
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
-        <div class="feature-name">Mobile-First Design</div>
-        <p class="feature-desc">Over 70% of hotel browsing happens on mobile. We design mobile-first, ensuring a flawless experience on every screen size.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div class="feature-name">Booking Engine Integration</div>
-        <p class="feature-desc">Seamlessly integrated with your PMS and booking engine — driving direct reservations that bypass OTA commissions.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-        <div class="feature-name">SEO Optimised</div>
-        <p class="feature-desc">Built with technical SEO foundations — fast load times, structured data, and on-page optimisation to rank higher in search results.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div class="feature-name">Speed & Performance</div>
-        <p class="feature-desc">Optimised for Core Web Vitals with sub-2-second load times. Faster sites rank better, convert better, and keep guests engaged longer.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <div class="feature-name">Easy Content Management</div>
-        <p class="feature-desc">Update rates, rooms, offers, and content yourself — no developer required. Simple CMS built for non-technical hotel teams.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
-        <div class="feature-name">Brand-Perfect Design</div>
-        <p class="feature-desc">Every pixel reflects your brand — colours, typography, photography direction, and tone — creating a cohesive, premium impression.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="alt">
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">Our Process</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Design to<br><em style="color:var(--gold);font-style:italic;">Launch</em></h2>
-      <div class="gold-line"></div>
-    </div>
-    <div class="steps-grid fade-up">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-title">Discovery & Strategy</div>
-        <p class="step-desc">We understand your brand, audience, competitors, and goals — building a strategic foundation before a single design decision is made.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-title">Design & Prototype</div>
-        <p class="step-desc">We present full visual designs for your approval — no surprises. You review, refine, and sign off before development begins.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-title">Build & Integrate</div>
-        <p class="step-desc">Development built to spec, with your booking engine, CMS, analytics, and third-party tools all integrated and tested thoroughly.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-title">Launch & Support</div>
-        <p class="step-desc">We manage the launch and provide ongoing support — so your site stays fast, secure, and effective long after go-live.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">Our Work</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Websites Built for<br><em style="color:var(--gold);font-style:italic;">Hospitality</em></h2>
-      <div class="gold-line"></div>
-      <p style="font-size:15px;color:var(--muted);max-width:520px;line-height:1.85;">Every project we deliver is unique — designed around the property's identity and built to perform in a competitive market.</p>
-    </div>
-    <div class="portfolio-grid fade-up">
-      <div class="portfolio-item">
-        <div class="portfolio-thumb t1"><div class="portfolio-mock-inner"><div class="portfolio-mock-logo">The <em>Ashton</em></div><div class="portfolio-mock-tag">Boutique Hotel</div></div></div>
-        <div class="portfolio-info"><div class="portfolio-type">Hotel Website</div><div class="portfolio-name">The Ashton Collection</div><div class="portfolio-desc">Full booking-optimised site with PMS integration and direct booking incentives.</div></div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-thumb t2"><div class="portfolio-mock-inner"><div class="portfolio-mock-logo">Harrow <em>&amp; Reed</em></div><div class="portfolio-mock-tag">Upper-Scale Hotel</div></div></div>
-        <div class="portfolio-info"><div class="portfolio-type">Hotel Website</div><div class="portfolio-name">Harrow & Reed Hotel</div><div class="portfolio-desc">Redesign focused on mobile conversion and OTA rate parity compliance.</div></div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-thumb t3"><div class="portfolio-mock-inner"><div class="portfolio-mock-logo">Meridian <em>Stays</em></div><div class="portfolio-mock-tag">Hotel Group</div></div></div>
-        <div class="portfolio-info"><div class="portfolio-type">Multi-Property Platform</div><div class="portfolio-name">Meridian Stays Group</div><div class="portfolio-desc">Portfolio website managing 6 properties under one brand umbrella with individual booking flows.</div></div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-thumb t4"><div class="portfolio-mock-inner"><div class="portfolio-mock-logo">Birch<em>field</em></div><div class="portfolio-mock-tag">Boutique Property</div></div></div>
-        <div class="portfolio-info"><div class="portfolio-type">Boutique Hotel Website</div><div class="portfolio-name">Birchfield Boutique Hotel</div><div class="portfolio-desc">Luxury-positioned design with immersive photography and a seamless direct booking experience.</div></div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-thumb t5"><div class="portfolio-mock-inner"><div class="portfolio-mock-logo">Linden <em>Group</em></div><div class="portfolio-mock-tag">Asset Management</div></div></div>
-        <div class="portfolio-info"><div class="portfolio-type">Corporate Website</div><div class="portfolio-name">The Linden Group</div><div class="portfolio-desc">Investor-facing corporate website with portfolio showcase and performance reporting.</div></div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-thumb t6"><div class="portfolio-mock-inner"><div class="portfolio-mock-logo">Suite<em>Supports</em></div><div class="portfolio-mock-tag">Web Application</div></div></div>
-        <div class="portfolio-info"><div class="portfolio-type">SaaS Web App</div><div class="portfolio-name">Revenue Dashboard</div><div class="portfolio-desc">Custom analytics dashboard delivering real-time revenue and performance data for hotel operators.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="alt">
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">Why It Matters</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;">Your Website Is<br>Your <em>Best Salesperson</em></h2>
-      <div class="gold-line"></div>
-    </div>
-    <div class="benefits-layout fade-up">
-      <div class="benefits-list">
-        <div class="benefit-item">
-          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><div class="benefit-title">Reduce OTA dependency</div><p class="benefit-desc">A high-converting direct booking site reduces your reliance on OTAs and their 15–25% commission fees.</p></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><div class="benefit-title">First impressions that convert</div><p class="benefit-desc">Your website is often the first experience a potential guest has of your property — it must earn their trust instantly.</p></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><div class="benefit-title">Own your guest relationship</div><p class="benefit-desc">Direct bookings give you the guest's data — enabling personalisation, loyalty programmes, and direct re-marketing.</p></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><div class="benefit-title">Rank higher, cost less</div><p class="benefit-desc">An SEO-optimised site generates organic traffic 24/7 — reducing your dependency on paid ads over time.</p></div>
-        </div>
-      </div>
-      <div class="benefits-visual">
-        <div class="stat-highlight"><div class="stat-big" data-target="3" data-suffix="×">3×</div><div class="stat-desc">Higher conversion rate vs. OTA listing pages for optimised hotel websites</div></div>
-        <div class="stat-highlight"><div class="stat-big" data-target="22" data-suffix="%">22%</div><div class="stat-desc">Average increase in direct bookings after website redesign</div></div>
-        <div class="stat-highlight"><div class="stat-big" data-target="70" data-suffix="%">70%</div><div class="stat-desc">Of hotel website traffic comes from mobile devices</div></div>
-        <div class="stat-highlight"><div class="stat-big">&lt;2s</div><div class="stat-desc">Target page load time — every second of delay costs 7% in conversion</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="cta-block fade-up">
-      <h2 class="cta-block-title">Ready for a Website That<br><em>Actually Drives Bookings?</em></h2>
-      <p class="cta-block-sub">Tell us about your property and we'll show you exactly how a new website can drive more direct revenue — with zero obligation.</p>
-      <div class="cta-block-btns">
-        <a href="suitesupports-website.html#contact" class="btn-primary" style="padding:14px 32px;font-size:14px;">Start Your Project</a>
-        <a href="https://wa.me/6285338662750" target="_blank" rel="noopener" class="btn-outline" style="padding:14px 32px;font-size:14px;">Chat on WhatsApp</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="page-footer">
-  <div class="page-footer-inner">
-    <div class="footer-logo">Suite<em>Supports</em></div>
-    <div class="footer-copy">&copy; 2026 SuiteSupports · MingCan Network</div>
-    <div class="footer-back"><a href="suitesupports-website.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to Home</a></div>
-  </div>
-</div>
-
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); observer.unobserve(el.target); } });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  document.querySelectorAll('.stagger > .fade-up').forEach(el => observer.observe(el));
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) { e.preventDefault(); window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }
-    });
-  });
-
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    const burger = document.querySelector('.nav-burger');
-    menu.classList.toggle('open');
-    burger.classList.toggle('open');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  }
-  // Close mobile menu when a link is clicked
-  document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.remove('open');
-      document.querySelector('.nav-burger').classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-
-  // ─── PREMIUM ENHANCEMENTS ───
-
-  // Scroll progress bar
-  const _sp = document.getElementById('scroll-progress');
-  if (_sp) {
-    window.addEventListener('scroll', () => {
-      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      _sp.style.width = Math.min(pct, 100) + '%';
-    }, { passive: true });
-  }
-
-  // Scroll-to-top button
-  const _st = document.getElementById('scroll-top');
-  if (_st) {
-    window.addEventListener('scroll', () => {
-      _st.classList.toggle('visible', window.scrollY > 400);
-    }, { passive: true });
-    _st.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  }
-
-  // Counter animations
-  function _animateNum(el) {
-    if (el._counted) return; el._counted = true;
-    const raw = el.dataset.target || el.textContent;
-    const isFloat = raw.includes('.');
-    const num = parseFloat(raw.replace(/[^0-9.]/g,''));
-    const suffix = el.dataset.suffix || raw.replace(/[0-9.]/g,'').trim();
-    const prefix = el.dataset.prefix || '';
-    if (isNaN(num)) return;
-    const dur = 1800, fps = 60, steps = dur / (1000/fps);
-    let s = 0;
-    const t = setInterval(() => {
-      s++;
-      const curr = num * (s/steps);
-      el.textContent = prefix + (isFloat ? curr.toFixed(1) : Math.floor(curr)) + suffix;
-      if (s >= steps) { el.textContent = prefix + (isFloat ? num.toFixed(1) : num) + suffix; clearInterval(t); }
-    }, 1000/fps);
-  }
-
-  // Enhanced IntersectionObserver
-  const _obs2 = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      if (el.dataset.target || el.classList.contains('counter')) _animateNum(el);
-      if (el.classList.contains('gold-line')) el.classList.add('visible');
-      if (el.classList.contains('label')) el.classList.add('visible');
-      _obs2.unobserve(el);
-    });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('[data-target], .gold-line, .label, .counter').forEach(el => _obs2.observe(el));
-
-  // Stagger card animations
-  document.querySelectorAll('.services-grid, .features-grid, .values-grid, .team-grid, .why-numbers, .channels-grid, .use-cases-grid').forEach(g => {
-    g.classList.add('stagger');
-    g.querySelectorAll(':scope > *').forEach(c => { if(!c.classList.contains('fade-up')) c.classList.add('fade-up'); });
-  });
-
-  // Hero cursor orb parallax
-  const _heroEl = document.querySelector('.hero');
-  const _orb = document.querySelector('.hero-orb');
-  if (_heroEl && _orb) {
-    _heroEl.addEventListener('mousemove', (e) => {
-      const r = _heroEl.getBoundingClientRect();
-      _orb.style.transform = 'translate(' + (e.clientX - r.left - 350) + 'px,' + (e.clientY - r.top - 350) + 'px)';
-    }, { passive: true });
-  }
-
-  // Add star ratings to testimonials
-  document.querySelectorAll('.t-card').forEach(card => {
-    if (!card.querySelector('.t-stars')) {
-      const stars = document.createElement('div');
-      stars.className = 't-stars';
-      stars.textContent = '★★★★★';
-      const body = card.querySelector('.t-body, .t-text');
-      if (body) body.insertBefore(stars, body.firstChild);
-      else card.insertBefore(stars, card.firstChild);
-    }
-  });
-
-  // GALAXY PARTICLE SYSTEM v4 — 3 triangle galaxies
-  (function() {
-    var canvas = document.getElementById('particle-canvas');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var W = canvas.width = window.innerWidth;
-    var H = canvas.height = window.innerHeight;
-    var mouseX = -9999, mouseY = -9999;
-    var mouseActive = false, mouseTimer;
-    var COLORS = ['212,164,39','236,200,74','74,171,184','45,143,160','248,249,250','143,169,181','180,137,26'];
-    var COUNT = 240;
-    var G = 3; // number of groups
-    var GS = Math.floor(COUNT / G); // particles per group
-
-    // States: 0=DRIFT  1=GATHER  2=SWIRL  3=SPREAD
-    var idleState = 0;
-    var stateStart = Date.now();
-    var STATE_MS = [3200, 5500, 36000, 6500];
-    var swirlProgress = 0;
-
-    var galaxyTargets = [];
-    var groupCenters = [];
-
-    function computeCenters() {
-      var cx = W * 0.5, cy = H * 0.5;
-      var r = Math.min(W, H) * 0.26;
-      // Equilateral triangle — top, bottom-right, bottom-left
-      groupCenters = [
-        { x: cx,               y: cy - r },
-        { x: cx + r * 0.866,   y: cy + r * 0.5 },
-        { x: cx - r * 0.866,   y: cy + r * 0.5 }
-      ];
-    }
-
-    function computeGalaxy() {
-      computeCenters();
-      galaxyTargets = [];
-      var maxR = Math.min(W, H) * 0.10;
-      for (var g = 0; g < G; g++) {
-        var gcx = groupCenters[g].x, gcy = groupCenters[g].y;
-        var start = g * GS;
-        var end = (g === G - 1) ? COUNT : start + GS;
-        var size = end - start;
-        var coreCount = Math.floor(size * 0.18);
-        // Core cluster
-        for (var i = 0; i < coreCount; i++) {
-          var angle = Math.random() * Math.PI * 2;
-          var r = Math.pow(Math.random(), 1.6) * maxR * 0.28;
-          galaxyTargets.push({ x: gcx + r * Math.cos(angle), y: gcy + r * Math.sin(angle) * 0.88 });
-        }
-        // 3-arm spiral around group center
-        for (var i = coreCount; i < size; i++) {
-          var t = (i - coreCount) / (size - coreCount);
-          var arm = i % 3;
-          var armAngle = (arm / 3) * Math.PI * 2;
-          var r = Math.pow(t, 0.5) * maxR;
-          var spiral = armAngle + t * Math.PI * 4.5;
-          var jx = (Math.random() - 0.5) * maxR * 0.22;
-          var jy = (Math.random() - 0.5) * maxR * 0.14;
-          galaxyTargets.push({
-            x: gcx + r * Math.cos(spiral) + jx,
-            y: gcy + r * Math.sin(spiral) * 0.55 + jy
-          });
-        }
-      }
-    }
-
-    function Particle(idx) {
-      this.idx = idx;
-      this.group = Math.min(Math.floor(idx / GS), G - 1);
-      this.x = Math.random() * W;
-      this.y = Math.random() * H;
-      this.vx = (Math.random() - 0.5) * 1.2;
-      this.vy = (Math.random() - 0.5) * 1.2;
-      this.size = Math.random() * 1.9 + 0.4;
-      // Slight color tint per group
-      var groupTints = [
-        ['212,164,39','236,200,74','248,249,250'],   // group 0 — gold
-        ['74,171,184','45,143,160','143,169,181'],   // group 1 — teal
-        ['180,137,26','212,164,39','248,249,250']    // group 2 — warm gold
-      ];
-      var tints = groupTints[this.group];
-      this.color = tints[Math.floor(Math.random() * tints.length)];
-      this.baseAlpha = Math.random() * 0.38 + 0.07;
-      this.pSpeed = Math.random() * 0.022 + 0.005;
-      this.pOff = Math.random() * Math.PI * 2;
-      this.wobble = Math.random() * Math.PI * 2;
-      this.wobbleV = (Math.random() - 0.5) * 0.045;
-    }
-
-    Particle.prototype.update = function(state, swP) {
-      this.wobble += this.wobbleV;
-      var gc = groupCenters[this.group];
-
-      if (mouseActive) {
-        // BEE SWARM toward cursor
-        var dx = mouseX - this.x, dy = mouseY - this.y;
-        var dist = Math.sqrt(dx*dx + dy*dy) || 1;
-        if (dist < 400) {
-          var f = ((400 - dist) / 400) * 0.32;
-          this.vx += (dx/dist)*f + (dy/dist)*f*0.22;
-          this.vy += (dy/dist)*f - (dx/dist)*f*0.22;
-        }
-        this.vx += (Math.random()-0.5)*0.09;
-        this.vy += (Math.random()-0.5)*0.09;
-        var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 5.5) { this.vx=this.vx/spd*5.5; this.vy=this.vy/spd*5.5; }
-        this.vx *= 0.96; this.vy *= 0.96;
-
-      } else if (state === 1) {
-        // GATHER — strong direct pull toward own group galaxy target
-        var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
-        var dx = tx - this.x, dy = ty - this.y;
-        var dist = Math.sqrt(dx*dx+dy*dy) || 1;
-        var pull = Math.min(dist * 0.07, 1.6);
-        this.vx += (dx/dist)*pull;
-        this.vy += (dy/dist)*pull;
-        this.vx += (Math.random()-0.5)*0.008;
-        this.vy += (Math.random()-0.5)*0.008;
-        var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 4.5) { this.vx=this.vx/spd*4.5; this.vy=this.vy/spd*4.5; }
-        this.vx *= 0.86; this.vy *= 0.86;
-
-      } else if (state === 2) {
-        // SWIRL — orbit around OWN group center
-        var tx = galaxyTargets[this.idx].x, ty = galaxyTargets[this.idx].y;
-        var dx = tx - this.x, dy = ty - this.y;
-        // Tangential vector around group center
-        var rx = this.x - gc.x, ry = this.y - gc.y;
-        var tang = Math.sqrt(rx*rx+ry*ry) || 1;
-        var tangX = -ry/tang, tangY = rx/tang;
-        // Dead zone first 2s, then quadratic ramp
-        var spinP = Math.max(0, (swP - 0.056)) / 0.944;
-        var orbitF = spinP * spinP * 0.17;
-        var springF = 0.028 - spinP * 0.022;
-        this.vx += dx * springF + tangX * orbitF;
-        this.vy += dy * springF + tangY * orbitF;
-        var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        var maxSpd = 0.4 + spinP * spinP * 3.2;
-        if (spd > maxSpd) { this.vx=this.vx/spd*maxSpd; this.vy=this.vy/spd*maxSpd; }
-        this.vx *= 0.97; this.vy *= 0.97;
-
-      } else if (state === 3) {
-        // SPREAD — drift outward from own group center
-        var dx = this.x - gc.x, dy = this.y - gc.y;
-        var dist = Math.sqrt(dx*dx+dy*dy) || 1;
-        this.vx += (dx/dist)*0.04 + (Math.random()-0.5)*0.08;
-        this.vy += (dy/dist)*0.04 + (Math.random()-0.5)*0.08;
-        var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 1.6) { this.vx=this.vx/spd*1.6; this.vy=this.vy/spd*1.6; }
-        this.vx *= 0.985; this.vy *= 0.985;
-
-      } else {
-        // DRIFT — sinusoidal float
-        this.vx += Math.sin(this.wobble)*0.03;
-        this.vy += Math.cos(this.wobble*0.7)*0.03;
-        this.vx += (Math.random()-0.5)*0.07;
-        this.vy += (Math.random()-0.5)*0.07;
-        var spd = Math.sqrt(this.vx*this.vx+this.vy*this.vy);
-        if (spd > 1.4) { this.vx=this.vx/spd*1.4; this.vy=this.vy/spd*1.4; }
-        this.vx *= 0.965; this.vy *= 0.965;
-      }
-
-      this.x += this.vx; this.y += this.vy;
-      if (this.x < -15) this.x = W+15; if (this.x > W+15) this.x = -15;
-      if (this.y < -15) this.y = H+15; if (this.y > H+15) this.y = -15;
-    };
-
-    Particle.prototype.draw = function() {
-      var pulse = Math.sin(Date.now() * this.pSpeed + this.pOff) * 0.32 + 0.68;
-      var a = this.baseAlpha * pulse, s = this.size;
-      var glow = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,s*5.5);
-      glow.addColorStop(0,'rgba('+this.color+','+(a*0.6)+')');
-      glow.addColorStop(0.35,'rgba('+this.color+','+(a*0.22)+')');
-      glow.addColorStop(1,'rgba('+this.color+',0)');
-      ctx.beginPath(); ctx.arc(this.x,this.y,s*5.5,0,Math.PI*2);
-      ctx.fillStyle=glow; ctx.fill();
-      ctx.beginPath(); ctx.arc(this.x,this.y,s,0,Math.PI*2);
-      ctx.fillStyle='rgba('+this.color+','+Math.min(a*2.4,0.98)+')';
-      ctx.fill();
-    };
-
-    computeGalaxy();
-    var particles = [];
-    for (var i=0;i<COUNT;i++) particles.push(new Particle(i));
-
-    function tickState() {
-      var now = Date.now();
-      var elapsed = now - stateStart;
-      if (elapsed > STATE_MS[idleState]) {
-        idleState = (idleState + 1) % 4;
-        stateStart = now;
-        elapsed = 0;
-        swirlProgress = 0;
-        if (idleState === 3) {
-          // Gentle push outward from each group center
-          for (var i=0;i<particles.length;i++) {
-            var gc = groupCenters[particles[i].group];
-            var dx=particles[i].x-gc.x, dy=particles[i].y-gc.y;
-            var d=Math.sqrt(dx*dx+dy*dy)||1;
-            particles[i].vx += (dx/d)*(0.3+Math.random()*0.4);
-            particles[i].vy += (dy/d)*(0.3+Math.random()*0.4);
-          }
-        }
-      }
-      if (idleState === 2) {
-        swirlProgress = Math.min(elapsed / STATE_MS[2], 1);
-      }
-      return idleState;
-    }
-
-    window.addEventListener('mousemove',function(e){
-      mouseX=e.clientX;mouseY=e.clientY;mouseActive=true;
-      clearTimeout(mouseTimer);
-      mouseTimer=setTimeout(function(){mouseActive=false;},2400);
-    },{passive:true});
-    window.addEventListener('touchmove',function(e){
-      var t=e.touches[0];mouseX=t.clientX;mouseY=t.clientY;mouseActive=true;
-      clearTimeout(mouseTimer);
-      mouseTimer=setTimeout(function(){mouseActive=false;},1800);
-    },{passive:true});
-    window.addEventListener('touchstart',function(e){
-      var t=e.touches[0];mouseX=t.clientX;mouseY=t.clientY;mouseActive=true;
-      clearTimeout(mouseTimer);
-      mouseTimer=setTimeout(function(){mouseActive=false;},1800);
-    },{passive:true});
-    window.addEventListener('resize',function(){
-      W=canvas.width=window.innerWidth;
-      H=canvas.height=window.innerHeight;
-      computeGalaxy();
-    },{passive:true});
-
-    function animate() {
-      ctx.clearRect(0,0,W,H);
-      var state = mouseActive ? -1 : tickState();
-      for (var i=0;i<particles.length;i++) {
-        particles[i].update(state, swirlProgress);
-        particles[i].draw();
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-  })();
-
-</script>
-<script>
-/* BORDER-RUNNER AUTO */
-(function(){
-  var sel = '.service-card, .feature-card, .module-card, .channel-card, .dept-card, .role-card, .trust-card, .stack-card, .inside-card, .smart-card, .roadmap-item, .admin-card';
-  var ns = 'http://www.w3.org/2000/svg';
-  var n = 0;
-  document.querySelectorAll(sel).forEach(function(card){
-    if (card.querySelector(':scope > svg.value-border')) return;
-    var svg = document.createElementNS(ns,'svg');
-    svg.setAttribute('class','value-border');
-    svg.setAttribute('preserveAspectRatio','none');
-    var rect = document.createElementNS(ns,'rect');
-    rect.setAttribute('width','100%'); rect.setAttribute('height','100%');
-    rect.setAttribute('rx','2'); rect.setAttribute('pathLength','100');
-    rect.style.animationDelay = (-(n % 8) * 0.6).toFixed(2) + 's';
-    svg.appendChild(rect);
-    if (getComputedStyle(card).position === 'static') card.style.position = 'relative';
-    card.insertBefore(svg, card.firstChild);
-    n++;
-  });
-})();
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="assets/motion.js"></script>
 </body>
 </html>

@@ -3,754 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="SuiteComm — smart hotel inter-department communication. Staff speak, AI routes the task, real-time push delivers it, and SLA escalation keeps nothing missed.">
-<link rel="canonical" href="https://suitesupports.pro/service-suitecomm.html">
-<meta name="theme-color" content="#0B1C28">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SuiteSupports">
-<meta property="og:url" content="https://suitesupports.pro/service-suitecomm.html">
-<meta property="og:title" content="SuiteComm — Smart Hotel Communication Platform | SuiteSupports">
-<meta property="og:description" content="SuiteComm — smart hotel inter-department communication. Staff speak, AI routes the task, real-time push delivers it, and SLA escalation keeps nothing missed.">
-<meta property="og:image" content="https://suitesupports.pro/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SuiteComm — Smart Hotel Communication Platform | SuiteSupports">
-<meta name="twitter:description" content="SuiteComm — smart hotel inter-department communication. Staff speak, AI routes the task, real-time push delivers it, and SLA escalation keeps nothing missed.">
-<meta name="twitter:image" content="https://suitesupports.pro/og-image.png">
-<title>SuiteComm — Smart Hotel Communication Platform | SuiteSupports</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy:        #0B1C28;
-    --teal-deep:   #122A38;
-    --teal-dark:   #1A3A4A;
-    --teal-mid:    #1E5F74;
-    --teal-bright: #2D8FA0;
-    --teal-light:  #4AABB8;
-    --gold:        #D4A427;
-    --gold-bright: #ECC84A;
-    --white:       #F8F9FA;
-    --muted:       #8FA9B5;
-    --muted-dark:  #4A6270;
-    --border:      rgba(212,164,39,0.2);
-    --border-light:rgba(255,255,255,0.08);
-    --green:       #4ade80;
-    --orange:      #fb923c;
-    --red:         #f87171;
-  }
-
-  html { font-size: 16px; scroll-behavior: smooth; }
-  body { background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
-  a { text-decoration: none; color: inherit; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
-  .label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 500; display: block; margin-bottom: 12px; }
-  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 20px 0 28px; }
-
-  /* ─── NAV ─── */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11,28,40,0.97); backdrop-filter: blur(12px); border-bottom: 0.5px solid var(--border); height: 68px; display: flex; align-items: center; }
-  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-  .nav-logo { font-family: 'DM Sans', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.4px; }
-  .nav-logo em { color: var(--gold); font-style: italic; }
-  .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); transition: color 0.2s; }
-  .nav-back:hover { color: var(--white); }
-  .nav-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .nav-gold { font-size: 13px; color: var(--gold); transition: color 0.2s; white-space: nowrap; }
-  .nav-gold:hover { color: var(--gold-bright); }
-  .btn-primary { background: var(--gold); color: var(--navy); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; border-radius: 2px; display: inline-block; transition: background 0.2s, transform 0.15s; }
-  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(212,164,39,0.45); padding: 11px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; border-radius: 2px; display: inline-block; transition: border-color 0.2s, color 0.2s; }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-  /* ─── MOBILE NAV ─── */
-  .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-  .nav-burger span { display: block; width: 22px; height: 1.5px; background: var(--white); }
-  .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(11,28,40,0.99); backdrop-filter: blur(16px); border-bottom: 0.5px solid var(--border); padding: 20px 24px 28px; z-index: 99; flex-direction: column; gap: 4px; }
-  .mobile-menu.open { display: flex; }
-  .mobile-nav-link { font-size: 15px; color: var(--muted); padding: 10px 0; border-bottom: 0.5px solid var(--border-light); transition: color 0.2s; }
-  .mobile-nav-link:hover, .mobile-nav-link.active { color: var(--white); }
-  .mobile-nav-sub { font-size: 13px; color: var(--muted); padding: 8px 12px; transition: color 0.2s; }
-  .mobile-nav-sub:hover, .mobile-nav-sub.active { color: var(--gold); }
-  .mobile-nav-section { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted-dark); padding: 14px 0 4px; font-weight: 500; }
-  .mobile-nav-cta { margin-top: 12px; background: var(--gold); color: var(--navy); padding: 12px 24px; font-size: 13px; font-weight: 600; text-align: center; border-radius: 2px; }
-
-  /* ─── HERO ─── */
-  .hero { min-height: 72vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(155deg, #0B1C28 0%, #0D2234 50%, #122A38 100%); padding-top: 68px; }
-  .hero::before { content: ''; position: absolute; top: -120px; right: -120px; width: 540px; height: 540px; border-radius: 50%; border: 1px solid rgba(212,164,39,0.06); pointer-events: none; }
-  .hero::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 360px; height: 360px; border-radius: 50%; border: 1px solid rgba(45,143,160,0.07); pointer-events: none; }
-  .hero-inner { max-width: 1200px; margin: 0 auto; padding: 60px 48px; width: 100%; display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center; position: relative; z-index: 1; }
-  .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted-dark); margin-bottom: 20px; }
-  .breadcrumb a { color: var(--muted-dark); transition: color 0.2s; }
-  .breadcrumb a:hover { color: var(--gold); }
-  .breadcrumb span { color: var(--gold); }
-  .breadcrumb svg { width: 10px; height: 10px; stroke: var(--muted-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,164,39,0.08); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 2px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 24px; }
-  .hero-tag svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 68px; font-weight: 700; line-height: 0.95; letter-spacing: -2px; color: var(--white); margin-bottom: 20px; }
-  .hero-title em { color: var(--gold); font-style: italic; }
-  .hero-desc { font-size: 15px; color: var(--muted); line-height: 1.85; max-width: 500px; margin-bottom: 36px; }
-  .hero-cta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-
-  /* ─── PHONE MOCKUP ─── */
-  .phone-wrap { display: flex; justify-content: center; align-items: center; }
-  .phone { width: 260px; background: #0a1820; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 32px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04); position: relative; }
-  .phone-notch { width: 80px; height: 20px; background: #0a1820; border-radius: 0 0 12px 12px; margin: 0 auto; border: 1.5px solid rgba(255,255,255,0.08); border-top: none; }
-  .phone-status { padding: 6px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--muted-dark); }
-  .phone-topbar { padding: 8px 16px 6px; border-bottom: 0.5px solid var(--border-light); }
-  .phone-appname { font-size: 16px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
-  .phone-appname span { color: var(--teal-light); }
-  .phone-nav { display: flex; border-bottom: 0.5px solid var(--border-light); }
-  .phone-nav-item { flex: 1; text-align: center; padding: 7px 4px; font-size: 8px; color: var(--muted-dark); letter-spacing: 0.5px; position: relative; }
-  .phone-nav-item.active { color: var(--teal-light); }
-  .phone-nav-item.active::after { content: ''; position: absolute; bottom: 0; left: 20%; right: 20%; height: 1.5px; background: var(--teal-light); border-radius: 2px; }
-  .phone-nav-badge { position: absolute; top: 4px; right: calc(50% - 18px); background: var(--red); color: #fff; font-size: 6px; font-weight: 700; width: 12px; height: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  .phone-tasks { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
-  .phone-task { background: rgba(255,255,255,0.04); border: 0.5px solid var(--border-light); border-radius: 6px; padding: 9px 10px; display: flex; align-items: flex-start; gap: 8px; }
-  .prio { width: 5px; height: 5px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
-  .prio.urgent { background: var(--red); }
-  .prio.high   { background: var(--orange); }
-  .prio.normal { background: var(--teal-light); }
-  .task-txt { flex: 1; }
-  .task-title { font-size: 10px; color: var(--white); font-weight: 500; line-height: 1.3; }
-  .task-meta { font-size: 8px; color: var(--muted-dark); margin-top: 2px; }
-  .task-pill { font-size: 7px; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
-  .task-pill.created { background: rgba(74,171,184,0.1); color: var(--teal-light); border: 0.5px solid rgba(74,171,184,0.2); }
-  .task-pill.ack     { background: rgba(212,164,39,0.1); color: var(--gold-bright); border: 0.5px solid rgba(212,164,39,0.2); }
-  .task-pill.done    { background: rgba(74,222,128,0.08); color: var(--green); border: 0.5px solid rgba(74,222,128,0.18); }
-  .phone-mic-row { padding: 10px 12px 14px; display: flex; align-items: center; gap: 8px; }
-  .phone-input { flex: 1; background: rgba(255,255,255,0.05); border: 0.5px solid var(--border-light); border-radius: 16px; padding: 7px 12px; font-size: 9px; color: var(--muted); }
-  .phone-mic { width: 30px; height: 30px; border-radius: 50%; background: var(--teal-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .phone-mic svg { width: 13px; height: 13px; stroke: var(--white); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .phone-ai-row { margin: 0 12px 12px; background: rgba(212,164,39,0.06); border: 0.5px solid var(--border); border-radius: 5px; padding: 7px 10px; display: flex; align-items: center; gap: 6px; }
-  .ai-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
-  .ai-text { font-size: 8px; color: var(--gold); flex: 1; line-height: 1.4; }
-
-  /* ─── SECTIONS ─── */
-  section { padding: 88px 0; }
-  section.alt { background: var(--teal-deep); }
-  .section-header { max-width: 640px; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 700; line-height: 1.05; letter-spacing: -1px; color: var(--white); margin-bottom: 8px; }
-  .section-title em { color: var(--gold); font-style: italic; }
-  .section-sub { font-size: 15px; color: var(--muted); line-height: 1.8; }
-  .section-divider { border: none; border-top: 0.5px solid var(--border-light); margin: 0; }
-
-  /* ─── FLOW STEPS ─── */
-  .flow-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; position: relative; }
-  .flow-grid::before { content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), var(--border), var(--border), transparent); z-index: 0; }
-  .flow-step { padding: 0 16px; text-align: center; position: relative; z-index: 1; }
-  .flow-num { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--border); background: var(--navy); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--gold); transition: background 0.2s, border-color 0.2s; }
-  .flow-step:hover .flow-num { background: rgba(212,164,39,0.08); border-color: rgba(212,164,39,0.5); }
-  .flow-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 8px; line-height: 1.2; }
-  .flow-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
-
-  /* ─── FEATURES GRID ─── */
-  .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border-light); border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
-  .feature-card { background: var(--navy); padding: 36px 32px; transition: background 0.2s; }
-  .feature-card:hover { background: rgba(26,58,74,0.8); }
-  .feature-icon { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: border-color 0.2s; }
-  .feature-card:hover .feature-icon { border-color: rgba(212,164,39,0.4); }
-  .feature-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .feature-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.2; }
-  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
-
-  /* ─── DEPT CARDS ─── */
-  .dept-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
-  .dept-card { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 28px 24px; text-align: center; transition: border-color 0.2s, background 0.2s; }
-  .dept-card:hover { border-color: rgba(212,164,39,0.3); background: rgba(26,58,74,0.5); }
-  .dept-icon { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-  .dept-icon svg { width: 22px; height: 22px; stroke: var(--teal-light); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .dept-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-  .dept-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
-
-  /* ─── HIGHLIGHT: SLA + HANDOVER ─── */
-  .highlight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .highlight-card { background: rgba(255,255,255,0.03); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 40px 36px; position: relative; overflow: hidden; transition: border-color 0.2s; }
-  .highlight-card:hover { border-color: rgba(212,164,39,0.3); }
-  .highlight-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--teal-mid), transparent); }
-  .highlight-card.gold::before { background: linear-gradient(90deg, var(--gold), transparent); }
-  .highlight-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
-  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 12px; line-height: 1.15; }
-  .highlight-desc { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
-  .highlight-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-  .highlight-bullets li { font-size: 12px; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
-  .highlight-bullets li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--teal-light); margin-top: 7px; flex-shrink: 0; }
-  .highlight-card.gold .highlight-bullets li::before { background: var(--gold); }
-
-  /* ─── STATS STRIP ─── */
-  .stats-strip { background: var(--teal-deep); border-top: 0.5px solid var(--border-light); border-bottom: 0.5px solid var(--border-light); padding: 32px 0; }
-  .stats-inner { display: grid; grid-template-columns: repeat(4,1fr); text-align: center; }
-  .stat-col { padding: 0 24px; border-right: 0.5px solid var(--border-light); }
-  .stat-col:last-child { border-right: none; }
-  .stat-big { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 700; line-height: 1; }
-  .stat-small { font-size: 11px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 2px; }
-
-  /* ─── TECH STACK ─── */
-  .stack-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border-light); border: 0.5px solid var(--border-light); border-radius: 2px; overflow: hidden; }
-  .stack-card { background: var(--navy); padding: 28px 24px; transition: background 0.2s; }
-  .stack-card:hover { background: rgba(26,58,74,0.8); }
-  .stack-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-light); margin-bottom: 8px; font-weight: 500; }
-  .stack-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-  .stack-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
-
-  /* ─── CTA ─── */
-  .cta-block { background: rgba(255,255,255,0.02); border: 0.5px solid var(--border-light); border-radius: 2px; padding: 64px 80px; text-align: center; position: relative; overflow: hidden; }
-  .cta-block::before { content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 400px; height: 120px; background: radial-gradient(ellipse, rgba(212,164,39,0.07) 0%, transparent 70%); pointer-events: none; }
-  .cta-block-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 700; line-height: 1.1; letter-spacing: -1px; color: var(--white); margin-bottom: 16px; }
-  .cta-block-title em { color: var(--gold); font-style: italic; }
-  .cta-block-sub { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
-  .cta-block-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-  /* ─── FOOTER ─── */
-  .page-footer { background: var(--navy); border-top: 0.5px solid var(--border-light); padding: 28px 0; }
-  .page-footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; }
-  .footer-logo em { color: var(--gold); font-style: italic; }
-  .footer-copy { font-size: 12px; color: var(--muted-dark); }
-  .footer-back a { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted-dark); transition: color 0.2s; }
-  .footer-back a:hover { color: var(--gold); }
-  .footer-back svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-  /* ─── MISC ─── */
-  #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); z-index: 200; width: 0; transition: width 0.1s linear; }
-  #scroll-top { position: fixed; bottom: 32px; right: 32px; width: 40px; height: 40px; background: rgba(11,28,40,0.95); border: 0.5px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: opacity 0.3s, transform 0.2s; z-index: 90; }
-  #scroll-top.visible { opacity: 1; }
-  #scroll-top:hover { transform: translateY(-2px); }
-  #scroll-top svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .wa-float { position: fixed; bottom: 80px; right: 32px; width: 44px; height: 44px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37,211,102,0.3); z-index: 90; transition: transform 0.2s, box-shadow 0.2s; }
-  .wa-float:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
-  .wa-float svg { width: 22px; height: 22px; fill: #fff; }
-  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
-  .fade-up.visible { opacity: 1; transform: none; }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 60px; }
-    .hero-title { font-size: 48px; }
-    .phone-wrap { display: none; }
-    .features-grid { grid-template-columns: 1fr 1fr; }
-    .dept-grid { grid-template-columns: 1fr 1fr; }
-    .highlight-grid { grid-template-columns: 1fr; }
-    .stack-grid { grid-template-columns: 1fr 1fr; }
-    .stats-inner { grid-template-columns: 1fr 1fr; }
-    .stat-col { border-right: none; border-bottom: 0.5px solid var(--border-light); padding: 16px; }
-    .flow-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-    .flow-grid::before { display: none; }
-    section { padding: 60px 0; }
-    .cta-block { padding: 48px 32px; }
-    .container { padding: 0 24px; }
-    .nav-inner { padding: 0 24px; }
-    .nav-back, .nav-gold, .btn-primary { display: none; }
-    .nav-burger { display: flex; }
-    .page-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-  }
-  @media (max-width: 600px) {
-    .features-grid, .stack-grid { grid-template-columns: 1fr; }
-    .dept-grid { grid-template-columns: 1fr; }
-    .stats-inner { grid-template-columns: 1fr; }
-    .flow-grid { grid-template-columns: 1fr; }
-  }
-
-/* ─── CARD ANIMATIONS v2 (shared, injected) ─── */
-/* Cascade: grid fades opacity only; cards stagger in individually */
-[class*="-grid"].fade-up { transform: none !important; }
-[class*="-grid"].visible > * { animation: cardCascade .55s cubic-bezier(.2,.7,.2,1) backwards; }
-@keyframes cardCascade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-[class*="-grid"].visible > *:nth-child(1)  { animation-delay: .04s; }
-[class*="-grid"].visible > *:nth-child(2)  { animation-delay: .10s; }
-[class*="-grid"].visible > *:nth-child(3)  { animation-delay: .16s; }
-[class*="-grid"].visible > *:nth-child(4)  { animation-delay: .22s; }
-[class*="-grid"].visible > *:nth-child(5)  { animation-delay: .28s; }
-[class*="-grid"].visible > *:nth-child(6)  { animation-delay: .34s; }
-[class*="-grid"].visible > *:nth-child(7)  { animation-delay: .40s; }
-[class*="-grid"].visible > *:nth-child(8)  { animation-delay: .46s; }
-[class*="-grid"].visible > *:nth-child(9)  { animation-delay: .52s; }
-[class*="-grid"].visible > *:nth-child(10) { animation-delay: .58s; }
-[class*="-grid"].visible > *:nth-child(11) { animation-delay: .64s; }
-[class*="-grid"].visible > *:nth-child(12) { animation-delay: .70s; }
-
-/* Icon fills gold and tilts when its card is hovered */
-[class*="-card"] [class*="-icon"] { transition: background .35s ease, border-color .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
-[class*="-card"]:hover [class*="-icon"] { background: var(--gold) !important; border-color: var(--gold) !important; transform: rotate(-6deg) scale(1.06); }
-[class*="-card"] [class*="-icon"] svg { transition: stroke .35s ease; }
-[class*="-card"]:hover [class*="-icon"] svg { stroke: var(--navy) !important; }
-
-/* Subtle lift on every card hover */
-[class*="-card"] { transition: background .25s ease, box-shadow .4s ease, transform .4s cubic-bezier(.2,.7,.2,1), border-color .3s ease; }
-[class*="-card"]:hover { transform: translateY(-5px); box-shadow: 0 18px 50px rgba(0,0,0,0.38); }
-
-/* Highlight cards: a soft light sweeps across on hover */
-.highlight-card { overflow: hidden; }
-.highlight-card::after { content: ''; position: absolute; top: 0; bottom: 0; left: -70%; width: 45%; background: linear-gradient(105deg, transparent, rgba(255,255,255,0.06), transparent); transform: skewX(-18deg); pointer-events: none; z-index: 0; }
-.highlight-card:hover::after { animation: cardShine 1.05s ease forwards; }
-@keyframes cardShine { from { left: -70%; } to { left: 130%; } }
-
-/* Accessibility: honour reduced-motion preference */
-@media (prefers-reduced-motion: reduce) {
-  [class*="-grid"].visible > * { animation: none !important; }
-  [class*="-card"]:hover { transform: none !important; }
-  [class*="-card"]:hover [class*="-icon"] { transform: none !important; }
-  .highlight-card:hover::after { animation: none !important; }
-  .fade-up { transition: opacity .3s ease !important; transform: none !important; }
-  * { scroll-behavior: auto !important; }
-}
-
-
-/* ─── Animated gold border-runner (auto-applied) ─── */
-.value-border { position: absolute; top: 1px; left: 1px; width: calc(100% - 2px); height: calc(100% - 2px); pointer-events: none; z-index: 4; overflow: visible; }
-.value-border rect { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 22 78; filter: drop-shadow(0 0 4px rgba(212,164,39,0.55)); animation: valueBorderRun 4.8s linear infinite; }
-@keyframes valueBorderRun { to { stroke-dashoffset: -100; } }
-@media (prefers-reduced-motion: reduce) { .value-border rect { animation: none !important; stroke: rgba(212,164,39,0.28); stroke-dasharray: none; } }
-</style>
+<title>SuiteComm — Inter-Department Communication | SuiteSupports</title>
+<meta name="description" content="SuiteComm keeps the whole property in sync — staff speak or type a request, it routes to the right team instantly, and SLA escalation makes sure nothing is missed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<div id="scroll-progress"></div>
-<div id="scroll-top"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+<div class="grain" aria-hidden="true"></div>
 
-<a class="wa-float" href="https://wa.me/6285338662750" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
-<!-- ═══ NAV ═══ -->
-<nav>
-  <div class="nav-inner">
-    <a href="suitesupports-website.html" class="nav-logo">Suite<em>Supports</em></a>
-    <a href="suitesupports-website.html" class="nav-back">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to Home
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="suitesupports-website.html" class="brand">
+      <span class="mark">SS</span>
+      <span><span class="bt">SuiteSupports</span><span class="bs">Hospitality Technology</span></span>
     </a>
-    <a href="https://suitesupports-gold-intelligence.netlify.app/" class="nav-gold">Gold Intelligence</a>
-    <a href="suitesupports-website.html#contact" class="btn-primary">Get Started</a>
-    <button class="nav-burger" aria-label="Open menu" onclick="toggleMobileMenu()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="suitesupports-website.html" class="mobile-nav-link">Home</a>
-  <div class="mobile-nav-section">Services</div>
-  <a href="service-ai-chatbot.html" class="mobile-nav-sub">AI Chatbot Solutions</a>
-  <a href="service-web-design.html" class="mobile-nav-sub">Web Design &amp; Development</a>
-  <a href="service-digital-marketing.html" class="mobile-nav-sub">Hotel Digital Marketing</a>
-  <div class="mobile-nav-section">Products</div>
-  <a href="service-pms.html" class="mobile-nav-sub">SS PMS Cloud</a>
-  <a href="service-booking-engine.html" class="mobile-nav-sub">Booking Engine</a>
-  <a href="service-crm.html" class="mobile-nav-sub">CRM Platform</a>
-  <a href="service-suitecomm.html" class="mobile-nav-sub active">SuiteComm</a>
-  <a href="service-suitegreen.html" class="mobile-nav-sub">SuiteGreen Housekeeping</a>
-  <a href="service-suiteorder.html" class="mobile-nav-sub">SuiteOrder</a>
-  <a href="about-us.html" class="mobile-nav-link">About Us</a>
-  <a href="suitesupports-website.html#contact" class="mobile-nav-link">Contact</a>
-  <a href="suitesupports-website.html#contact" class="mobile-nav-cta">Get Started</a>
-</div>
-
-<!-- ═══ HERO ═══ -->
-<div class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="breadcrumb">
-        <a href="suitesupports-website.html">Home</a>
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        <a href="suitesupports-website.html#services">Products</a>
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        <span>SuiteComm</span>
-      </div>
-      <div class="hero-tag">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        Product — Hotel Operations
-      </div>
-      <h1 class="hero-title">From Voice<br>to Resolved —<br><em>In Seconds.</em></h1>
-      <p class="hero-desc"><span><span style="color:var(--gold)">● </span>SuiteComm is a smart hotel inter-department communication platform. Staff speak or type a request, AI routes it to the right team instantly, real-time push notifies the target department, and a 30-minute SLA timer ensures nothing falls through the cracks.</span></p>
-      <div class="hero-cta">
-        <a href="https://comm.suitesupports.pro/" target="_blank" rel="noopener" class="btn-primary">Open the Live App ↗</a>
-        <a href="suitesupports-website.html#contact" class="btn-outline">Request a Demo</a>
-      </div>
-    </div>
-
-    <!-- Phone Mockup -->
-    <div class="phone-wrap">
-      <div class="phone">
-        <div class="phone-notch"></div>
-        <div class="phone-status">
-          <span>9:41</span>
-          <span>●●● 100%</span>
-        </div>
-        <div class="phone-topbar">
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <div class="phone-appname">Suite<span>Comm</span></div>
-            <div style="font-size:8px;color:var(--muted-dark);">Housekeeping</div>
-          </div>
-        </div>
-        <div class="phone-nav">
-          <div class="phone-nav-item">Tasks</div>
-          <div class="phone-nav-item active" style="position:relative;">
-            Pending
-            <div class="phone-nav-badge">3</div>
-          </div>
-          <div class="phone-nav-item">Report</div>
-          <div class="phone-nav-item">Admin</div>
-        </div>
-        <div class="phone-tasks">
-          <div class="phone-task">
-            <div class="prio urgent"></div>
-            <div class="task-txt">
-              <div class="task-title">Extra towels — Room 1205</div>
-              <div class="task-meta">Front Office · 2 min ago</div>
-            </div>
-            <div class="task-pill created">New</div>
-          </div>
-          <div class="phone-task">
-            <div class="prio high"></div>
-            <div class="task-txt">
-              <div class="task-title">Turndown service — 8th floor</div>
-              <div class="task-meta">Front Office · 18 min ago</div>
-            </div>
-            <div class="task-pill ack">In progress</div>
-          </div>
-          <div class="phone-task">
-            <div class="prio normal"></div>
-            <div class="task-txt">
-              <div class="task-title">Welcome amenity — VIP 702</div>
-              <div class="task-meta">Front Office · 1 hr ago</div>
-            </div>
-            <div class="task-pill done">Done</div>
-          </div>
-        </div>
-        <div class="phone-ai-row">
-          <div class="ai-dot"></div>
-          <div class="ai-text">AI routed: "AC not cooling rm 814" → Engineering · High priority</div>
-        </div>
-        <div class="phone-mic-row">
-          <div class="phone-input">Speak or type a request…</div>
-          <div class="phone-mic">
-            <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ STATS STRIP ═══ -->
-<div class="stats-strip">
-  <div class="container">
-    <div class="stats-inner">
-      <div class="stat-col">
-        <div class="stat-big" style="color:var(--gold);">4</div>
-        <div class="stat-small">Departments connected</div>
-      </div>
-      <div class="stat-col">
-        <div class="stat-big" style="color:var(--teal-light);">30s</div>
-        <div class="stat-small">Avg. task routing time</div>
-      </div>
-      <div class="stat-col">
-        <div class="stat-big" style="color:var(--white);">AI</div>
-        <div class="stat-small">Natural language routing</div>
-      </div>
-      <div class="stat-col">
-        <div class="stat-big" style="color:var(--white);">PWA</div>
-        <div class="stat-small">Works on any device</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ HOW IT WORKS ═══ -->
-<section id="features">
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:56px;">
-      <span class="label">How It Works</span>
-      <h2 class="section-title">One Tap to Talk.<br>AI Does the <em>Rest.</em></h2>
-      <div class="gold-line"></div>
-      <p class="section-sub">SuiteComm removes the friction of walkie-talkies, WhatsApp chains, and handwritten slips. Staff speak or type in plain language — the platform handles routing, tracking, escalation, and reporting automatically.</p>
-    </div>
-    <div class="flow-grid fade-up">
-      <div class="flow-step">
-        <div class="flow-num">1</div>
-        <div class="flow-title">Speak or Type</div>
-        <p class="flow-desc">Staff tap the mic and speak naturally — "two towels room 1205, urgent" — or type a request. Voice transcript stays on the device; only the text is sent to the server.</p>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">2</div>
-        <div class="flow-title">AI Parses &amp; Routes</div>
-        <p class="flow-desc">DeepSeek AI reads the text, identifies the department (Housekeeping / Engineering / F&amp;B / Front Office), task type, location, and urgency level — in under a second.</p>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">3</div>
-        <div class="flow-title">Instant Push</div>
-        <p class="flow-desc">Socket.IO delivers the task in real time to every device in the target department. The Pending tab badge lights up immediately — no refresh needed.</p>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">4</div>
-        <div class="flow-title">Acknowledge &amp; Complete</div>
-        <p class="flow-desc">The receiving team taps to acknowledge, then marks done with an optional note. Every action is timestamped and logged in the audit trail.</p>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">5</div>
-        <div class="flow-title">SLA &amp; Escalation</div>
-        <p class="flow-desc">If a task isn't acknowledged within 30 minutes, the system automatically emails the department head — so urgent requests never go unattended during busy periods.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- ═══ FEATURES ═══ -->
-<section class="alt">
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">Platform Features</span>
-      <h2 class="section-title">Everything a Hotel Ops<br>Team <em>Actually Needs</em></h2>
-      <div class="gold-line"></div>
-      <p class="section-sub">Built specifically for hotel operations — not adapted from a generic ticketing system. Every feature is designed around the real pace, workflows, and pressures of a hotel floor.</p>
-    </div>
-    <div class="features-grid fade-up">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
-        </div>
-        <div class="feature-name">Voice-First Input</div>
-        <p class="feature-desc">Staff speak naturally — AI parses the intent, fills the form, and flags the right department. No learning curve. The mic button degrades gracefully to text if voice isn't available in the browser.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div class="feature-name">30-Min SLA Escalation</div>
-        <p class="feature-desc">An automated worker scans for unacknowledged tasks every 60 seconds. If a task passes its SLA window without action, the department head is emailed immediately — automatically, every time.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <div class="feature-name">Real-Time Push</div>
-        <p class="feature-desc">Socket.IO broadcasts every new task and every status change to the target department's devices the moment it happens. Live badge counts update without any manual refresh.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        </div>
-        <div class="feature-name">Photo Defect Reports</div>
-        <p class="feature-desc">Housekeeping staff photograph a maintenance issue — broken AC, water leak, furniture damage. AI identifies the defect category, severity, and the correct department to assign it to automatically.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <div class="feature-name">AI Shift Handover</div>
-        <p class="feature-desc">One click generates a structured shift-handover summary for any department — open tasks, completed work, and patterns from the last N hours. Managers walk in briefed, not guessing.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        </div>
-        <div class="feature-name">Admin Dashboard</div>
-        <p class="feature-desc">Counts per department × state, tasks past SLA highlighted in red, and a handover generator per department. Department heads and admins see the full picture across the hotel in one view.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- ═══ DEPARTMENTS ═══ -->
-<section>
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">Connected Departments</span>
-      <h2 class="section-title">Four Teams.<br><em>One Platform.</em></h2>
-      <div class="gold-line"></div>
-      <p class="section-sub">SuiteComm connects your entire hotel operations team — every inter-department request flows through a single, trackable, AI-routed channel instead of scattered walkie-talkie calls and WhatsApp threads.</p>
-    </div>
-    <div class="dept-grid fade-up">
-      <div class="dept-card">
-        <div class="dept-icon">
-          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div class="dept-name">Front Office</div>
-        <p class="dept-desc">Raise guest requests, room moves, VIP amenities, and late check-outs. Instantly notifies Housekeeping, Engineering, or F&amp;B with the guest's location and priority.</p>
-      </div>
-      <div class="dept-card">
-        <div class="dept-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div class="dept-name">Housekeeping</div>
-        <p class="dept-desc">Receive and action room requests with live task counts. Use the defect camera to photograph and auto-route maintenance issues to Engineering without leaving the floor.</p>
-      </div>
-      <div class="dept-card">
-        <div class="dept-icon">
-          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-        </div>
-        <div class="dept-name">Food &amp; Beverage</div>
-        <p class="dept-desc">Receive in-room dining requests, setup instructions, and VIP amenity orders from Front Office with full context — room number, guest name, and priority — all pre-filled by AI.</p>
-      </div>
-      <div class="dept-card">
-        <div class="dept-icon">
-          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-        </div>
-        <div class="dept-name">Engineering</div>
-        <p class="dept-desc">Receive photo-tagged defect reports classified by AI — AC, plumbing, electrical, furniture — with severity level assigned automatically so the right technician is dispatched first.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- ═══ SLA + HANDOVER ═══ -->
-<section class="alt">
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">Automation That Protects Your Standards</span>
-      <h2 class="section-title">Nothing Gets<br><em>Missed.</em> Ever.</h2>
-      <div class="gold-line"></div>
-      <p class="section-sub">Two built-in automations ensure operational standards are maintained even during peak hours — without requiring any manager to manually chase task status.</p>
-    </div>
-    <div class="highlight-grid fade-up">
-      <div class="highlight-card">
-        <div class="highlight-label">SLA Enforcement</div>
-        <div class="highlight-title">Automatic Escalation at 30 Minutes</div>
-        <p class="highlight-desc">A background worker scans for unacknowledged tasks every 60 seconds. The moment a task passes its SLA window, the department head receives an email with full task details and a direct link.</p>
-        <ul class="highlight-bullets">
-          <li>Configurable SLA time per task (default 30 minutes)</li>
-          <li>Email goes to the department head automatically — no manual trigger</li>
-          <li>Escalation is idempotent — one email per task, no spam</li>
-          <li>Escalation logged in the full task audit trail</li>
-          <li>Socket.IO also emits a <code style="font-size:11px; color:var(--teal-light);">task.escalated</code> event to connected devices</li>
-        </ul>
-      </div>
-      <div class="highlight-card gold">
-        <div class="highlight-label">AI-Powered</div>
-        <div class="highlight-title">Shift Handover in One Click</div>
-        <p class="highlight-desc">At the end of every shift, admins and department heads generate an AI-written handover summary for any department — covering every open task, completed item, and operational pattern from the past N hours.</p>
-        <ul class="highlight-bullets">
-          <li>2–4 sentence narrative summary of the shift</li>
-          <li>Bullet highlights: unfinished items first, then notable patterns</li>
-          <li>Selectable by department and time window</li>
-          <li>Generated by DeepSeek AI from live task data — no manual writing</li>
-          <li>Incoming managers are briefed before they reach the floor</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- ═══ TECH STACK ═══ -->
-<section>
-  <div class="container">
-    <div class="section-header fade-up" style="margin-bottom:48px;">
-      <span class="label">Built to Last</span>
-      <h2 class="section-title">Enterprise Architecture,<br><em>Practical Scale</em></h2>
-      <div class="gold-line"></div>
-      <p class="section-sub">SuiteComm is built on a modern, production-grade stack deployable on any server or cloud platform — with no vendor lock-in and a clean upgrade path to S3 storage and managed databases.</p>
-    </div>
-    <div class="stack-grid fade-up">
-      <div class="stack-card">
-        <div class="stack-tag">Backend</div>
-        <div class="stack-name">Node.js + Express</div>
-        <p class="stack-desc">REST API with JWT auth, multipart photo upload, parameterised Postgres queries, Helmet, CORS, rate limiting. Production-ready from day one.</p>
-      </div>
-      <div class="stack-card">
-        <div class="stack-tag">Real-time</div>
-        <div class="stack-name">Socket.IO</div>
-        <p class="stack-desc">Authenticated WebSocket rooms per department and per user. Tasks push instantly on create, acknowledge, complete, and escalate — across every connected device.</p>
-      </div>
-      <div class="stack-card">
-        <div class="stack-tag">Frontend</div>
-        <div class="stack-name">React PWA (Vite)</div>
-        <p class="stack-desc">Mobile-first Progressive Web App. Installable on Android and iOS home screen. Works offline for read operations. Voice input via browser Web Speech API.</p>
-      </div>
-      <div class="stack-card">
-        <div class="stack-tag">Database</div>
-        <div class="stack-name">PostgreSQL</div>
-        <p class="stack-desc">Full audit trail in <code style="font-size:11px;color:var(--teal-light);">task_events</code>, fast filtering with indexed <code style="font-size:11px;color:var(--teal-light);">task_state</code>, and a polling escalation worker using <code style="font-size:11px;color:var(--teal-light);">SELECT FOR UPDATE SKIP LOCKED</code>.</p>
-      </div>
-      <div class="stack-card">
-        <div class="stack-tag">AI</div>
-        <div class="stack-name">DeepSeek API</div>
-        <p class="stack-desc">Three AI functions: natural language task parsing, photo-based defect classification, and shift handover generation. Strict JSON schema validation with Zod on every response.</p>
-      </div>
-      <div class="stack-card">
-        <div class="stack-tag">Deployment</div>
-        <div class="stack-name">Docker + Cloud Ready</div>
-        <p class="stack-desc">Docker Compose for local and staging. Caddy for TLS termination. Storage abstraction supports local disk (dev) and S3/MinIO (production) with a single config flag.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- ═══ CTA ═══ -->
-<section style="padding:80px 0;">
-  <div class="container">
-    <div class="cta-block fade-up">
-      <h2 class="cta-block-title">Ready to Replace the<br>Walkie-Talkie with <em>Intelligence?</em></h2>
-      <p class="cta-block-sub">Book a free demo and see SuiteComm running in a live hotel environment. We'll walk through the voice flow, photo defect routing, and SLA escalation — start to finish — at your team's pace.</p>
-      <div class="cta-block-btns">
-        <a href="https://comm.suitesupports.pro/" target="_blank" rel="noopener" class="btn-primary" style="padding:14px 32px; font-size:14px;">Open the Live App ↗</a>
-        <a href="suitesupports-website.html#contact" class="btn-outline" style="padding:14px 32px; font-size:14px;">Schedule a Demo</a>
-        <a href="https://wa.me/6285338662750" target="_blank" rel="noopener" class="btn-outline" style="padding:14px 32px; font-size:14px;">Chat on WhatsApp</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<div class="page-footer">
-  <div class="page-footer-inner">
-    <div class="footer-logo">Suite<em>Supports</em></div>
-    <div class="footer-copy">&copy; 2026 SuiteSupports · MingCan Network</div>
-    <div class="footer-back">
-      <a href="suitesupports-website.html">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        Back to Home
+    <ul class="nav-links">
+      <li><a class="link-underline" href="suitesupports-website.html#services">Services</a></li>
+      <li><a class="link-underline" href="suitesupports-website.html#suite">The Suite</a></li>
+      <li><a class="link-underline" href="about-us.html">About</a></li>
+      <li><a class="link-underline" href="https://suitesupports-gold-intelligence.netlify.app" target="_blank" rel="noopener">Gold Intelligence</a></li>
+      <li><a class="link-underline" href="suitesupports-website.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="pill" href="https://wa.me/6285338662750" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+        <span class="num">+62 853 3866 2750</span>
       </a>
+      <button class="burger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
   </div>
-</div>
+  <div class="mobile-menu">
+    <ul class="wrap">
+      <li><a href="suitesupports-website.html#services">Services</a></li>
+      <li><a href="suitesupports-website.html#suite">The Suite</a></li>
+      <li><a href="about-us.html">About</a></li>
+      <li><a href="https://suitesupports-gold-intelligence.netlify.app" target="_blank" rel="noopener">Gold Intelligence</a></li>
+      <li><a href="suitesupports-website.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
 
-<script>
-  window.addEventListener('scroll', function() {
-    var s = document.documentElement.scrollTop || document.body.scrollTop;
-    var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    document.getElementById('scroll-progress').style.width = (h > 0 ? (s/h)*100 : 0) + '%';
-    var st = document.getElementById('scroll-top');
-    if (s > 400) st.classList.add('visible'); else st.classList.remove('visible');
-  }, { passive: true });
-  document.getElementById('scroll-top').addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  var obs = new IntersectionObserver(function(e) { e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
-  document.querySelectorAll('a[href^="#"]').forEach(function(l) { l.addEventListener('click', function(e) { var t = document.querySelector(l.getAttribute('href')); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
-  function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
-</script>
-<script>
-/* BORDER-RUNNER AUTO */
-(function(){
-  var sel = '.service-card, .feature-card, .module-card, .channel-card, .dept-card, .role-card, .trust-card, .stack-card, .inside-card, .smart-card, .roadmap-item, .admin-card';
-  var ns = 'http://www.w3.org/2000/svg';
-  var n = 0;
-  document.querySelectorAll(sel).forEach(function(card){
-    if (card.querySelector(':scope > svg.value-border')) return;
-    var svg = document.createElementNS(ns,'svg');
-    svg.setAttribute('class','value-border');
-    svg.setAttribute('preserveAspectRatio','none');
-    var rect = document.createElementNS(ns,'rect');
-    rect.setAttribute('width','100%'); rect.setAttribute('height','100%');
-    rect.setAttribute('rx','2'); rect.setAttribute('pathLength','100');
-    rect.style.animationDelay = (-(n % 8) * 0.6).toFixed(2) + 's';
-    svg.appendChild(rect);
-    if (getComputedStyle(card).position === 'static') card.style.position = 'relative';
-    card.insertBefore(svg, card.firstChild);
-    n++;
-  });
-})();
-</script>
+<!-- PAGE HERO (with drawn gold line) -->
+<section class="page-hero">
+  <div class="ph-glow" aria-hidden="true"><div class="a"></div><div class="b"></div><div class="ph-dots"></div></div>
+  <svg class="ph-svg" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="ph-line" d="M-40 440 C 260 360, 560 420, 800 340 S 1240 220, 1500 260" fill="none" stroke="#d4b06a" stroke-width="1.2" stroke-dasharray="1600" stroke-dashoffset="1600" opacity="0.7"></path>
+    <circle cx="1080" cy="286" r="3" fill="#fdc66d" opacity="0.9"></circle>
+    <circle cx="1080" cy="286" r="13" fill="none" stroke="#fdc66d" stroke-width="0.8" opacity="0.5"></circle>
+  </svg>
+  <div class="wrap inner">
+    <p class="eyebrow">SuiteComm</p>
+    <h1 class="split-cascade" data-delay="0.15">From voice to resolved, in seconds.</h1>
+    <p class="lede">SuiteComm keeps the whole property in sync. Staff speak or type a request, it routes to the right team the moment it's made, and an SLA timer makes sure nothing slips through during the busiest hours.</p>
+    <div class="hero-actions" style="opacity:1;margin-top:36px">
+      <span class="magnetic"><a class="btn-gold" href="https://wa.me/6285338662750" target="_blank" rel="noopener">Book a free demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span>
+      <a class="hero-link link-underline" href="#capabilities">See how it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="sec-lg manifesto">
+  <div class="wrap">
+    <p class="lead split-scrub">Walkie-talkie static, WhatsApp threads, handwritten slips — the ways departments talk to each other are exactly where requests get lost. SuiteComm replaces all of it with one channel every team can trust: say what you need, and the right people have it in seconds.</p>
+    <div class="meta-grid" data-reveal="up" data-reveal-stagger="0.12">
+      <div><p class="k">Built for</p><p class="v">Front office, housekeeping, engineering &amp; F&amp;B</p></div>
+      <div><p class="k">How it routes</p><p class="v">Plain language in — the right team notified</p></div>
+      <div><p class="k">Works on</p><p class="v">Any phone or tablet — installable web app</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="sec band" id="capabilities">
+  <div class="wrap">
+    <div class="sec-head" data-reveal="up">
+      <span class="eyebrow">Core capabilities</span>
+      <h2 class="split-cascade">Everything a floor team actually needs.</h2>
+      <p class="intro">Built around the real pace of a hotel floor — not adapted from a generic ticketing tool. Every request is created, routed, tracked and closed in one place.</p>
+    </div>
+    <div class="feature-grid cols-3" data-reveal="up" data-reveal-stagger="0.08">
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Tasks &amp; tickets across departments</h3><p>Every request becomes a tracked task — guest requests, room moves, defects, amenity orders — routed to the right team with location and priority already attached.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Real-time messaging</h3><p>New tasks and status changes push to the target department's devices the moment they happen. Live badge counts update on their own — no refresh, no chasing.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div><h3>Handover logs</h3><p>Generate a structured shift-handover summary for any department in one tap — open tasks first, then completed work and patterns — so incoming teams arrive briefed, not guessing.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>SLA escalation</h3><p>Set a response window per task. If it isn't acknowledged in time, the department head is emailed automatically — one message per task, so urgent requests never sit unattended.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg></div><h3>Mobile first</h3><p>An installable web app that lives on any Android or iOS home screen. Speak or type from the floor, read tasks offline, and carry the whole channel in a pocket.</p><span class="bar"></span></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v12H4z"/><path d="M4 20h16M8 8h8M8 12h5"/></svg></div><h3>Audit trail</h3><p>Every action is timestamped and logged — created, acknowledged, completed, escalated. When you need to know who did what and when, the full history is right there.</p><span class="bar"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS (showcase splits) -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head" data-reveal="up">
+      <span class="eyebrow">How it works</span>
+      <h2 class="split-cascade">One tap to talk. It does the rest.</h2>
+      <p class="intro">Staff speak or type in plain language. Routing, tracking, escalation and reporting all happen behind the scenes.</p>
+    </div>
+
+    <div class="split" data-reveal="up">
+      <div class="split-media group"><div class="art art--comm art--photo" data-photo="comm-1"><img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy"></div></div>
+      <div class="split-body">
+        <span class="eyebrow">01 · Speak or type</span>
+        <h3>Say it the way you'd say it out loud.</h3>
+        <p>Tap the mic and speak naturally — "two towels, room 1205, urgent" — or type it. The request is read for department, task type, location and urgency, then routed without a form to fill.</p>
+        <ul class="tick-list">
+          <li>Plain-language requests, no menus to learn</li>
+          <li>Voice degrades gracefully to text where speech isn't available</li>
+          <li>Location and priority attached automatically</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split flip" data-reveal="up">
+      <div class="split-media group"><div class="art art--comm art--photo" data-photo="comm-1"><img src="https://images.unsplash.com/photo-1541971875076-8f970d573be6?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy"></div></div>
+      <div class="split-body">
+        <span class="eyebrow">02 · Routed &amp; delivered</span>
+        <h3>The right team, the moment it's raised.</h3>
+        <p>The request lands with the correct department in real time — front office, housekeeping, engineering or F&amp;B — with the pending badge lighting up on every device instantly.</p>
+        <ul class="tick-list">
+          <li>Live push to every device in the target department</li>
+          <li>Photograph a defect and it's classified and assigned for you</li>
+          <li>Acknowledge and complete with an optional note — all logged</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split" data-reveal="up">
+      <div class="split-media group"><div class="art art--comm art--photo" data-photo="comm-1"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy"></div></div>
+      <div class="split-body">
+        <span class="eyebrow">03 · Nothing missed</span>
+        <h3>An SLA timer watching every request.</h3>
+        <p>A background check scans for unacknowledged tasks continuously. The moment a task passes its window, the department head is emailed with full details and a direct link — no manager left chasing status.</p>
+        <ul class="tick-list">
+          <li>Configurable response window per task</li>
+          <li>One email per task — escalation never spams</li>
+          <li>Every escalation written into the audit trail</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split flip" data-reveal="up">
+      <div class="split-media group"><div class="art art--comm art--photo" data-photo="comm-1"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy"></div></div>
+      <div class="split-body">
+        <span class="eyebrow">04 · Shift handover</span>
+        <h3>Every shift ends with a clean briefing.</h3>
+        <p>At the end of a shift, admins and department heads generate a handover summary for any team — open items first, then completed work and notable patterns from the hours just passed.</p>
+        <ul class="tick-list">
+          <li>Short narrative plus bulleted highlights</li>
+          <li>Selectable by department and time window</li>
+          <li>Built from live task data — no manual writing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTED DEPARTMENTS (navy) -->
+<section class="sec on-navy">
+  <div class="wrap">
+    <div class="sec-head" data-reveal="up">
+      <span class="eyebrow on-dark">Connected departments</span>
+      <h2 class="split-cascade">Four teams, one channel.</h2>
+      <p class="intro">Every inter-department request flows through a single, trackable, routed channel instead of scattered calls and threads — so the whole property reads from the same live picture.</p>
+    </div>
+    <div class="feature-grid cols-3" data-reveal="up" data-reveal-stagger="0.08">
+      <div class="feature"><h3>Front office</h3><p>Raise guest requests, room moves, VIP amenities and late check-outs — instantly notifying housekeeping, engineering or F&amp;B with the guest's location and priority.</p><span class="bar"></span></div>
+      <div class="feature"><h3>Housekeeping</h3><p>Receive and action room requests with live task counts, and photograph a maintenance issue to route it straight to engineering without leaving the floor.</p><span class="bar"></span></div>
+      <div class="feature"><h3>Engineering</h3><p>Receive photo-tagged defect reports classified by category and severity — AC, plumbing, electrical, furniture — so the right technician is dispatched first.</p><span class="bar"></span></div>
+      <div class="feature"><h3>Food &amp; beverage</h3><p>Receive in-room dining requests, setup instructions and amenity orders with full context — room, guest and priority — already filled in.</p><span class="bar"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta sec-lg" id="contact">
+  <div class="cta-glow" aria-hidden="true"><div class="g1"></div><div class="g2" data-parallax="-0.4"></div></div>
+  <div class="wrap cta-inner">
+    <p class="eyebrow on-dark" data-reveal="fade">Book a demo</p>
+    <h2 class="split-cascade">See the whole property stay in sync.</h2>
+    <div data-reveal="up" data-reveal-delay="0.3">
+      <p class="p">Book a free demo and watch SuiteComm run in a live hotel environment — the voice flow, photo defect routing and SLA escalation, start to finish, at your team's pace.</p>
+    </div>
+    <div class="cta-actions" data-reveal="up" data-reveal-delay="0.45">
+      <span class="magnetic"><a class="btn-gold" href="https://wa.me/6285338662750" target="_blank" rel="noopener">Book a free demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span>
+      <a class="btn-outline-white" href="mailto:opsmanager@suitesupports.pro">Email the team</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="fbrand">SuiteSupports</p>
+      <p class="fdesc">Part of the MingCan Network. Delivering tailored IT and hospitality solutions since 2017 — transforming challenges into opportunities through personalized service and modern technology.</p>
+    </div>
+    <div>
+      <p class="fh">Explore</p>
+      <ul>
+        <li><a href="suitesupports-website.html#services">Services</a></li>
+        <li><a href="suitesupports-website.html#suite">The Suite</a></li>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="https://suitesupports-gold-intelligence.netlify.app" target="_blank" rel="noopener">Gold Intelligence</a></li>
+        <li><a href="suitesupports-website.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="fh">Get in touch</p>
+      <address>
+        <span style="display:block">Mataram, West Nusa Tenggara</span>
+        <span style="display:block">Indonesia</span>
+        <a href="https://wa.me/6285338662750" target="_blank" rel="noopener" style="margin-top:8px;display:block">+62 853 3866 2750</a>
+        <a href="mailto:opsmanager@suitesupports.pro" style="display:block">opsmanager@suitesupports.pro</a>
+      </address>
+    </div>
+  </div>
+  <div class="wrap foot-bottom"><span id="year"></span> SuiteSupports · Part of the MingCan Network. All rights reserved.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="assets/motion.js"></script>
 </body>
 </html>

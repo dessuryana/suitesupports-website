@@ -317,3 +317,22 @@ footer.site-footer{background:var(--navy-deep);color:#fff;padding:48px 0}
   .hero-cards{grid-template-columns:1fr;margin-top:-56px}
 }
 @media(max-width:640px){.pill span.num{display:none}}
+
+/* ------------- ANIMATED CODE SCREEN (typing loop, used on the PMS card) ------------- */
+.code-screen{position:absolute;inset:9% 8%;z-index:5;display:flex;flex-direction:column;background:#081126;border:1px solid rgba(212,176,106,.35);box-shadow:0 18px 50px -20px rgba(0,0,0,.7)}
+.code-screen .cs-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+.code-screen .cs-bar i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18)}
+.code-screen .cs-bar i:first-child{background:rgba(253,198,109,.7)}
+.code-screen .cs-bar em{margin-left:8px;font-style:normal;font-family:var(--font-accent);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap;overflow:hidden}
+.code-screen .cs-body{flex:1;padding:13px 16px;font-family:ui-monospace,'Cascadia Code',Consolas,monospace;font-size:12px;line-height:1.9;color:#c2e8ee;overflow:hidden}
+.code-screen .cl{white-space:nowrap}
+.code-screen .clip{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;width:0}
+.code-screen .ccaret{display:inline-block;width:6px;height:1em;background:var(--gold-lt);vertical-align:-2px;visibility:hidden;animation:blinkc .9s step-end infinite}
+@keyframes blinkc{50%{opacity:.15}}
+.code-screen .c-com{color:rgba(255,255,255,.4)}
+.code-screen .c-kw{color:var(--gold-lt)}
+.code-screen .c-str{color:#7fd6c2}
+.code-screen .c-fn{color:#d4b06a}
+.code-screen .c-ok{color:#4aabb8}
+html:not(.js) .code-screen .clip{width:auto}
+@media (prefers-reduced-motion:reduce){.code-screen .clip{width:auto!important}.code-screen .ccaret{display:none}}

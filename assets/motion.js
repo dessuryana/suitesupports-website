@@ -162,3 +162,38 @@
     });
   }
 })();
+
+/* Animated code screens: lines "type" themselves in a loop (PMS card). */
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function init() {
+    document.querySelectorAll('.code-screen').forEach(function (cs) {
+      var lines = Array.prototype.slice.call(cs.querySelectorAll('.cl'));
+      if (!lines.length) return;
+      if (reduce || typeof gsap === 'undefined') {
+        lines.forEach(function (l) { var c = l.querySelector('.clip'); if (c) c.style.width = 'auto'; });
+        return;
+      }
+      var widths = lines.map(function (l) {
+        var clip = l.querySelector('.clip');
+        clip.style.width = 'auto';
+        var w = clip.getBoundingClientRect().width;
+        clip.style.width = '0px';
+        return w;
+      });
+      var tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5,
+        scrollTrigger: { trigger: cs, start: 'top 92%' } });
+      lines.forEach(function (l, i) {
+        var clip = l.querySelector('.clip'), caret = l.querySelector('.ccaret');
+        var chars = Math.max(6, clip.textContent.length);
+        tl.set(caret, { visibility: 'visible' })
+          .to(clip, { width: widths[i], duration: chars * 0.045, ease: 'steps(' + chars + ')' })
+          .set(caret, { visibility: 'hidden' }, '+=0.22');
+      });
+      tl.to({}, { duration: 2.6 });                                   /* hold on the finished screen */
+      tl.set(lines.map(function (l) { return l.querySelector('.clip'); }), { width: 0 });
+    });
+  }
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(init); }
+  else { window.addEventListener('load', init); }
+})();

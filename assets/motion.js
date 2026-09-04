@@ -248,3 +248,32 @@
       .to(msgs, { autoAlpha: 0, duration: 0.4, stagger: 0.04 });
   });
 })();
+
+/* Three-device showcase: each screen "builds" itself — desktop, then tablet, then phone. */
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (typeof gsap === 'undefined') return;
+  document.querySelectorAll('.devices-screen').forEach(function (ds) {
+    var devs = ['.dev-mac', '.dev-pad', '.dev-phone'].map(function (s) { return ds.querySelector(s); }).filter(Boolean);
+    if (reduce) {
+      ds.querySelectorAll('.m-line').forEach(function (l) { l.style.width = '55%'; });
+      ds.querySelectorAll('.m-bar,.m-block').forEach(function (e) { e.style.opacity = 1; });
+      return;
+    }
+    gsap.to(ds.querySelector('.dev-pad'), { y: 5, duration: 3.1, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to(ds.querySelector('.dev-phone'), { y: 7, duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    var tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4,
+      scrollTrigger: { trigger: ds, start: 'top 92%' } });
+    devs.forEach(function (dev, i) {
+      var line = dev.querySelector('.m-line'), bars = dev.querySelectorAll('.m-bar'), blocks = dev.querySelectorAll('.m-block');
+      var at = i === 0 ? 0.2 : '-=0.55';
+      tl.set(line, { width: 0, autoAlpha: 1 }, i === 0 ? 0 : '<')
+        .set([bars, blocks], { autoAlpha: 0, y: 4 }, '<');
+      tl.to(line, { width: '55%', duration: 0.5, ease: 'power2.out' }, at)
+        .to(bars, { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.12 }, '-=0.15')
+        .to(blocks, { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.07 }, '-=0.1');
+    });
+    tl.to({}, { duration: 2.8 });
+    tl.to(ds.querySelectorAll('.m-line,.m-bar,.m-block'), { autoAlpha: 0, duration: 0.4 });
+  });
+})();

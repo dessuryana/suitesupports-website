@@ -379,3 +379,31 @@ html:not(.js) .msg .dots{display:none}
   .holo-row,.holo-btn,.msg{opacity:1!important}
   .msg .txt{display:inline!important}.msg .dots{display:none!important}
 }
+
+/* ------------- THREE-DEVICE SHOWCASE (Web Design card): desktop · tablet · phone ------------- */
+.devices-screen{position:absolute;inset:0;z-index:5;overflow:hidden}
+.dev{position:absolute;filter:drop-shadow(0 14px 22px rgba(0,0,0,.5))}
+.dev .scr{position:relative;overflow:hidden;background:#0b1834;border:2px solid #33456a;border-radius:6px}
+.dev-mac{left:6%;top:11%;width:56%}
+.dev-mac .scr{aspect-ratio:16/10;border-radius:7px 7px 0 0}
+.dev-mac .chin{height:9px;background:linear-gradient(#1e2f52,#15213e);border-radius:0 0 7px 7px;border:2px solid #33456a;border-top:none}
+.dev-mac .stand{width:16%;height:15px;margin:0 auto;background:linear-gradient(#182647,#0f1a33);clip-path:polygon(18% 0,82% 0,100% 100%,0 100%)}
+.dev-mac .base{width:32%;height:4px;margin:0 auto;background:#182647;border-radius:2px}
+.dev-pad{right:6%;top:15%;width:29%;z-index:6}
+.dev-pad .scr{aspect-ratio:3/4.1;border-radius:9px;border-width:3px}
+.dev-phone{right:24%;bottom:7%;width:13.5%;z-index:7}
+.dev-phone .scr{aspect-ratio:9/18.5;border-radius:9px;border-width:3px}
+.dev-phone .scr::before{content:"";position:absolute;top:3px;left:50%;transform:translateX(-50%);width:36%;height:4px;border-radius:3px;background:#0a0f1f;z-index:4}
+.mini-site{position:absolute;inset:0;display:flex;flex-direction:column}
+.m-hero{position:relative;height:46%;background:linear-gradient(160deg,#0d214d,#071534);padding:9% 10%;display:flex;flex-direction:column;justify-content:center;gap:9%}
+.m-line{display:block;width:0;height:2px;background:var(--gold-lt);box-shadow:0 0 6px rgba(253,198,109,.8)}
+.m-bar{display:block;height:8%;min-height:3px;max-height:6px;background:rgba(255,255,255,.85);opacity:0}
+.m-bar.b1{width:72%}
+.m-bar.b2{width:46%;background:rgba(255,255,255,.38)}
+.m-body{flex:1;background:#f6f3ec;padding:7% 10%;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6% 8%}
+.m-block{height:26%;min-height:5px;max-height:16px;background:#ded4bd;flex:1 1 38%;opacity:0}
+.m-block.g{background:var(--gold)}
+.m-block.w{flex-basis:100%;background:#e9e2d2}
+html:not(.js) .m-line{width:55%}
+html:not(.js) .m-bar,html:not(.js) .m-block{opacity:1}
+@media (prefers-reduced-motion:reduce){.m-line{width:55%!important}.m-bar,.m-block{opacity:1!important}}

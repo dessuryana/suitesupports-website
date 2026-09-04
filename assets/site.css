@@ -336,3 +336,46 @@ footer.site-footer{background:var(--navy-deep);color:#fff;padding:48px 0}
 .code-screen .c-ok{color:#4aabb8}
 html:not(.js) .code-screen .clip{width:auto}
 @media (prefers-reduced-motion:reduce){.code-screen .clip{width:auto!important}.code-screen .ccaret{display:none}}
+
+/* ------------- HOLOGRAM BOOKING WIDGET (Booking Engine card) ------------- */
+.holo-screen{position:absolute;inset:0;z-index:5;overflow:hidden}
+.holo-base{position:absolute;left:50%;bottom:8%;width:44%;height:12px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at center,rgba(74,171,184,.85),rgba(74,171,184,.15) 60%,transparent 78%);filter:blur(1px)}
+.holo-cone{position:absolute;left:50%;bottom:10%;width:76%;height:30%;transform:translateX(-50%);background:linear-gradient(0deg,rgba(74,171,184,.28),rgba(74,171,184,.03));clip-path:polygon(44% 100%,56% 100%,96% 0,4% 0);opacity:.75}
+.holo-wrap{position:absolute;left:50%;top:9%;width:64%;transform:translateX(-50%)}
+.holo-card{position:relative;border:1px solid rgba(74,171,184,.55);background:linear-gradient(180deg,rgba(74,171,184,.12),rgba(13,33,77,.4));box-shadow:0 0 26px rgba(74,171,184,.28),inset 0 0 18px rgba(74,171,184,.12);padding:13px 15px;transform:perspective(700px) rotateX(4deg);font-family:var(--font-accent)}
+.holo-card::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px);pointer-events:none}
+.holo-card::after{content:"";position:absolute;left:0;right:0;top:0;height:16%;background:linear-gradient(180deg,rgba(194,232,238,.16),transparent);animation:holoscan 3.4s linear infinite;pointer-events:none}
+@keyframes holoscan{0%{transform:translateY(-20%)}100%{transform:translateY(560%)}}
+.holo-title{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:#7fd6c2;margin-bottom:8px;text-shadow:0 0 8px rgba(74,171,184,.7)}
+.holo-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:5px 0;border-bottom:1px dashed rgba(74,171,184,.25);opacity:0}
+.holo-row .hl{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:rgba(194,232,238,.55);white-space:nowrap}
+.holo-row .hv{font-size:11px;color:#eafcff;text-shadow:0 0 8px rgba(74,171,184,.8);white-space:nowrap}
+.holo-btn{margin-top:11px;position:relative;text-align:center;padding:8px 6px;border:1px solid rgba(253,198,109,.7);color:var(--gold-lt);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;overflow:hidden;opacity:0;text-shadow:0 0 8px rgba(253,198,109,.7)}
+.holo-btn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(90deg,transparent,rgba(253,198,109,.4),transparent);animation:holoshine 2.6s ease-in-out infinite}
+@keyframes holoshine{0%{left:-60%}60%,100%{left:120%}}
+html:not(.js) .holo-row,html:not(.js) .holo-btn{opacity:1}
+
+/* ------------- GUEST CHAT (AI Chatbot card) ------------- */
+.chat-screen{position:absolute;inset:7% 9%;z-index:5;display:flex;flex-direction:column;background:rgba(8,17,38,.93);border:1px solid rgba(212,176,106,.32);box-shadow:0 18px 50px -20px rgba(0,0,0,.7)}
+.ch-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+.ch-dot{width:7px;height:7px;border-radius:50%;background:#4aabb8;box-shadow:0 0 7px #4aabb8}
+.ch-bar em{font-style:normal;font-family:var(--font-accent);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden}
+.ch-body{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;padding:12px;overflow:hidden}
+.msg{max-width:84%;padding:6px 11px;font-size:11.5px;line-height:1.45;opacity:0;font-family:var(--font-body)}
+.msg.guest{align-self:flex-end;background:rgba(173,152,97,.28);border:1px solid rgba(253,198,109,.35);color:#ffe9c4}
+.msg.hotel{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#e9f2f6}
+.msg .dots{display:inline-flex;align-items:center;height:1em}
+.msg .dots i{display:inline-block;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.65);margin:0 2px;animation:chdot 1s infinite}
+.msg .dots i:nth-child(2){animation-delay:.15s}
+.msg .dots i:nth-child(3){animation-delay:.3s}
+@keyframes chdot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-3px);opacity:1}}
+.msg .dots~.txt{display:none}
+.msg .txt b{color:#7fd6c2;font-weight:700}
+html:not(.js) .msg{opacity:1}
+html:not(.js) .msg .txt{display:inline}
+html:not(.js) .msg .dots{display:none}
+@media (prefers-reduced-motion:reduce){
+  .holo-card::after,.holo-btn::after,.msg .dots i{animation:none}
+  .holo-row,.holo-btn,.msg{opacity:1!important}
+  .msg .txt{display:inline!important}.msg .dots{display:none!important}
+}

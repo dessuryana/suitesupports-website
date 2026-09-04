@@ -197,3 +197,54 @@
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(init); }
   else { window.addEventListener('load', init); }
 })();
+
+/* Hologram booking widget + guest chat animations (homepage cards). */
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (typeof gsap === 'undefined') return;
+
+  /* Hologram: fields materialize, confirm button glows; card floats on its beam. */
+  document.querySelectorAll('.holo-screen').forEach(function (hs) {
+    var wrap = hs.querySelector('.holo-wrap');
+    var rows = hs.querySelectorAll('.holo-row');
+    var btn = hs.querySelector('.holo-btn');
+    if (reduce) { rows.forEach(function (r) { r.style.opacity = 1; }); if (btn) btn.style.opacity = 1; return; }
+    gsap.to(wrap, { y: 7, duration: 2.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    var tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4,
+      scrollTrigger: { trigger: hs, start: 'top 92%' } });
+    tl.set([rows, btn], { autoAlpha: 0, y: 6 })
+      .to(rows, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.3, ease: 'power2.out' }, 0.2)
+      .to(btn, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '+=0.25')
+      .to({}, { duration: 2.8 })
+      .to([rows, btn], { autoAlpha: 0, duration: 0.45 });
+  });
+
+  /* Chat: bubbles pop in; hotel replies show typing dots first. */
+  document.querySelectorAll('.chat-screen').forEach(function (cs) {
+    var msgs = Array.prototype.slice.call(cs.querySelectorAll('.msg'));
+    if (reduce) {
+      msgs.forEach(function (m) {
+        m.style.opacity = 1;
+        var d = m.querySelector('.dots'), t = m.querySelector('.txt');
+        if (d) d.style.display = 'none'; if (t) t.style.display = 'inline';
+      });
+      return;
+    }
+    var tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6,
+      scrollTrigger: { trigger: cs, start: 'top 92%' } });
+    tl.set(msgs, { autoAlpha: 0, y: 10, scale: 0.96 });
+    msgs.forEach(function (m) {
+      var dots = m.querySelector('.dots'), txt = m.querySelector('.txt');
+      if (dots && txt) tl.set(dots, { display: 'inline-flex' }).set(txt, { display: 'none' });
+    });
+    msgs.forEach(function (m, i) {
+      var dots = m.querySelector('.dots'), txt = m.querySelector('.txt');
+      tl.to(m, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.6)' }, i === 0 ? 0.2 : '+=0.45');
+      if (dots && txt) {
+        tl.set(dots, { display: 'none' }, '+=0.95').set(txt, { display: 'inline' });
+      }
+    });
+    tl.to({}, { duration: 2.6 })
+      .to(msgs, { autoAlpha: 0, duration: 0.4, stagger: 0.04 });
+  });
+})();

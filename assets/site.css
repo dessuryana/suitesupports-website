@@ -407,3 +407,50 @@ html:not(.js) .msg .dots{display:none}
 html:not(.js) .m-line{width:55%}
 html:not(.js) .m-bar,html:not(.js) .m-block{opacity:1}
 @media (prefers-reduced-motion:reduce){.m-line{width:55%!important}.m-bar,.m-block{opacity:1!important}}
+
+/* ============================================================================
+   TYPOGRAPHY THEME v2 — Archivo (display) + Poppins (body)
+   Style port from the 291-on-King sample: uppercase extralight headlines,
+   rounded geometric body. Colors unchanged. Overrides the sections above.
+   ============================================================================ */
+:root{
+  --font-heading:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-body:'Poppins','Helvetica Neue',Arial,sans-serif;
+  --font-accent:'Poppins','Helvetica Neue',Arial,sans-serif;
+}
+body{font-weight:300}
+h1,h2{font-family:var(--font-heading);font-weight:200;text-transform:uppercase;letter-spacing:.02em;line-height:1.06}
+h3,h4{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.03em;line-height:1.15}
+.eyebrow{font-weight:500;letter-spacing:.22em}
+.eyebrow::before{content:"";display:inline-block;width:24px;height:1px;background:currentColor;margin-right:10px;vertical-align:middle;opacity:.8}
+.hero-eyebrow::before{content:"";display:inline-block;width:24px;height:1px;background:currentColor;margin-right:10px;vertical-align:middle;opacity:.8}
+
+/* Headline sizes retuned for uppercase display type */
+.hero h1{font-size:clamp(2.2rem,5.6vw,5rem);line-height:1.04;letter-spacing:.02em}
+.page-hero h1{font-size:clamp(1.85rem,4.2vw,3.6rem)}
+.sec-head h2{font-size:clamp(1.8rem,3.8vw,3.2rem);max-width:24ch}
+.approach-head h2,.svc-head h2,.principles h2{font-size:clamp(1.85rem,4vw,3.4rem)}
+.suite-head h2{font-size:clamp(1.7rem,3.6vw,3rem)}
+.cta h2{font-size:clamp(1.9rem,4.6vw,4rem);line-height:1.08}
+.manifesto p.lead,p.lead{font-family:var(--font-body);font-weight:300;text-transform:none;font-size:clamp(1.25rem,2.5vw,2.05rem);line-height:1.55}
+.meta-grid .v{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.04em;font-size:16px;line-height:1.45}
+.feature h3{font-size:1.2rem}
+.method h3{font-size:1.6rem}
+.step-card h3{font-size:1.3rem}
+.svc h3{font-size:1.35rem}
+.split-body h3{font-size:clamp(1.4rem,2.7vw,2.2rem)}
+.stack h3{font-size:clamp(1.4rem,2.6vw,2.1rem)}
+.suite-list .st{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.05em;font-size:1.15rem}
+.stat .v,.statcard .sv{font-family:var(--font-heading);font-weight:200}
+.pullquote p{font-family:var(--font-body);font-weight:300;text-transform:none}
+
+/* Brand, nav, buttons */
+.brand .bt{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.1em;font-size:16px}
+.brand .mark{font-family:var(--font-heading);font-weight:300}
+.nav-links{font-size:12px;letter-spacing:.18em;font-weight:400}
+.pill{font-family:var(--font-body);font-weight:400;font-size:13.5px}
+.btn-gold,.btn-outline-navy,.btn-outline-white{font-family:var(--font-heading);font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:12.5px}
+.hero-card .t{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.05em;font-size:17px}
+.site-footer .fbrand{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.08em;font-size:1.3rem}
+.rc-name{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.04em}
+.stage-tag{font-family:var(--font-body);font-weight:300;font-style:italic}

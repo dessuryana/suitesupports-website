@@ -277,3 +277,20 @@
     tl.to(ds.querySelectorAll('.m-line,.m-bar,.m-block'), { autoAlpha: 0, duration: 0.4 });
   });
 })();
+
+/* Card videos: play only while visible; stay on the poster for reduced-motion visitors. */
+(function () {
+  var vids = document.querySelectorAll('video[data-inview]');
+  if (!vids.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { vids.forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); }); return; }
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else v.pause();
+    });
+  }, { threshold: 0.15 });
+  vids.forEach(function (v) { io.observe(v); });
+})();

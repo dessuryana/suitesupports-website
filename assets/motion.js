@@ -111,6 +111,7 @@
       .fromTo(q('.hero-eyebrow'), { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.5)
       .fromTo(q('.hero-lede'), { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 1 }, 1.1)
       .fromTo(q('.hero-actions'), { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 1 }, 1.25)
+      .fromTo(q('.film-frame'), { autoAlpha: 0, y: 40, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 1.3 }, 1.15)
       .fromTo(q('.hero-card'), { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.12 }, 1.35)
       .fromTo(q('.hero-scroll'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8 }, 1.8);
     gsap.to(q('.hero-img'), { yPercent: 18, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
@@ -125,7 +126,8 @@
     gsap.timeline({ defaults: { ease: 'power3.out' } })
       .fromTo(q('.ph-line'), { strokeDashoffset: 1600 }, { strokeDashoffset: 0, duration: 2.4, ease: 'power3.inOut' }, 0.1)
       .fromTo(q('.eyebrow'), { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.35)
-      .fromTo(q('.lede'), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 1 }, 0.7);
+      .fromTo(q('.lede'), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 1 }, 0.7)
+      .fromTo(q('.film-frame'), { autoAlpha: 0, y: 40, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 1.3 }, 0.8);
     gsap.to(q('.ph-glow'), { yPercent: 12, ease: 'none', scrollTrigger: { trigger: ph, start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to(q('.ph-svg'), { yPercent: 16, ease: 'none', scrollTrigger: { trigger: ph, start: 'top top', end: 'bottom top', scrub: true } });
   })();
@@ -288,9 +290,34 @@
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       var v = e.target;
-      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      if (e.isIntersecting) { if (v.dataset.userPaused) return; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
       else v.pause();
     });
   }, { threshold: 0.15 });
   vids.forEach(function (v) { io.observe(v); });
+})();
+
+/* Hero films: pause and sound buttons plus a gold progress line. A visitor's pause sticks
+   (the in-view player above skips videos marked userPaused). */
+(function () {
+  document.querySelectorAll('.hero-film').forEach(function (fig) {
+    var v = fig.querySelector('video'); if (!v) return;
+    var bp = fig.querySelector('[data-film-play]'), bs = fig.querySelector('[data-film-sound]'), bar = fig.querySelector('.film-bar i');
+    var play = function () { delete v.dataset.userPaused; var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+    var sync = function () {
+      fig.classList.toggle('is-paused', v.paused);
+      fig.classList.toggle('is-unmuted', !v.muted);
+      if (bp) bp.setAttribute('aria-label', v.paused ? 'Play video' : 'Pause video');
+      if (bs) { bs.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off'); bs.setAttribute('aria-pressed', String(!v.muted)); }
+    };
+    var draw = function () { if (bar && v.duration) bar.style.transform = 'scaleX(' + (v.currentTime / v.duration) + ')'; };
+    var tick = function () { draw(); if (!v.paused) requestAnimationFrame(tick); };
+    v.addEventListener('play', function () { sync(); requestAnimationFrame(tick); });
+    v.addEventListener('pause', sync);
+    v.addEventListener('volumechange', sync);
+    v.addEventListener('timeupdate', draw);
+    if (bp) bp.addEventListener('click', function () { if (v.paused) play(); else { v.dataset.userPaused = '1'; v.pause(); } });
+    if (bs) bs.addEventListener('click', function () { v.muted = !v.muted; if (!v.muted) { v.volume = 1; if (v.paused) play(); } });
+    sync();
+  });
 })();

@@ -460,3 +460,33 @@ h3,h4{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;l
 .art--video > video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 1.2s var(--ease)}
 .group:hover .art--video > video{transform:scale(1)}
 .art--video::after{opacity:1;background-image:linear-gradient(180deg,rgba(7,21,52,0) 55%,rgba(7,21,52,.45) 100%);background-size:auto;background-position:0 0}
+
+/* ------------- HERO FILMS (home: SuiteSupports reel 4:5 · PMS page: SS PMS Cloud launch film 16:9) -------------
+   Phones and tablets: the film sits under the copy. Desktop: it moves to the right of the copy, bleeding a
+   little past the content edge, and the copy column narrows just enough that the headline never runs under it. */
+.hero-film{position:relative;z-index:6;margin:48px 0 0;width:min(100%,380px)}
+.hero-film--wide{width:min(100%,720px)}
+.film-frame{position:relative;aspect-ratio:4/5;background:#071534;border:1px solid rgba(253,198,109,.45);box-shadow:0 40px 90px rgba(2,8,26,.55)}
+.hero-film--wide .film-frame{aspect-ratio:16/9}
+.film-frame::before{content:"";position:absolute;inset:-12px;border:1px solid rgba(253,198,109,.2);pointer-events:none}
+.film-frame > video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.film-ctl{position:absolute;right:12px;bottom:14px;z-index:2;display:flex;gap:6px}
+.film-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;min-width:36px;padding:0 10px;background:rgba(7,21,52,.62);border:1px solid rgba(253,198,109,.55);color:var(--gold-lt);font-family:var(--font-accent);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.film-btn:hover{background:var(--gold);border-color:var(--gold);color:#0a0806}
+.film-btn:focus-visible{outline:2px solid var(--gold-lt);outline-offset:2px}
+.film-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.film-btn .i-play{fill:currentColor;stroke:none}
+.film-btn .i-play,.film-btn .i-sound,.hero-film.is-paused .i-pause,.hero-film.is-unmuted .i-mute{display:none}
+.hero-film.is-paused .i-play,.hero-film.is-unmuted .i-sound{display:block}
+.film-bar{position:absolute;left:0;right:0;bottom:0;z-index:2;height:2px;background:rgba(255,255,255,.14)}
+.film-bar i{position:absolute;inset:0;background:var(--gold-lt);transform-origin:0 50%;transform:scaleX(0)}
+@media(min-width:1024px){
+  .hero-inner.has-film{--bleed:clamp(0px,calc((100vw - 1184px) / 2 - 32px),140px);--fw:min(440px,30vw,calc((100svh - 280px) * .8))}
+  .hero-inner.has-film .hero-copy{max-width:min(56rem,calc(100% + var(--bleed) - var(--fw) - 40px))}
+  .hero-film--tall{position:absolute;top:50%;right:calc(-1 * var(--bleed));margin:0;width:var(--fw);transform:translateY(-50%)}
+}
+@media(min-width:1240px){
+  /* .inner is the padded .wrap itself, so its right edge sits 48px outside the content */
+  .page-hero .inner{--bleed:clamp(0px,calc((100vw - 1184px) / 2 - 32px),140px)}
+  .hero-film--wide{position:absolute;top:50%;right:calc(48px - var(--bleed));margin:0;width:min(760px,calc(100% - 96px + var(--bleed) - 40rem - 48px));transform:translateY(-50%)}
+}

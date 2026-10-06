@@ -172,6 +172,8 @@ header.site-header.scrolled{background:rgba(13,33,77,.85);backdrop-filter:blur(1
 .feature-grid{display:grid;gap:1px;background:var(--border);margin-top:56px}
 @media(min-width:640px){.feature-grid.cols-2{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:900px){.feature-grid.cols-3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:640px){.feature-grid.cols-4{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.feature-grid.cols-4{grid-template-columns:repeat(4,1fr)}.feature-grid.cols-4 .feature{padding:28px 26px}.feature-grid.cols-4 .feature h3{font-size:1rem}.feature-grid.cols-4 .feature p{font-size:.94rem}}
 .feature{position:relative;background:var(--background);padding:34px;transition:background .5s,color .5s;overflow:hidden}
 .band .feature{background:#fff}
 .feature:hover{background:var(--navy);color:#fff}
@@ -411,50 +413,71 @@ html:not(.js) .m-bar,html:not(.js) .m-block{opacity:1}
 @media (prefers-reduced-motion:reduce){.m-line{width:55%!important}.m-bar,.m-block{opacity:1!important}}
 
 /* ============================================================================
-   TYPOGRAPHY THEME v2 — Archivo (display) + Poppins (body)
-   Style port from the 291-on-King sample: uppercase extralight headlines,
-   rounded geometric body. Colors unchanged. Overrides the sections above.
+   TYPOGRAPHY THEME v3 — Archivo throughout, matching SuiteSupport PMS Cloud
+   The PMS sets every page in one variable face (Archivo, weight 100–900, width
+   62–125%) and varies only weight and width: text at 105%, headings lighter
+   and wider, display headlines 200 at 125% in caps, figures 300 at 125%.
+   Colors unchanged. Overrides the sections above.
+   font-variation-settings is set alongside font-stretch wherever the width
+   changes, as the PMS does, because some engines honour only the former.
    ============================================================================ */
 :root{
   --font-heading:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
-  --font-body:'Poppins','Helvetica Neue',Arial,sans-serif;
-  --font-accent:'Poppins','Helvetica Neue',Arial,sans-serif;
+  --font-body:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-accent:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
 }
-body{font-weight:300}
-h1,h2{font-family:var(--font-heading);font-weight:200;text-transform:uppercase;letter-spacing:.02em;line-height:1.06}
-h3,h4{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.03em;line-height:1.15}
+/* Text: expanded Archivo at 105%, the PMS's .ss-archivo base */
+body{font-weight:400;letter-spacing:-.01em;font-stretch:105%;font-variation-settings:"wdth" 105}
+/* Display headlines: the PMS .ss-display recipe */
+h1,h2{font-family:var(--font-heading);font-weight:200;text-transform:uppercase;letter-spacing:.015em;line-height:1.04;
+  font-stretch:125%;font-variation-settings:"wdth" 125}
+/* Titles: the PMS page-title recipe (300, 112%, caps, tracked) */
+h3,h4{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.045em;line-height:1.15;
+  font-stretch:112%;font-variation-settings:"wdth" 112}
 .eyebrow{font-weight:500;letter-spacing:.22em}
 .eyebrow::before{content:"";display:inline-block;width:24px;height:1px;background:currentColor;margin-right:10px;vertical-align:middle;opacity:.8}
 .hero-eyebrow::before{content:"";display:inline-block;width:24px;height:1px;background:currentColor;margin-right:10px;vertical-align:middle;opacity:.8}
 
-/* Headline sizes retuned for uppercase display type */
-.hero h1{font-size:clamp(2.2rem,5.6vw,5rem);line-height:1.04;letter-spacing:.02em}
-.page-hero h1{font-size:clamp(1.85rem,4.2vw,3.6rem)}
-.sec-head h2{font-size:clamp(1.8rem,3.8vw,3.2rem);max-width:24ch}
-.approach-head h2,.svc-head h2,.principles h2{font-size:clamp(1.85rem,4vw,3.4rem)}
-.suite-head h2{font-size:clamp(1.7rem,3.6vw,3rem)}
-.cta h2{font-size:clamp(1.9rem,4.6vw,4rem);line-height:1.08}
-.manifesto p.lead,p.lead{font-family:var(--font-body);font-weight:300;text-transform:none;font-size:clamp(1.25rem,2.5vw,2.05rem);line-height:1.55}
-.meta-grid .v{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.04em;font-size:16px;line-height:1.45}
-.feature h3{font-size:1.2rem}
-.method h3{font-size:1.6rem}
-.step-card h3{font-size:1.3rem}
-.svc h3{font-size:1.35rem}
-.split-body h3{font-size:clamp(1.4rem,2.7vw,2.2rem)}
-.stack h3{font-size:clamp(1.4rem,2.6vw,2.1rem)}
-.suite-list .st{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.05em;font-size:1.15rem}
-.stat .v,.statcard .sv{font-family:var(--font-heading);font-weight:200}
+/* Headline sizes retuned for the 125%-wide display face */
+.hero h1{font-size:clamp(2rem,4.9vw,4.3rem);line-height:1.04;letter-spacing:.015em}
+.page-hero h1{font-size:clamp(1.7rem,3.7vw,3.15rem)}
+.sec-head h2{font-size:clamp(1.65rem,3.3vw,2.8rem);max-width:24ch}
+.approach-head h2,.svc-head h2,.principles h2{font-size:clamp(1.7rem,3.5vw,3rem)}
+.suite-head h2{font-size:clamp(1.55rem,3.1vw,2.6rem)}
+.cta h2{font-size:clamp(1.75rem,4vw,3.5rem);line-height:1.08}
+.manifesto p.lead,p.lead{font-family:var(--font-body);font-weight:300;text-transform:none;font-size:clamp(1.2rem,2.3vw,1.9rem);line-height:1.55}
+.meta-grid .v{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.045em;font-size:15px;line-height:1.45;
+  font-stretch:112%;font-variation-settings:"wdth" 112}
+.feature h3{font-size:1.1rem}
+.method h3{font-size:1.45rem}
+.step-card h3{font-size:1.2rem}
+.svc h3{font-size:1.25rem}
+.split-body h3{font-size:clamp(1.3rem,2.5vw,2rem)}
+.stack h3{font-size:clamp(1.3rem,2.4vw,1.95rem)}
+.suite-list .st{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.045em;font-size:1.05rem;
+  font-stretch:112%;font-variation-settings:"wdth" 112}
+/* Figures: the PMS .ss-figure recipe */
+.stat .v,.statcard .sv{font-family:var(--font-heading);font-weight:300;letter-spacing:.005em;font-variant-numeric:tabular-nums;
+  font-stretch:125%;font-variation-settings:"wdth" 125}
+.stat .v{font-size:clamp(2.2rem,4.2vw,3.3rem)}
+/* Variable Archivo's × glyph breaks up above weight 200; hold it there */
+.stat .v .x{font-weight:200}
 .pullquote p{font-family:var(--font-body);font-weight:300;text-transform:none}
 
 /* Brand, nav, buttons */
-.brand .bt{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.1em;font-size:16px}
+.brand .bt{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.1em;font-size:15px;
+  font-stretch:112%;font-variation-settings:"wdth" 112}
 .brand .mark{font-family:var(--font-heading);font-weight:300}
-.nav-links{font-size:12px;letter-spacing:.18em;font-weight:400}
+/* Nav: the PMS .ss-nav recipe (400, 12.5px, 105%) */
+.nav-links{font-size:12.5px;letter-spacing:.015em;font-weight:400}
 .pill{font-family:var(--font-body);font-weight:400;font-size:13.5px}
 .btn-gold,.btn-outline-navy,.btn-outline-white{font-family:var(--font-heading);font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:12.5px}
-.hero-card .t{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.05em;font-size:17px}
-.site-footer .fbrand{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.08em;font-size:1.3rem}
-.rc-name{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.04em}
+.hero-card .t{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.045em;font-size:16px;
+  font-stretch:112%;font-variation-settings:"wdth" 112}
+.site-footer .fbrand{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.08em;font-size:1.2rem;
+  font-stretch:112%;font-variation-settings:"wdth" 112}
+.rc-name{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;letter-spacing:.045em;
+  font-stretch:112%;font-variation-settings:"wdth" 112}
 .stage-tag{font-family:var(--font-body);font-weight:300;font-style:italic}
 
 /* ------------- VIDEO PANELS (Higgsfield-generated card videos) ------------- */

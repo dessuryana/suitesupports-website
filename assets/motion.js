@@ -371,7 +371,7 @@
 (function () {
   if (!document.body.hasAttribute('data-autoscroll')) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var DOWN = 24, UP = 60;                       // px per second
+  var DOWN = 12, UP = 30;                       // px per second: a very slow, ambient drift
   var START_AFTER = 9000, RESUME_AFTER = 7000, HOLD = 3000;  // ms
   var dir = 1, y = 0, last = 0, holdUntil = 0;
   var pausedUntil = performance.now() + START_AFTER;

@@ -174,6 +174,9 @@ header.site-header.scrolled{background:rgba(13,33,77,.85);backdrop-filter:blur(1
 @media(min-width:900px){.feature-grid.cols-3{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:640px){.feature-grid.cols-4{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.feature-grid.cols-4{grid-template-columns:repeat(4,1fr)}.feature-grid.cols-4 .feature{padding:28px 26px}.feature-grid.cols-4 .feature h3{font-size:1rem}.feature-grid.cols-4 .feature p{font-size:.94rem}}
+/* five cards: 2 per row on tablet (last spans full), 3 over 2 on desktop */
+@media(min-width:640px){.feature-grid.cols-5{grid-template-columns:repeat(2,1fr)}.feature-grid.cols-5 .feature:last-child{grid-column:1/-1}}
+@media(min-width:1024px){.feature-grid.cols-5{grid-template-columns:repeat(6,1fr)}.feature-grid.cols-5 .feature{grid-column:span 2;padding:28px 26px}.feature-grid.cols-5 .feature:nth-child(n+4){grid-column:span 3}.feature-grid.cols-5 .feature h3{font-size:1rem}.feature-grid.cols-5 .feature p{font-size:.94rem}}
 .feature{position:relative;background:var(--background);padding:34px;transition:background .5s,color .5s;overflow:hidden}
 .band .feature{background:#fff}
 .feature:hover{background:var(--navy);color:#fff}

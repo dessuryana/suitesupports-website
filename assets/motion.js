@@ -345,11 +345,25 @@
   function flip(el, delay) {
     var chars = el.querySelectorAll('.fc');
     return gsap.fromTo(chars,
-      { rotationX: -100, yPercent: -40, autoAlpha: 0, transformOrigin: '50% 0%' },
-      { rotationX: 0, yPercent: 0, autoAlpha: 1, duration: 0.9, ease: 'back.out(1.4)', stagger: 0.035, delay: delay || 0 });
+      { rotationX: -110, yPercent: -60, autoAlpha: 0, transformOrigin: '50% 0%' },
+      { rotationX: 0, yPercent: 0, autoAlpha: 1, duration: 1.15, ease: 'back.out(1.25)', stagger: 0.065, delay: delay || 0, overwrite: true });
   }
-  els.forEach(function (el) { flip(el, parseFloat(el.getAttribute('data-delay') || '0')); });
-  window.__ssReflip = function () { els.forEach(function (el) { flip(el, 0.1); }); };
+  /* Start only once the webfont is ready, so the flip plays in the real letters (not hidden behind font loading). */
+  var start = function () { els.forEach(function (el) { flip(el, parseFloat(el.getAttribute('data-delay') || '0')); }); };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else window.addEventListener('load', start);
+  window.__ssReflip = function () { els.forEach(function (el) { flip(el, 0.2); }); };
+  /* Replay whenever the headline comes back into view after being scrolled away. */
+  if ('IntersectionObserver' in window) {
+    els.forEach(function (el) {
+      var gone = false;
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) gone = true;
+          else if (gone && e.intersectionRatio > 0.85) { gone = false; flip(el, 0.15); }
+        });
+      }, { threshold: [0, 0.85] }).observe(el);
+    });
+  }
 })();
 
 /* Ambient auto-scroll (body[data-autoscroll]): the page drifts slowly to the bottom, then back to the top, on a loop.
@@ -357,8 +371,8 @@
 (function () {
   if (!document.body.hasAttribute('data-autoscroll')) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var DOWN = 55, UP = 140;                      // px per second
-  var START_AFTER = 4500, RESUME_AFTER = 7000, HOLD = 2200;  // ms
+  var DOWN = 24, UP = 60;                       // px per second
+  var START_AFTER = 9000, RESUME_AFTER = 7000, HOLD = 3000;  // ms
   var dir = 1, y = 0, last = 0, holdUntil = 0;
   var pausedUntil = performance.now() + START_AFTER;
   var maxY = function () { return Math.max(0, document.documentElement.scrollHeight - window.innerHeight); };
@@ -375,7 +389,7 @@
     var m = maxY();
     y += dir * (dir > 0 ? DOWN : UP) * dt;
     if (dir > 0 && y >= m) { y = m; dir = -1; holdUntil = now + HOLD; }
-    else if (dir < 0 && y <= 0) { y = 0; dir = 1; holdUntil = now + HOLD; if (window.__ssReflip) window.__ssReflip(); }
+    else if (dir < 0 && y <= 0) { y = 0; dir = 1; holdUntil = now + HOLD; }
     setY(y);
     requestAnimationFrame(tick);
   }

@@ -33,6 +33,7 @@
   var lenis = null;
   if (!reduce && typeof Lenis !== 'undefined') {
     lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    window.__ssLenis = lenis;
     if (hasGSAP) {
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
@@ -320,4 +321,63 @@
     if (bs) bs.addEventListener('click', function () { v.muted = !v.muted; if (!v.muted) { v.volume = 1; if (v.paused) play(); } });
     sync();
   });
+})();
+
+/* Headline character flip: each letter flips down from the top into place (.split-flip). */
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.split-flip');
+  if (!els.length) return;
+  els.forEach(function (el) {
+    var text = el.textContent.trim();
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+    text.split(/\s+/).forEach(function (word, wi, words) {
+      var w = document.createElement('span'); w.className = 'fw'; w.setAttribute('aria-hidden', 'true');
+      Array.prototype.forEach.call(word, function (ch) {
+        var c = document.createElement('span'); c.className = 'fc'; c.textContent = ch; w.appendChild(c);
+      });
+      el.appendChild(w);
+      if (wi < words.length - 1) el.appendChild(document.createTextNode(' '));
+    });
+  });
+  if (reduce || typeof gsap === 'undefined') return;
+  function flip(el, delay) {
+    var chars = el.querySelectorAll('.fc');
+    return gsap.fromTo(chars,
+      { rotationX: -100, yPercent: -40, autoAlpha: 0, transformOrigin: '50% 0%' },
+      { rotationX: 0, yPercent: 0, autoAlpha: 1, duration: 0.9, ease: 'back.out(1.4)', stagger: 0.035, delay: delay || 0 });
+  }
+  els.forEach(function (el) { flip(el, parseFloat(el.getAttribute('data-delay') || '0')); });
+  window.__ssReflip = function () { els.forEach(function (el) { flip(el, 0.1); }); };
+})();
+
+/* Ambient auto-scroll (body[data-autoscroll]): the page drifts slowly to the bottom, then back to the top, on a loop.
+   Any visitor input hands control back immediately; drifting resumes after a quiet spell. */
+(function () {
+  if (!document.body.hasAttribute('data-autoscroll')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var DOWN = 55, UP = 140;                      // px per second
+  var START_AFTER = 4500, RESUME_AFTER = 7000, HOLD = 2200;  // ms
+  var dir = 1, y = 0, last = 0, holdUntil = 0;
+  var pausedUntil = performance.now() + START_AFTER;
+  var maxY = function () { return Math.max(0, document.documentElement.scrollHeight - window.innerHeight); };
+  var current = function () { var l = window.__ssLenis; return l ? l.scroll : window.scrollY; };
+  var setY = function (v) { var l = window.__ssLenis; if (l) l.scrollTo(v, { immediate: true }); else window.scrollTo(0, v); };
+  function interrupt() { pausedUntil = performance.now() + RESUME_AFTER; }
+  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (ev) {
+    window.addEventListener(ev, interrupt, { passive: true });
+  });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) interrupt(); });
+  function tick(now) {
+    var dt = last ? Math.min(0.05, (now - last) / 1000) : 0; last = now;
+    if (now < pausedUntil || now < holdUntil) { y = current(); return requestAnimationFrame(tick); }
+    var m = maxY();
+    y += dir * (dir > 0 ? DOWN : UP) * dt;
+    if (dir > 0 && y >= m) { y = m; dir = -1; holdUntil = now + HOLD; }
+    else if (dir < 0 && y <= 0) { y = 0; dir = 1; holdUntil = now + HOLD; if (window.__ssReflip) window.__ssReflip(); }
+    setY(y);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 })();

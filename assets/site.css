@@ -515,3 +515,10 @@ h3,h4{font-family:var(--font-heading);font-weight:300;text-transform:uppercase;l
   .page-hero .inner{--bleed:clamp(0px,calc((100vw - 1184px) / 2 - 32px),140px)}
   .hero-film--wide{position:absolute;top:50%;right:calc(48px - var(--bleed));margin:0;width:min(760px,calc(100% - 96px + var(--bleed) - 40rem - 48px));transform:translateY(-50%)}
 }
+
+/* ------------- HEADLINE CHARACTER FLIP (.split-flip) ------------- */
+.split-flip{perspective:900px}
+.split-flip .fw{display:inline-block;white-space:nowrap}
+.split-flip .fc{display:inline-block;transform-origin:50% 0%;backface-visibility:hidden;will-change:transform}
+html.js .split-flip .fc{opacity:0}
+@media (prefers-reduced-motion:reduce){html.js .split-flip .fc{opacity:1}}

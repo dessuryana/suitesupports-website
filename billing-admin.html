@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Billing Admin — SuiteSupports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/billing.css?v=1">
+</head>
+<body class="billing-page">
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="suitesupports-website.html" class="brand">
+      <img class="mark-img" src="assets/img/ss-monogram.png" alt="" width="48" height="48">
+      <span><span class="bt">SuiteSupports</span><span class="bs">Billing admin</span></span>
+    </a>
+    <div class="nav-right"><button id="logout" class="btn ghost small" hidden>Sign out</button></div>
+  </div>
+</header>
+
+<main class="adm-main">
+  <div class="wrap">
+    <!-- sign in -->
+    <form id="login" class="panel login" hidden>
+      <h2>Billing admin</h2>
+      <label class="fld">Admin key<input id="key" type="password" autocomplete="current-password" required></label>
+      <p id="loginErr" class="notice bad" hidden></p>
+      <button class="btn" type="submit" style="margin-top:12px;width:100%">Sign in</button>
+    </form>
+
+    <div id="appView" hidden>
+      <div class="adm-bar">
+        <h1>Billing</h1>
+        <div id="status" class="adm-status"></div>
+      </div>
+      <div class="tabs" role="tablist">
+        <button role="tab" data-tab="invoices" aria-selected="true">Invoices</button>
+        <button role="tab" data-tab="subs" aria-selected="false">Subscriptions</button>
+        <button role="tab" data-tab="payments" aria-selected="false">Payments</button>
+        <button role="tab" data-tab="clients" aria-selected="false">Clients</button>
+        <button role="tab" data-tab="company" aria-selected="false">Company &amp; setup</button>
+      </div>
+
+      <!-- INVOICES -->
+      <section data-pane="invoices">
+        <form id="invForm" class="panel">
+          <h2>New invoice</h2>
+          <div class="grid">
+            <label class="fld">Client<select name="client_id" required></select></label>
+            <label class="fld" style="grid-column:span 2">Description<input name="description" required maxlength="300" placeholder="e.g. Website redesign — November 2026"></label>
+            <label class="fld">Due date<input name="due_date" type="date"></label>
+          </div>
+          <p class="fld" style="margin:16px 0 8px">Line items (IDR)</p>
+          <div id="items"></div>
+          <button type="button" id="addItem" class="btn ghost small">+ Add line</button>
+          <div class="grid" style="margin-top:14px">
+            <label class="fld">PPN / tax %<input name="tax_rate" type="number" min="0" max="100" step="0.01" value="0"></label>
+            <label class="fld" style="grid-column:span 3">Notes on invoice (optional)<textarea name="notes" maxlength="1000"></textarea></label>
+          </div>
+          <div class="totals"><span>Subtotal <b id="tSub">Rp 0</b></span><span>Tax <b id="tTax">Rp 0</b></span><span>Total <b id="tTot">Rp 0</b></span></div>
+          <button class="btn" type="submit">Create invoice &amp; payment link</button>
+          <div id="invResult"></div>
+        </form>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Number</th><th>Client</th><th>Description</th><th class="n">Total</th><th>Status</th><th>Due</th><th></th></tr></thead><tbody id="invRows"></tbody></table></div>
+      </section>
+
+      <!-- SUBSCRIPTIONS -->
+      <section data-pane="subs" hidden>
+        <form id="subForm" class="panel">
+          <h2>New monthly subscription</h2>
+          <div class="grid">
+            <label class="fld">Client<select name="client_id" required></select></label>
+            <label class="fld">Plan name<input name="plan_name" required maxlength="120" value="SS PMS Cloud — monthly"></label>
+            <label class="fld">Monthly amount (IDR)<input name="amount" type="number" min="10000" step="1" required></label>
+            <label class="fld">First charge date (day 1–28)<input name="start_date" type="date" required></label>
+          </div>
+          <p style="font-size:13.5px;color:var(--muted-foreground);margin:12px 0">The client opens the link once and saves their card on Xendit. It's then charged automatically every month on the same date. Failed charges are retried for 3 days.</p>
+          <button class="btn" type="submit">Create subscription link</button>
+          <div id="subResult"></div>
+        </form>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Plan</th><th>Client</th><th class="n">Monthly</th><th>Starts</th><th>Status</th><th>Last charge</th><th></th></tr></thead><tbody id="subRows"></tbody></table></div>
+      </section>
+
+      <!-- PAYMENTS -->
+      <section data-pane="payments" hidden>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Client</th><th>For</th><th class="n">Amount</th><th>Result</th><th>Xendit reference</th></tr></thead><tbody id="payRows"></tbody></table></div>
+      </section>
+
+      <!-- CLIENTS -->
+      <section data-pane="clients" hidden>
+        <form id="cliForm" class="panel">
+          <h2 id="cliTitle">Add client</h2>
+          <input type="hidden" name="id">
+          <div class="grid">
+            <label class="fld">Company / property<input name="name" required maxlength="120"></label>
+            <label class="fld">Contact person<input name="contact_name" maxlength="50"></label>
+            <label class="fld">Billing email<input name="email" type="email" maxlength="50"></label>
+            <label class="fld">Phone<input name="phone" maxlength="30"></label>
+            <label class="fld" style="grid-column:1/-1">Address<input name="address" maxlength="300"></label>
+          </div>
+          <div class="row-actions" style="margin-top:14px"><button class="btn" type="submit">Save client</button><button class="btn ghost" type="button" id="cliNew">New client</button></div>
+        </form>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Client</th><th>Contact</th><th>Email</th><th>Phone</th><th>Card on file</th><th></th></tr></thead><tbody id="cliRows"></tbody></table></div>
+      </section>
+
+      <!-- COMPANY -->
+      <section data-pane="company" hidden>
+        <form id="coForm" class="panel">
+          <h2>Your company details (shown on every invoice)</h2>
+          <div class="grid">
+            <label class="fld">Registered company name<input name="legal_name" required maxlength="120" placeholder="PT …"></label>
+            <label class="fld">NPWP<input name="tax_id" maxlength="40"></label>
+            <label class="fld">Billing email<input name="email" maxlength="80"></label>
+            <label class="fld">Phone<input name="phone" maxlength="40"></label>
+            <label class="fld" style="grid-column:1/-1">Address<input name="address" maxlength="300"></label>
+          </div>
+          <button class="btn" type="submit" style="margin-top:14px">Save company details</button>
+        </form>
+        <div class="panel" id="setup"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var API = 'https://syfuooeywwszabzfecuc.supabase.co/functions/v1/billing';
+  var KEY_STORE = 'ss-billing-key';
+  var state = { clients: [], invoices: [], subscriptions: [], payments: [], issuer: {}, site: location.origin };
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var rp = function (n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var day = function (s) { return s ? new Date(String(s).length === 10 ? s + 'T00:00:00+07:00' : s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Jakarta' }) : '—'; };
+  var getKey = function () { try { return sessionStorage.getItem(KEY_STORE) || ''; } catch (e) { return window.__k || ''; } };
+  var setKey = function (k) { try { k ? sessionStorage.setItem(KEY_STORE, k) : sessionStorage.removeItem(KEY_STORE); } catch (e) { window.__k = k; } };
+
+  function toast(msg) {
+    var t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, 2600);
+  }
+
+  function call(action, data) {
+    return fetch(API + '/admin', {
+      method: 'POST', headers: { 'content-type': 'application/json', 'x-admin-key': getKey() },
+      body: JSON.stringify(Object.assign({ action: action }, data || {}))
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (r.status === 401) { setKey(''); showLogin('Wrong admin key.'); }
+        if (!r.ok) throw new Error(j.error || 'Request failed (' + r.status + ')');
+        return j;
+      });
+    });
+  }
+
+  function chip(status) {
+    var map = { open: ['Unpaid', 'due'], paid: ['Paid', 'ok'], void: ['Void', 'off'], awaiting_card: ['Awaiting card', 'due'],
+      pending: ['Activating', 'wait'], active: ['Active', 'ok'], past_due: ['Payment failed', 'bad'], inactive: ['Inactive', 'off'],
+      cancelled: ['Cancelled', 'off'], SUCCEEDED: ['Succeeded', 'ok'], FAILED: ['Failed', 'bad'] };
+    var m = map[status] || [status, 'off'];
+    return '<span class="chip chip--' + m[1] + '">' + esc(m[0]) + '</span>';
+  }
+
+  // ---------- auth ----------
+  function showLogin(err) {
+    $('#appView').hidden = true; $('#logout').hidden = true; $('#login').hidden = false;
+    $('#loginErr').hidden = !err; $('#loginErr').textContent = err || '';
+    $('#key').focus();
+  }
+  $('#login').addEventListener('submit', function (e) {
+    e.preventDefault(); setKey($('#key').value.trim()); $('#key').value = ''; boot();
+  });
+  $('#logout').addEventListener('click', function () { setKey(''); showLogin(); });
+
+  function boot() {
+    if (!getKey()) return showLogin();
+    Promise.all([call('list'), call('status')]).then(function (res) {
+      Object.assign(state, res[0]); state.status = res[1];
+      $('#login').hidden = true; $('#appView').hidden = false; $('#logout').hidden = false;
+      renderAll();
+    }).catch(function (e) { if (getKey()) { showLogin(e.message); } });
+  }
+  function reload() { return call('list').then(function (j) { Object.assign(state, j); renderAll(); }); }
+
+  // ---------- tabs ----------
+  $$('.tabs button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('.tabs button').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+      $$('[data-pane]').forEach(function (p) { p.hidden = p.getAttribute('data-pane') !== b.getAttribute('data-tab'); });
+    });
+  });
+
+  // ---------- render ----------
+  function link(token) { return state.site + '/pay.html?t=' + token; }
+  function linkActions(token, email, subject) {
+    var url = link(token);
+    var mail = email ? '<a class="btn ghost small" href="mailto:' + encodeURIComponent(email) + '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent('Hello,\n\nPlease use the secure link below to pay by credit card:\n' + url + '\n\nThank you,\nSuiteSupports') + '">Email</a>' : '';
+    return '<button class="btn ghost small" data-copy="' + esc(url) + '">Copy link</button><a class="btn ghost small" href="' + esc(url) + '" target="_blank" rel="noopener">Open</a>' + mail;
+  }
+  function clientEmail(id) { var c = state.clients.find(function (x) { return x.id === id; }); return c && c.email; }
+
+  function renderAll() {
+    var s = state.status || {};
+    var keyChip = { missing: ['Xendit key missing', 'bad'], test: ['Xendit TEST mode', 'wait'], live: ['Xendit LIVE', 'ok'], set: ['Xendit key set', 'ok'] }[s.xendit_key] || ['Xendit ?', 'off'];
+    $('#status').innerHTML = '<span class="chip chip--' + keyChip[1] + '">' + keyChip[0] + '</span>' +
+      '<span class="chip chip--' + (s.webhook_token ? 'ok' : 'bad') + '">' + (s.webhook_token ? 'Webhook token set' : 'Webhook token missing') + '</span>';
+
+    var opts = state.clients.map(function (c) { return '<option value="' + c.id + '">' + esc(c.name) + '</option>'; }).join('');
+    $$('select[name="client_id"]').forEach(function (sel) { var v = sel.value; sel.innerHTML = opts; if (v) sel.value = v; });
+
+    $('#invRows').innerHTML = state.invoices.length ? state.invoices.map(function (i) {
+      return '<tr><td><b>' + esc(i.number) + '</b></td><td>' + esc(i.client && i.client.name) + '</td><td>' + esc(i.description) + '</td><td class="n">' + rp(i.amount) +
+        '</td><td>' + chip(i.status) + '</td><td>' + day(i.due_date) + '</td><td><div class="row-actions">' +
+        (i.status === 'open' ? linkActions(i.pay_token, clientEmail(i.client_id), 'Invoice ' + i.number + ' from SuiteSupports') + '<button class="btn danger small" data-void="' + i.id + '">Void</button>'
+          : '<a class="btn ghost small" href="' + esc(link(i.pay_token)) + '" target="_blank" rel="noopener">View</a>') + '</div></td></tr>';
+    }).join('') : '<tr><td colspan="7" class="empty">No invoices yet.</td></tr>';
+
+    $('#subRows').innerHTML = state.subscriptions.length ? state.subscriptions.map(function (s) {
+      return '<tr><td><b>' + esc(s.plan_name) + '</b></td><td>' + esc(s.client && s.client.name) + '</td><td class="n">' + rp(s.amount) + '</td><td>' + day(s.start_date) +
+        '</td><td>' + chip(s.status) + '</td><td>' + day(s.last_charge_at) + '</td><td><div class="row-actions">' +
+        (s.status === 'awaiting_card' ? linkActions(s.pay_token, clientEmail(s.client_id), 'Set up your SuiteSupports monthly subscription') : '<a class="btn ghost small" href="' + esc(link(s.pay_token)) + '" target="_blank" rel="noopener">View</a>') +
+        (s.status !== 'cancelled' ? '<button class="btn danger small" data-cancel="' + s.id + '">Cancel</button>' : '') + '</div></td></tr>';
+    }).join('') : '<tr><td colspan="7" class="empty">No subscriptions yet.</td></tr>';
+
+    $('#payRows').innerHTML = state.payments.length ? state.payments.map(function (p) {
+      var what = p.invoice ? 'Invoice ' + p.invoice.number : p.subscription ? p.subscription.plan_name + ' (monthly)' : '—';
+      return '<tr><td>' + day(p.created_at) + '</td><td>' + esc(p.client && p.client.name) + '</td><td>' + esc(what) + '</td><td class="n">' + rp(p.amount) + '</td><td>' + chip(p.status) + '</td><td><code>' + esc(p.xendit_ref || '') + '</code></td></tr>';
+    }).join('') : '<tr><td colspan="6" class="empty">No payments yet.</td></tr>';
+
+    $('#cliRows').innerHTML = state.clients.map(function (c) {
+      return '<tr><td><b>' + esc(c.name) + '</b></td><td>' + esc(c.contact_name || '—') + '</td><td>' + esc(c.email || '—') + '</td><td>' + esc(c.phone || '—') + '</td><td>' +
+        (c.xendit_customer_id ? chip('active').replace('Active', 'Saved') : '—') + '</td><td><button class="btn ghost small" data-edit="' + c.id + '">Edit</button></td></tr>';
+    }).join('');
+
+    var f = $('#coForm'); ['legal_name', 'tax_id', 'email', 'phone', 'address'].forEach(function (k) { if (document.activeElement !== f[k]) f[k].value = (state.issuer || {})[k] || ''; });
+    $('#setup').innerHTML = '<h2>Connection</h2><p style="margin:0 0 8px">Webhook URL to paste into Xendit (Settings → Webhooks):</p><div class="linkbox"><code>' + esc(s.webhook_url || '') +
+      '</code><button class="btn ghost small" data-copy="' + esc(s.webhook_url || '') + '">Copy</button></div>' +
+      '<p style="margin:14px 0 0;font-size:13.5px;color:var(--muted-foreground)">Events to enable: Payment Session completed &amp; expired, and Subscriptions (recurring plan activated/inactivated, cycle succeeded/failed).</p>';
+  }
+
+  // ---------- invoice form ----------
+  function addItem(v) {
+    v = v || {};
+    var row = document.createElement('div'); row.className = 'item-row';
+    row.innerHTML = '<input class="name" placeholder="Item" maxlength="200" value="' + esc(v.name || '') + '"><input class="qty" type="number" min="1" step="1" value="' + (v.qty || 1) + '" aria-label="Quantity">' +
+      '<input class="price" type="number" min="0" step="1" placeholder="Unit price" value="' + (v.unit_price || '') + '" aria-label="Unit price"><button type="button" class="ibtn" aria-label="Remove line">×</button>';
+    row.querySelector('.ibtn').addEventListener('click', function () { if ($$('#items .item-row').length > 1) { row.remove(); totals(); } });
+    $('#items').appendChild(row);
+  }
+  function items() {
+    return $$('#items .item-row').map(function (r) {
+      return { name: r.querySelector('.name').value.trim(), qty: Number(r.querySelector('.qty').value), unit_price: Number(r.querySelector('.price').value) };
+    }).filter(function (i) { return i.name || i.unit_price; });
+  }
+  function totals() {
+    var sub = items().reduce(function (s, i) { return s + (i.qty || 0) * (i.unit_price || 0); }, 0);
+    var tax = Math.round(sub * Number($('#invForm').tax_rate.value || 0) / 100);
+    $('#tSub').textContent = rp(sub); $('#tTax').textContent = rp(tax); $('#tTot').textContent = rp(sub + tax);
+  }
+  $('#addItem').addEventListener('click', function () { addItem(); });
+  $('#invForm').addEventListener('input', totals);
+  addItem();
+
+  function busy(form, on) { $$('button', form).forEach(function (b) { b.disabled = on; }); }
+  function resultBox(el, url, email, subject) {
+    el.innerHTML = '<div class="linkbox"><code>' + esc(url) + '</code><button type="button" class="btn small" data-copy="' + esc(url) + '">Copy link</button>' +
+      (email ? '<a class="btn ghost small" href="mailto:' + encodeURIComponent(email) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('Hello,\n\nPlease use the secure link below to pay by credit card:\n' + url + '\n\nThank you,\nSuiteSupports') + '">Email to client</a>' : '') + '</div>';
+  }
+
+  $('#invForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target; busy(f, true);
+    call('create_invoice', { client_id: f.client_id.value, description: f.description.value, due_date: f.due_date.value, tax_rate: Number(f.tax_rate.value || 0), notes: f.notes.value, items: items() })
+      .then(function (j) {
+        resultBox($('#invResult'), j.link, clientEmail(j.invoice.client_id), 'Invoice ' + j.invoice.number + ' from SuiteSupports');
+        f.description.value = ''; f.notes.value = ''; $('#items').innerHTML = ''; addItem(); totals();
+        toast('Invoice ' + j.invoice.number + ' created'); return reload();
+      }).catch(function (err) { toast(err.message); }).then(function () { busy(f, false); });
+  });
+
+  $('#subForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target; busy(f, true);
+    call('create_subscription', { client_id: f.client_id.value, plan_name: f.plan_name.value, amount: Number(f.amount.value), start_date: f.start_date.value })
+      .then(function (j) {
+        resultBox($('#subResult'), j.link, clientEmail(j.subscription.client_id), 'Set up your SuiteSupports monthly subscription');
+        toast('Subscription link created'); return reload();
+      }).catch(function (err) { toast(err.message); }).then(function () { busy(f, false); });
+  });
+
+  $('#cliForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target; busy(f, true);
+    var data = { id: f.id.value || undefined, name: f.name.value, contact_name: f.contact_name.value, email: f.email.value, phone: f.phone.value, address: f.address.value };
+    call('save_client', data).then(function () { toast('Client saved'); f.reset(); f.id.value = ''; $('#cliTitle').textContent = 'Add client'; return reload(); })
+      .catch(function (err) { toast(err.message); }).then(function () { busy(f, false); });
+  });
+  $('#cliNew').addEventListener('click', function () { var f = $('#cliForm'); f.reset(); f.id.value = ''; $('#cliTitle').textContent = 'Add client'; });
+
+  $('#coForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target; busy(f, true);
+    call('save_issuer', { legal_name: f.legal_name.value, tax_id: f.tax_id.value, email: f.email.value, phone: f.phone.value, address: f.address.value })
+      .then(function () { toast('Company details saved'); return reload(); })
+      .catch(function (err) { toast(err.message); }).then(function () { busy(f, false); });
+  });
+
+  // ---------- table actions ----------
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-copy],[data-void],[data-cancel],[data-edit]');
+    if (!t) return;
+    if (t.hasAttribute('data-copy')) {
+      var v = t.getAttribute('data-copy');
+      (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(function () { toast('Link copied'); }, function () { prompt('Copy this link:', v); });
+    } else if (t.hasAttribute('data-void')) {
+      if (!confirm('Void this invoice? Its payment link will stop working.')) return;
+      call('void_invoice', { id: t.getAttribute('data-void') }).then(function () { toast('Invoice voided'); return reload(); }).catch(function (err) { toast(err.message); });
+    } else if (t.hasAttribute('data-cancel')) {
+      if (!confirm('Cancel this subscription? No further monthly charges will be made.')) return;
+      call('cancel_subscription', { id: t.getAttribute('data-cancel') }).then(function () { toast('Subscription cancelled'); return reload(); }).catch(function (err) { toast(err.message); });
+    } else if (t.hasAttribute('data-edit')) {
+      var c = state.clients.find(function (x) { return x.id === t.getAttribute('data-edit'); }); var f = $('#cliForm');
+      ['id', 'name', 'contact_name', 'email', 'phone', 'address'].forEach(function (k) { f[k].value = c[k] || ''; });
+      $('#cliTitle').textContent = 'Edit ' + c.name; f.name.focus();
+    }
+  });
+
+  boot();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Secure Payment — SuiteSupports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/billing.css?v=1">
+</head>
+<body class="billing-page">
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="suitesupports-website.html" class="brand">
+      <img class="mark-img" src="assets/img/ss-monogram.png" alt="" width="48" height="48">
+      <span><span class="bt">SuiteSupports</span><span class="bs">Hospitality Technology</span></span>
+    </a>
+    <div class="nav-right">
+      <span class="secure-tag"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span class="st">Secure payment</span></span>
+    </div>
+  </div>
+</header>
+
+<main class="pay-main">
+  <div class="wrap pay-wrap">
+    <div id="notice" class="notice" hidden></div>
+    <article id="app" class="pay-card" aria-live="polite">
+      <div class="skeleton"><span></span><span></span><span></span></div>
+    </article>
+    <p class="secure-note">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      Card details are entered on the secure checkout of Xendit, a licensed Indonesian payment provider. SuiteSupports never sees or stores your card number.
+    </p>
+    <p class="help">Questions about this payment? <a href="mailto:opsmanager@suitesupports.pro">opsmanager@suitesupports.pro</a> · <a href="https://wa.me/6281354889165" target="_blank" rel="noopener">WhatsApp +62 813 5488 9165</a></p>
+  </div>
+</main>
+
+<script>
+(function () {
+  var API = 'https://syfuooeywwszabzfecuc.supabase.co/functions/v1/billing';
+  var qs = new URLSearchParams(location.search);
+  var token = qs.get('t') || '';
+  var ret = qs.get('r');
+  var app = document.getElementById('app');
+  var notice = document.getElementById('notice');
+
+  var rp = function (n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); };
+  var day = function (s) {
+    if (!s) return '';
+    var d = new Date(String(s).length === 10 ? s + 'T00:00:00+07:00' : s);
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+  };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+
+  function show(kind, html) { notice.className = 'notice ' + kind; notice.innerHTML = html; notice.hidden = false; }
+  function fail(msg) {
+    app.innerHTML = '<div class="pay-empty"><h1>Payment link unavailable</h1><p>' + esc(msg) + '</p></div>';
+  }
+
+  function load() {
+    return fetch(API + '/pay?t=' + encodeURIComponent(token), { cache: 'no-store' })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'Could not load this payment.'); return j; }); });
+  }
+
+  function chip(status) {
+    var map = { open: ['Awaiting payment', 'due'], paid: ['Paid', 'ok'], void: ['Cancelled', 'off'],
+      awaiting_card: ['Awaiting card', 'due'], pending: ['Activating', 'wait'], active: ['Active', 'ok'],
+      past_due: ['Payment issue', 'bad'], inactive: ['Inactive', 'off'], cancelled: ['Cancelled', 'off'] };
+    var m = map[status] || [status, 'off'];
+    return '<span class="chip chip--' + m[1] + '">' + esc(m[0]) + '</span>';
+  }
+
+  function render(d) {
+    var h = '';
+    if (d.kind === 'invoice') {
+      h += '<div class="pay-head"><p class="eyebrow">Invoice ' + esc(d.number) + '</p>' + chip(d.status) + '</div>';
+      h += '<h1 class="pay-amount">' + rp(d.amount) + '</h1>';
+      h += '<p class="pay-desc">' + esc(d.description) + '</p>';
+      h += '<dl class="pay-meta"><div><dt>Billed to</dt><dd>' + esc(d.client) + '</dd></div><div><dt>Issued</dt><dd>' + day(d.created_at) + '</dd></div>' +
+        (d.due_date ? '<div><dt>Due</dt><dd>' + day(d.due_date) + '</dd></div>' : '') + '</dl>';
+      h += issuerBlock(d.issuer);
+      h += '<table class="lines"><thead><tr><th>Item</th><th class="n">Amount</th></tr></thead><tbody>';
+      (d.items || []).forEach(function (it) {
+        h += '<tr><td>' + esc(it.name) + '<span class="sub">' + it.qty + ' × ' + rp(it.unit_price) + '</span></td><td class="n">' + rp(it.qty * it.unit_price) + '</td></tr>';
+      });
+      h += '</tbody><tfoot>';
+      if (d.tax) h += '<tr><td>Subtotal</td><td class="n">' + rp(d.subtotal) + '</td></tr><tr><td>PPN ' + d.tax_rate + '%</td><td class="n">' + rp(d.tax) + '</td></tr>';
+      h += '<tr class="total"><td>Total (IDR)</td><td class="n">' + rp(d.amount) + '</td></tr></tfoot></table>';
+      if (d.notes) h += '<p class="pay-notes">' + esc(d.notes) + '</p>';
+      if (d.status === 'open') h += payButton('Pay ' + rp(d.amount) + ' by card');
+      else if (d.status === 'paid') h += '<div class="done">Paid on ' + day(d.paid_at) + '. Thank you — a receipt has been recorded on your account.</div>';
+      else h += '<div class="done done--off">This invoice has been cancelled and can no longer be paid.</div>';
+    } else {
+      h += '<div class="pay-head"><p class="eyebrow">Monthly subscription</p>' + chip(d.status) + '</div>';
+      h += '<h1 class="pay-amount">' + rp(d.amount) + '<small> / month</small></h1>';
+      h += '<p class="pay-desc">' + esc(d.plan_name) + '</p>';
+      h += '<dl class="pay-meta"><div><dt>Billed to</dt><dd>' + esc(d.client) + '</dd></div><div><dt>First charge</dt><dd>' + day(d.start_date) + '</dd></div><div><dt>Then</dt><dd>Same date every month</dd></div></dl>';
+      h += issuerBlock(d.issuer);
+      if (d.status === 'awaiting_card') {
+        h += '<ul class="how"><li>Enter your card once on Xendit’s secure page.</li><li>It is charged ' + rp(d.amount) + ' automatically each month, starting ' + day(d.start_date) + '.</li><li>To change or stop the subscription, just contact SuiteSupports.</li></ul>';
+        h += payButton('Save card &amp; start subscription');
+      } else if (d.status === 'active') {
+        h += '<div class="done">Your subscription is active. Monthly charges are automatic' + (d.last_charge_at ? '; last charged ' + day(d.last_charge_at) : '') + '.</div>';
+      } else if (d.status === 'pending') {
+        h += '<div class="done done--wait">Card saved. Your subscription is being activated — no further action is needed.</div>';
+      } else if (d.status === 'past_due') {
+        h += '<div class="done done--bad">The last monthly charge didn’t go through. Xendit will retry and email a payment link; or contact SuiteSupports.</div>';
+      } else {
+        h += '<div class="done done--off">This subscription is no longer active.</div>';
+      }
+    }
+    app.innerHTML = h;
+    var btn = document.getElementById('payBtn');
+    if (btn) btn.addEventListener('click', start);
+  }
+
+  function issuerBlock(i) {
+    if (!i || !i.legal_name) return '';
+    var lines = [i.address, i.tax_id ? 'NPWP ' + i.tax_id : '', i.email, i.phone].filter(Boolean);
+    return '<div class="issuer"><span class="issuer-k">From</span><div><strong>' + esc(i.legal_name) + '</strong>' +
+      lines.map(function (l) { return '<br>' + esc(l); }).join('') + '</div></div>';
+  }
+
+  function payButton(label) {
+    return '<button id="payBtn" class="btn-pay" type="button"><span>' + label + '</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>' +
+      '<p class="cards">Visa · Mastercard · JCB · American Express</p>';
+  }
+
+  function start() {
+    var btn = document.getElementById('payBtn');
+    btn.disabled = true; btn.classList.add('busy'); btn.querySelector('span').textContent = 'Opening secure checkout…';
+    fetch(API + '/pay', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ t: token }) })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok || !j.url) throw new Error(j.error || 'Could not start the payment.'); return j; }); })
+      .then(function (j) { location.href = j.url; })
+      .catch(function (e) {
+        show('bad', esc(e.message));
+        notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        btn.disabled = false; btn.classList.remove('busy'); load().then(render).catch(function () {});
+      });
+  }
+
+  // After returning from Xendit: wait for its confirmation to reach us.
+  function confirmLoop(d, tries) {
+    var settled = d.kind === 'invoice' ? d.status !== 'open' : d.status !== 'awaiting_card';
+    if (settled) {
+      if (d.status === 'paid' || d.status === 'active' || d.status === 'pending') show('ok', 'Thank you! ' + (d.kind === 'invoice' ? 'Your payment was received.' : 'Your card is saved and the subscription is set up.'));
+      else notice.hidden = true;
+      return render(d);
+    }
+    if (tries <= 0) {
+      show('wait', 'We’re still waiting for the bank’s confirmation. If you completed the payment, there’s nothing more to do — this page will show it as paid shortly.');
+      return render(d);
+    }
+    setTimeout(function () { load().then(function (n) { confirmLoop(n, tries - 1); }).catch(function () { confirmLoop(d, tries - 1); }); }, 3000);
+  }
+
+  if (!/^[0-9a-f]{36}$/.test(token)) { fail('This payment link is incomplete. Please use the full link from your invoice email.'); return; }
+  load().then(function (d) {
+    if (ret === 'done') {
+      show('wait', 'Confirming your payment with the bank…');
+      app.innerHTML = '<div class="skeleton"><span></span><span></span><span></span></div>';
+      confirmLoop(d, 20);
+    } else {
+      if (ret === 'cancel') show('info', 'Payment cancelled — no charge was made. You can try again below.');
+      render(d);
+    }
+    if (ret) history.replaceState(null, '', location.pathname + '?t=' + token);
+  }).catch(function (e) { fail(e.message); });
+})();
+</script>
+</body>
+</html>
